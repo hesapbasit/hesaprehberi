@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,51 +27,20 @@ export const metadata: Metadata = {
   description:
     "Kredi, KDV, faiz, maaş, döviz ve enflasyon hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
 
-  keywords: [
-    "hesaplama",
-    "kredi hesaplama",
-    "KDV hesaplama",
-    "faiz hesaplama",
-    "maaş hesaplama",
-    "döviz hesaplama",
-    "enflasyon hesaplama",
-  ],
-
   applicationName: "HesapRehberi",
 
-  authors: [
-    {
-      name: "HesapRehberi",
-    },
-  ],
-
-  creator: "HesapRehberi",
-  publisher: "HesapRehberi",
-
-  alternates: {
-    canonical: "/",
+  robots: {
+    index: true,
+    follow: true,
   },
 
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://hesaprehberi.com",
     siteName: "HesapRehberi",
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
     description:
       "Kredi, KDV, faiz, maaş, döviz ve enflasyon hesaplamalarını ücretsiz yapın.",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "HesapRehberi",
-    description:
-      "Kredi, KDV, faiz, maaş, döviz ve enflasyon hesaplamalarını ücretsiz yapın.",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 
@@ -81,7 +54,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-100 antialiased`}
       >
-        {children}
+        <div className="flex min-h-screen flex-col">
+          <Navbar />
+
+          <div className="flex-1">{children}</div>
+
+          <Footer />
+        </div>
       </body>
     </html>
   );
