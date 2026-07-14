@@ -4,6 +4,7 @@ import {
   Banknote,
   Briefcase,
   ChartNoAxesColumn,
+  Percent,
   Receipt,
   Search,
   TrendingUp,
@@ -62,6 +63,14 @@ const calculations = [
     icon: ChartNoAxesColumn,
     href: "/hesaplamalar/enflasyon-hesaplama",
   },
+  {
+    title: "Yüzde Hesaplama",
+    description:
+      "Yüzde, artış, azalış ve iki değer arasındaki yüzde değişimini hesaplayın.",
+    category: "Matematik",
+    icon: Percent,
+    href: "/hesaplamalar/yuzde-hesaplama",
+  },
 ];
 
 const categories = [
@@ -72,6 +81,7 @@ const categories = [
   "Maaş",
   "Döviz",
   "Finans",
+  "Matematik",
 ];
 
 export default function CalculationsDirectory() {

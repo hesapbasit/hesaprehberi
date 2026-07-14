@@ -29,6 +29,10 @@ const calculations = [
     title: "Enflasyon Hesaplama",
     href: "/hesaplamalar/enflasyon-hesaplama",
   },
+  {
+    title: "Yüzde Hesaplama",
+    href: "/hesaplamalar/yuzde-hesaplama",
+  },
 ];
 
 export default function SearchBox() {
@@ -65,7 +69,11 @@ export default function SearchBox() {
                 className="flex items-center justify-between border-b border-slate-100 px-6 py-4 font-medium text-slate-700 transition last:border-b-0 hover:bg-blue-50 hover:text-blue-700"
               >
                 <span>{item.title}</span>
-                <ArrowRight size={18} className="shrink-0 text-slate-400" />
+
+                <ArrowRight
+                  size={18}
+                  className="shrink-0 text-slate-400"
+                />
               </Link>
             ))
           ) : (
