@@ -6,8 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-
-    sitemap: "https://hesaprehberi.com/sitemap.xml",
-    host: "https://hesaprehberi.com",
+    sitemap: "https://hesaprehberi.vercel.app/sitemap.xml",
+    host: "https://hesaprehberi.vercel.app",
   };
 }
