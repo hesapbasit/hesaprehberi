@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hesaprehberi.com"),
+  metadataBase: new URL("https://hesaprehberi.vercel.app"),
 
   title: {
     default: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
@@ -48,10 +48,14 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 
+  verification: {
+    google: "AHbCnRhY8MW2JgCt88JEcRV18T0ws4Dp02MyqepeFDo",
+  },
+
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://hesaprehberi.com",
+    url: "https://hesaprehberi.vercel.app",
     siteName: "HesapRehberi",
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
     description:
