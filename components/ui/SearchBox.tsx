@@ -53,6 +53,10 @@ const calculations = [
     title: "VKİ Hesaplama",
     href: "/hesaplamalar/vki-hesaplama",
   },
+  {
+    title: "Kira Artış Hesaplama",
+    href: "/hesaplamalar/kira-artis-hesaplama",
+  },
 ];
 
 export default function SearchBox() {

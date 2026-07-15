@@ -6,6 +6,7 @@ import {
   CalendarDays,
   CalendarRange,
   ChartNoAxesColumn,
+  House,
   Landmark,
   Percent,
   Receipt,
@@ -80,6 +81,11 @@ const categories = [
     icon: Landmark,
     href: "/hesaplamalar/gelir-vergisi-hesaplama",
   },
+  {
+    title: "Kira Artış Hesaplama",
+    icon: House,
+    href: "/hesaplamalar/kira-artis-hesaplama",
+  },
 ];
 
 export default function Home() {
@@ -100,8 +106,8 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              Finans, kredi, vergi, maaş, tarih ve sağlık alanlarında ihtiyaç
-              duyacağınız hesaplama araçlarına tek yerden ulaşın.
+              Finans, kredi, vergi, maaş, konut, tarih ve sağlık alanlarında
+              ihtiyaç duyacağınız hesaplama araçlarına tek yerden ulaşın.
             </p>
           </div>
 
@@ -126,8 +132,8 @@ export default function Home() {
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
               HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ ve gelir vergisi hesaplamalarını
-              saniyeler içinde ücretsiz gerçekleştirebilirsiniz.
+              indirim, yaş, gün, VKİ, gelir vergisi ve kira artış
+              hesaplamalarını saniyeler içinde ücretsiz gerçekleştirebilirsiniz.
             </p>
 
             <Link
@@ -215,16 +221,16 @@ export default function Home() {
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
               HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ ve gelir vergisi gibi günlük hayatta
-              ihtiyaç duyulan hesaplama araçlarını tek platformda sunan
-              ücretsiz bir hesaplama platformudur.
+              indirim, yaş, gün, VKİ, gelir vergisi ve kira artışı gibi günlük
+              hayatta ihtiyaç duyulan hesaplama araçlarını tek platformda
+              sunan ücretsiz bir hesaplama platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">
               Amacımız karmaşık hesaplamaları anlaşılır hâle getirmektir.
-              Sonuçlar genel bilgi amaçlıdır; finansal, vergisel ve sağlıkla
-              ilgili önemli kararlar için resmî kaynakların ve uzman görüşünün
-              dikkate alınması gerekir.
+              Sonuçlar genel bilgi amaçlıdır; finansal, vergisel, hukuki ve
+              sağlıkla ilgili önemli kararlar için resmî kaynakların ve uzman
+              görüşünün dikkate alınması gerekir.
             </p>
           </div>
         </section>

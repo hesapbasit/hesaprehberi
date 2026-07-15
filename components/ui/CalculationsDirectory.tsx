@@ -8,6 +8,7 @@ import {
   CalendarDays,
   CalendarRange,
   ChartNoAxesColumn,
+  House,
   Landmark,
   Percent,
   Receipt,
@@ -116,6 +117,14 @@ const calculations = [
     icon: Activity,
     href: "/hesaplamalar/vki-hesaplama",
   },
+  {
+    title: "Kira Artış Hesaplama",
+    description:
+      "Mevcut kira tutarına göre yeni kira bedelini ve artış miktarını hesaplayın.",
+    category: "Konut",
+    icon: House,
+    href: "/hesaplamalar/kira-artis-hesaplama",
+  },
 ];
 
 const categories = [
@@ -130,6 +139,7 @@ const categories = [
   "Alışveriş",
   "Tarih",
   "Sağlık",
+  "Konut",
 ];
 
 export default function CalculationsDirectory() {
