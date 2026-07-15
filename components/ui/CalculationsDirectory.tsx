@@ -5,6 +5,7 @@ import {
   Banknote,
   Briefcase,
   CalendarDays,
+  CalendarRange,
   ChartNoAxesColumn,
   Percent,
   Receipt,
@@ -88,6 +89,14 @@ const calculations = [
     category: "Tarih",
     icon: CalendarDays,
     href: "/hesaplamalar/yas-hesaplama",
+  },
+  {
+    title: "Gün Hesaplama",
+    description:
+      "İki tarih arasındaki toplam gün, hafta ve kalan gün sayısını hesaplayın.",
+    category: "Tarih",
+    icon: CalendarRange,
+    href: "/hesaplamalar/gun-hesaplama",
   },
 ];
 
