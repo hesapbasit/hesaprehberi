@@ -1,7 +1,9 @@
 import {
+  BadgePercent,
   Banknote,
   Briefcase,
   ChartNoAxesColumn,
+  Percent,
   Receipt,
   TrendingUp,
   Wallet,
@@ -43,6 +45,16 @@ const categories = [
     title: "Enflasyon Hesaplama",
     icon: ChartNoAxesColumn,
     href: "/hesaplamalar/enflasyon-hesaplama",
+  },
+  {
+    title: "Yüzde Hesaplama",
+    icon: Percent,
+    href: "/hesaplamalar/yuzde-hesaplama",
+  },
+  {
+    title: "İndirim Hesaplama",
+    icon: BadgePercent,
+    href: "/hesaplamalar/indirim-hesaplama",
   },
 ];
 
@@ -89,8 +101,9 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
-              HesapRehberi ile kredi, KDV, faiz, maaş, döviz ve enflasyon
-              hesaplamalarını saniyeler içinde ücretsiz gerçekleştirebilirsiniz.
+              HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde
+              ve indirim hesaplamalarını saniyeler içinde ücretsiz
+              gerçekleştirebilirsiniz.
             </p>
 
             <Link
@@ -117,8 +130,8 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-              Hızlı, güvenilir ve ücretsiz finansal hesaplama araçlarıyla
-              ihtiyacınız olan işlemleri tek platformda sunuyoruz.
+              Hızlı, güvenilir ve ücretsiz hesaplama araçlarıyla ihtiyacınız
+              olan işlemleri tek platformda sunuyoruz.
             </p>
           </div>
 
@@ -177,15 +190,15 @@ export default function Home() {
             </h2>
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
-              HesapRehberi; kredi, KDV, faiz, maaş, döviz ve enflasyon gibi
-              günlük hayatta ihtiyaç duyulan finansal hesaplama araçlarını tek
-              platformda sunan ücretsiz bir hesaplama platformudur.
+              HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde ve
+              indirim gibi günlük hayatta ihtiyaç duyulan hesaplama araçlarını
+              tek platformda sunan ücretsiz bir hesaplama platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">
-              Amacımız karmaşık hesaplamaları anlaşılır hale getirmektir.
+              Amacımız karmaşık hesaplamaları anlaşılır hâle getirmektir.
               Sonuçlar genel bilgi amaçlıdır; önemli finansal ve vergisel
-              kararlar için resmi kaynakların dikkate alınması gerekir.
+              kararlar için resmî kaynakların dikkate alınması gerekir.
             </p>
           </div>
         </section>

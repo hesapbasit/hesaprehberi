@@ -33,6 +33,10 @@ const calculations = [
     title: "Yüzde Hesaplama",
     href: "/hesaplamalar/yuzde-hesaplama",
   },
+  {
+    title: "İndirim Hesaplama",
+    href: "/hesaplamalar/indirim-hesaplama",
+  },
 ];
 
 export default function SearchBox() {

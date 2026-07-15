@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BadgePercent,
   Banknote,
   Briefcase,
   ChartNoAxesColumn,
@@ -71,6 +72,14 @@ const calculations = [
     icon: Percent,
     href: "/hesaplamalar/yuzde-hesaplama",
   },
+  {
+    title: "İndirim Hesaplama",
+    description:
+      "İndirim tutarını, indirimli fiyatı ve toplam tasarrufu hesaplayın.",
+    category: "Alışveriş",
+    icon: BadgePercent,
+    href: "/hesaplamalar/indirim-hesaplama",
+  },
 ];
 
 const categories = [
@@ -82,6 +91,7 @@ const categories = [
   "Döviz",
   "Finans",
   "Matematik",
+  "Alışveriş",
 ];
 
 export default function CalculationsDirectory() {
