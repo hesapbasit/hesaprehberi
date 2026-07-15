@@ -4,6 +4,7 @@ import {
   BadgePercent,
   Banknote,
   Briefcase,
+  CalendarDays,
   ChartNoAxesColumn,
   Percent,
   Receipt,
@@ -80,6 +81,14 @@ const calculations = [
     icon: BadgePercent,
     href: "/hesaplamalar/indirim-hesaplama",
   },
+  {
+    title: "Yaş Hesaplama",
+    description:
+      "Doğum tarihinize göre yaşınızı yıl, ay ve gün olarak hesaplayın.",
+    category: "Tarih",
+    icon: CalendarDays,
+    href: "/hesaplamalar/yas-hesaplama",
+  },
 ];
 
 const categories = [
@@ -92,6 +101,7 @@ const categories = [
   "Finans",
   "Matematik",
   "Alışveriş",
+  "Tarih",
 ];
 
 export default function CalculationsDirectory() {
