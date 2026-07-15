@@ -37,6 +37,10 @@ const calculations = [
     title: "İndirim Hesaplama",
     href: "/hesaplamalar/indirim-hesaplama",
   },
+  {
+    title: "Yaş Hesaplama",
+    href: "/hesaplamalar/yas-hesaplama",
+  },
 ];
 
 export default function SearchBox() {
