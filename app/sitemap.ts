@@ -19,13 +19,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/hesaplamalar/kdv-hesaplama`,
+      url: `${baseUrl}/hesaplamalar/kredi-hesaplama`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/hesaplamalar/kredi-hesaplama`,
+      url: `${baseUrl}/hesaplamalar/kdv-hesaplama`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
@@ -73,6 +73,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/hesaplamalar/gun-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/hesaplamalar/vki-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    {
       url: `${baseUrl}/blog`,
       lastModified,
       changeFrequency: "weekly",
@@ -102,6 +115,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+
     {
       url: `${baseUrl}/hakkimizda`,
       lastModified,

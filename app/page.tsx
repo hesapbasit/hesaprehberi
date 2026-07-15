@@ -1,4 +1,5 @@
 import {
+  Activity,
   BadgePercent,
   Banknote,
   Briefcase,
@@ -68,6 +69,11 @@ const categories = [
     icon: CalendarRange,
     href: "/hesaplamalar/gun-hesaplama",
   },
+  {
+    title: "VKİ Hesaplama",
+    icon: Activity,
+    href: "/hesaplamalar/vki-hesaplama",
+  },
 ];
 
 export default function Home() {
@@ -88,8 +94,8 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              Finans, kredi, vergi, maaş ve günlük hayatta ihtiyaç duyacağınız
-              hesaplama araçlarına tek yerden ulaşın.
+              Finans, kredi, vergi, maaş, tarih ve sağlık alanlarında ihtiyaç
+              duyacağınız hesaplama araçlarına tek yerden ulaşın.
             </p>
           </div>
 
@@ -114,8 +120,8 @@ export default function Home() {
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
               HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş ve gün hesaplamalarını saniyeler içinde ücretsiz
-              gerçekleştirebilirsiniz.
+              indirim, yaş, gün ve VKİ hesaplamalarını saniyeler içinde
+              ücretsiz gerçekleştirebilirsiniz.
             </p>
 
             <Link
@@ -203,15 +209,16 @@ export default function Home() {
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
               HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş ve gün gibi günlük hayatta ihtiyaç duyulan hesaplama
-              araçlarını tek platformda sunan ücretsiz bir hesaplama
+              indirim, yaş, gün ve VKİ gibi günlük hayatta ihtiyaç duyulan
+              hesaplama araçlarını tek platformda sunan ücretsiz bir hesaplama
               platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">
               Amacımız karmaşık hesaplamaları anlaşılır hâle getirmektir.
-              Sonuçlar genel bilgi amaçlıdır; önemli finansal ve vergisel
-              kararlar için resmî kaynakların dikkate alınması gerekir.
+              Sonuçlar genel bilgi amaçlıdır; finansal, vergisel ve sağlıkla
+              ilgili önemli kararlar için resmî kaynakların ve uzman görüşünün
+              dikkate alınması gerekir.
             </p>
           </div>
         </section>

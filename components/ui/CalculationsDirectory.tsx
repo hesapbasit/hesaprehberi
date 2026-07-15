@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Activity,
   BadgePercent,
   Banknote,
   Briefcase,
@@ -98,6 +99,14 @@ const calculations = [
     icon: CalendarRange,
     href: "/hesaplamalar/gun-hesaplama",
   },
+  {
+    title: "VKİ Hesaplama",
+    description:
+      "Boy ve kilo bilgilerinize göre vücut kitle indeksinizi hesaplayın.",
+    category: "Sağlık",
+    icon: Activity,
+    href: "/hesaplamalar/vki-hesaplama",
+  },
 ];
 
 const categories = [
@@ -111,6 +120,7 @@ const categories = [
   "Matematik",
   "Alışveriş",
   "Tarih",
+  "Sağlık",
 ];
 
 export default function CalculationsDirectory() {

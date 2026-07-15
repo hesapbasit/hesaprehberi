@@ -6,12 +6,12 @@ import { ArrowRight, Search } from "lucide-react";
 
 const calculations = [
   {
-    title: "KDV Hesaplama",
-    href: "/hesaplamalar/kdv-hesaplama",
-  },
-  {
     title: "Kredi Hesaplama",
     href: "/hesaplamalar/kredi-hesaplama",
+  },
+  {
+    title: "KDV Hesaplama",
+    href: "/hesaplamalar/kdv-hesaplama",
   },
   {
     title: "Faiz Hesaplama",
@@ -41,6 +41,14 @@ const calculations = [
     title: "Yaş Hesaplama",
     href: "/hesaplamalar/yas-hesaplama",
   },
+  {
+    title: "Gün Hesaplama",
+    href: "/hesaplamalar/gun-hesaplama",
+  },
+  {
+    title: "VKİ Hesaplama",
+    href: "/hesaplamalar/vki-hesaplama",
+  },
 ];
 
 export default function SearchBox() {
@@ -61,27 +69,23 @@ export default function SearchBox() {
           type="search"
           placeholder="Hangi hesaplamayı arıyorsunuz?"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           className="w-full bg-transparent px-4 py-5 text-lg text-slate-900 outline-none placeholder:text-slate-400"
-          aria-label="Hesaplama ara"
         />
       </div>
 
       {normalizedQuery.length > 0 && (
-        <div className="absolute z-50 mt-3 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-2xl">
+        <div className="absolute z-50 mt-3 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
           {filtered.length > 0 ? (
             filtered.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className="flex items-center justify-between border-b border-slate-100 px-6 py-4 font-medium text-slate-700 transition last:border-b-0 hover:bg-blue-50 hover:text-blue-700"
+                className="flex items-center justify-between border-b border-slate-100 px-6 py-4 hover:bg-blue-50 hover:text-blue-700 last:border-b-0"
               >
                 <span>{item.title}</span>
 
-                <ArrowRight
-                  size={18}
-                  className="shrink-0 text-slate-400"
-                />
+                <ArrowRight size={18} />
               </Link>
             ))
           ) : (
