@@ -2,6 +2,8 @@ import {
   BadgePercent,
   Banknote,
   Briefcase,
+  CalendarDays,
+  CalendarRange,
   ChartNoAxesColumn,
   Percent,
   Receipt,
@@ -56,6 +58,16 @@ const categories = [
     icon: BadgePercent,
     href: "/hesaplamalar/indirim-hesaplama",
   },
+  {
+    title: "Yaş Hesaplama",
+    icon: CalendarDays,
+    href: "/hesaplamalar/yas-hesaplama",
+  },
+  {
+    title: "Gün Hesaplama",
+    icon: CalendarRange,
+    href: "/hesaplamalar/gun-hesaplama",
+  },
 ];
 
 export default function Home() {
@@ -101,8 +113,8 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
-              HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde
-              ve indirim hesaplamalarını saniyeler içinde ücretsiz
+              HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
+              indirim, yaş ve gün hesaplamalarını saniyeler içinde ücretsiz
               gerçekleştirebilirsiniz.
             </p>
 
@@ -190,9 +202,10 @@ export default function Home() {
             </h2>
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
-              HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde ve
-              indirim gibi günlük hayatta ihtiyaç duyulan hesaplama araçlarını
-              tek platformda sunan ücretsiz bir hesaplama platformudur.
+              HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
+              indirim, yaş ve gün gibi günlük hayatta ihtiyaç duyulan hesaplama
+              araçlarını tek platformda sunan ücretsiz bir hesaplama
+              platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">
