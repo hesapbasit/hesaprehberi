@@ -8,6 +8,7 @@ import {
   CalendarDays,
   CalendarRange,
   ChartNoAxesColumn,
+  Landmark,
   Percent,
   Receipt,
   Search,
@@ -34,6 +35,14 @@ const calculations = [
     category: "Vergi",
     icon: Receipt,
     href: "/hesaplamalar/kdv-hesaplama",
+  },
+  {
+    title: "2026 Gelir Vergisi Hesaplama",
+    description:
+      "2026 vergi dilimlerine göre yaklaşık gelir vergisi tutarını hesaplayın.",
+    category: "Vergi",
+    icon: Landmark,
+    href: "/hesaplamalar/gelir-vergisi-hesaplama",
   },
   {
     title: "Faiz Hesaplama",

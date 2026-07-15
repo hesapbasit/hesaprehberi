@@ -6,6 +6,7 @@ import {
   CalendarDays,
   CalendarRange,
   ChartNoAxesColumn,
+  Landmark,
   Percent,
   Receipt,
   TrendingUp,
@@ -74,6 +75,11 @@ const categories = [
     icon: Activity,
     href: "/hesaplamalar/vki-hesaplama",
   },
+  {
+    title: "2026 Gelir Vergisi Hesaplama",
+    icon: Landmark,
+    href: "/hesaplamalar/gelir-vergisi-hesaplama",
+  },
 ];
 
 export default function Home() {
@@ -120,8 +126,8 @@ export default function Home() {
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
               HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün ve VKİ hesaplamalarını saniyeler içinde
-              ücretsiz gerçekleştirebilirsiniz.
+              indirim, yaş, gün, VKİ ve gelir vergisi hesaplamalarını
+              saniyeler içinde ücretsiz gerçekleştirebilirsiniz.
             </p>
 
             <Link
@@ -209,9 +215,9 @@ export default function Home() {
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
               HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün ve VKİ gibi günlük hayatta ihtiyaç duyulan
-              hesaplama araçlarını tek platformda sunan ücretsiz bir hesaplama
-              platformudur.
+              indirim, yaş, gün, VKİ ve gelir vergisi gibi günlük hayatta
+              ihtiyaç duyulan hesaplama araçlarını tek platformda sunan
+              ücretsiz bir hesaplama platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">

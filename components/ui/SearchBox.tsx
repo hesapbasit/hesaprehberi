@@ -14,6 +14,10 @@ const calculations = [
     href: "/hesaplamalar/kdv-hesaplama",
   },
   {
+    title: "2026 Gelir Vergisi Hesaplama",
+    href: "/hesaplamalar/gelir-vergisi-hesaplama",
+  },
+  {
     title: "Faiz Hesaplama",
     href: "/hesaplamalar/faiz-hesaplama",
   },
@@ -69,8 +73,9 @@ export default function SearchBox() {
           type="search"
           placeholder="Hangi hesaplamayı arıyorsunuz?"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(event) => setQuery(event.target.value)}
           className="w-full bg-transparent px-4 py-5 text-lg text-slate-900 outline-none placeholder:text-slate-400"
+          aria-label="Hesaplama ara"
         />
       </div>
 
@@ -81,10 +86,9 @@ export default function SearchBox() {
               <Link
                 key={item.title}
                 href={item.href}
-                className="flex items-center justify-between border-b border-slate-100 px-6 py-4 hover:bg-blue-50 hover:text-blue-700 last:border-b-0"
+                className="flex items-center justify-between border-b border-slate-100 px-6 py-4 transition last:border-b-0 hover:bg-blue-50 hover:text-blue-700"
               >
                 <span>{item.title}</span>
-
                 <ArrowRight size={18} />
               </Link>
             ))
