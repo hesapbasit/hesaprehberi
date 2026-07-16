@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import DayCalculator from "@/components/calculators/DayCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/gun-hesaplama`;
 
 export const metadata: Metadata = {
   title: "Gün Hesaplama",
@@ -20,9 +24,100 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "Gün Hesaplama",
+      description:
+        "İki tarih arasındaki toplam gün, hafta ve kalan gün sayısını ücretsiz hesaplayın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+      mainEntity: {
+        "@id": `${pageUrl}/#faq`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Gün Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Başlangıç ve bitiş günleri hesaba dahil mi?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Araç iki tarih arasındaki farkı hesaplar. Her iki günü de dahil etmek istediğiniz durumlarda sonuca bir gün eklemelisiniz.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Tarihleri ters seçersem ne olur?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Araç negatif sonuç göstermez. Mutlak gün farkını hesaplar ve tarih sırasını ayrıca belirtir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Artık yıllar dikkate alınıyor mu?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Evet. Tarayıcının tarih sistemi 29 Şubat bulunan artık yılları otomatik olarak hesaba katar.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Saat farkları hesaba katılıyor mu?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hayır. Hesaplama yalnızca seçilen takvim tarihleri üzerinden yapılır.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function GunHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
