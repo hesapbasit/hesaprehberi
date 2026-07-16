@@ -9,6 +9,7 @@ import {
   House,
   Landmark,
   Percent,
+  PiggyBank,
   Receipt,
   TrendingUp,
   Wallet,
@@ -86,6 +87,11 @@ const categories = [
     icon: House,
     href: "/hesaplamalar/kira-artis-hesaplama",
   },
+  {
+    title: "Mevduat Faizi Hesaplama",
+    icon: PiggyBank,
+    href: "/hesaplamalar/mevduat-faizi-hesaplama",
+  },
 ];
 
 export default function Home() {
@@ -132,8 +138,9 @@ export default function Home() {
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
               HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, gelir vergisi ve kira artış
-              hesaplamalarını saniyeler içinde ücretsiz gerçekleştirebilirsiniz.
+              indirim, yaş, gün, VKİ, gelir vergisi, kira artışı ve mevduat
+              faizi hesaplamalarını saniyeler içinde ücretsiz
+              gerçekleştirebilirsiniz.
             </p>
 
             <Link
@@ -221,9 +228,9 @@ export default function Home() {
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
               HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, gelir vergisi ve kira artışı gibi günlük
-              hayatta ihtiyaç duyulan hesaplama araçlarını tek platformda
-              sunan ücretsiz bir hesaplama platformudur.
+              indirim, yaş, gün, VKİ, gelir vergisi, kira artışı ve mevduat
+              faizi gibi günlük hayatta ihtiyaç duyulan hesaplama araçlarını
+              tek platformda sunan ücretsiz bir hesaplama platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">

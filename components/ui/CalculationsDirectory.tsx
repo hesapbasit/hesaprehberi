@@ -11,6 +11,7 @@ import {
   House,
   Landmark,
   Percent,
+  PiggyBank,
   Receipt,
   Search,
   TrendingUp,
@@ -76,6 +77,14 @@ const calculations = [
     category: "Finans",
     icon: ChartNoAxesColumn,
     href: "/hesaplamalar/enflasyon-hesaplama",
+  },
+  {
+    title: "Mevduat Faizi Hesaplama",
+    description:
+      "Ana para, faiz oranı, vade ve stopaja göre net mevduat getirisini hesaplayın.",
+    category: "Finans",
+    icon: PiggyBank,
+    href: "/hesaplamalar/mevduat-faizi-hesaplama",
   },
   {
     title: "Yüzde Hesaplama",

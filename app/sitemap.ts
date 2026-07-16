@@ -43,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/hesaplamalar/mevduat-faizi-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/hesaplamalar/maas-hesaplama`,
       lastModified,
       changeFrequency: "monthly",

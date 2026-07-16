@@ -22,6 +22,10 @@ const calculations = [
     href: "/hesaplamalar/faiz-hesaplama",
   },
   {
+    title: "Mevduat Faizi Hesaplama",
+    href: "/hesaplamalar/mevduat-faizi-hesaplama",
+  },
+  {
     title: "Maaş Hesaplama",
     href: "/hesaplamalar/maas-hesaplama",
   },
