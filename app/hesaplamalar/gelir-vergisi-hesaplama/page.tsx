@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import IncomeTaxCalculator from "@/components/calculators/IncomeTaxCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/gelir-vergisi-hesaplama`;
 
 export const metadata: Metadata = {
   title: "2026 Gelir Vergisi Hesaplama",
@@ -20,9 +24,100 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "2026 Gelir Vergisi Hesaplama",
+      description:
+        "2026 yılı ücret ve ücret dışı gelir vergisi tarifesine göre yıllık vergi matrahınızı, gelir verginizi ve efektif vergi oranınızı hesaplayın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+      mainEntity: {
+        "@id": `${pageUrl}/#faq`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "2026 Gelir Vergisi Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Vergi matrahı ile brüt gelir aynı mıdır?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Her zaman aynı değildir. Vergi matrahı, kanunen dikkate alınan indirimler ve istisnalar sonrasında vergilendirilecek tutarı ifade eder.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Üst vergi dilimine geçince tüm gelir üst orandan mı vergilendirilir?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hayır. Yalnızca ilgili vergi diliminin sınırını aşan bölüm üst orandan vergilendirilir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Ücret ve ücret dışı gelir arasında neden fark vardır?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "2026 tarifesinde yüzde 27 oranına tabi üçüncü dilimin üst sınırı, ücret gelirlerinde ücret dışı gelirlere göre daha yüksektir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Hesaplanan tutar kesin vergi borcum mudur?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hayır. Sonuç genel bilgilendirme amaçlı yaklaşık bir hesaplamadır. Kişisel istisnalar, indirimler ve mahsuplar gerçek sonucu değiştirebilir.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function GelirVergisiHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
@@ -147,7 +242,9 @@ export default function GelirVergisiHesaplamaPage() {
                   </tr>
 
                   <tr>
-                    <td className="px-6 py-4 text-slate-700">Dördüncü dilim</td>
+                    <td className="px-6 py-4 text-slate-700">
+                      Dördüncü dilim
+                    </td>
                     <td className="px-6 py-4 font-semibold text-slate-900">
                       %35
                     </td>
