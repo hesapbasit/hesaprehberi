@@ -97,12 +97,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/hesaplamalar/su-ihtiyaci-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/hesaplamalar/kira-artis-hesaplama`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
-
     {
       url: `${baseUrl}/blog`,
       lastModified,
@@ -133,7 +138,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
-
     {
       url: `${baseUrl}/hakkimizda`,
       lastModified,

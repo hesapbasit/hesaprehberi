@@ -8,6 +8,7 @@ import {
   CalendarDays,
   CalendarRange,
   ChartNoAxesColumn,
+  Droplets,
   House,
   Landmark,
   Percent,
@@ -125,6 +126,14 @@ const calculations = [
     category: "Sağlık",
     icon: Activity,
     href: "/hesaplamalar/vki-hesaplama",
+  },
+  {
+    title: "Günlük Su İhtiyacı Hesaplama",
+    description:
+      "Kilonuz ve aktivite seviyenize göre günlük tahmini su ihtiyacınızı hesaplayın.",
+    category: "Sağlık",
+    icon: Droplets,
+    href: "/hesaplamalar/su-ihtiyaci-hesaplama",
   },
   {
     title: "Kira Artış Hesaplama",

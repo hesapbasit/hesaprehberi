@@ -6,6 +6,7 @@ import {
   CalendarDays,
   CalendarRange,
   ChartNoAxesColumn,
+  Droplets,
   House,
   Landmark,
   Percent,
@@ -78,6 +79,11 @@ const categories = [
     href: "/hesaplamalar/vki-hesaplama",
   },
   {
+    title: "Günlük Su İhtiyacı Hesaplama",
+    icon: Droplets,
+    href: "/hesaplamalar/su-ihtiyaci-hesaplama",
+  },
+  {
     title: "2026 Gelir Vergisi Hesaplama",
     icon: Landmark,
     href: "/hesaplamalar/gelir-vergisi-hesaplama",
@@ -138,8 +144,8 @@ export default function Home() {
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
               HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, gelir vergisi, kira artışı ve mevduat
-              faizi hesaplamalarını saniyeler içinde ücretsiz
+              indirim, yaş, gün, VKİ, günlük su ihtiyacı, gelir vergisi, kira
+              artışı ve mevduat faizi hesaplamalarını saniyeler içinde ücretsiz
               gerçekleştirebilirsiniz.
             </p>
 
@@ -228,9 +234,10 @@ export default function Home() {
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
               HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, gelir vergisi, kira artışı ve mevduat
-              faizi gibi günlük hayatta ihtiyaç duyulan hesaplama araçlarını
-              tek platformda sunan ücretsiz bir hesaplama platformudur.
+              indirim, yaş, gün, VKİ, günlük su ihtiyacı, gelir vergisi, kira
+              artışı ve mevduat faizi gibi günlük hayatta ihtiyaç duyulan
+              hesaplama araçlarını tek platformda sunan ücretsiz bir hesaplama
+              platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">

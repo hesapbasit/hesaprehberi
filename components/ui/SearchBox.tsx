@@ -14,16 +14,8 @@ const calculations = [
     href: "/hesaplamalar/kdv-hesaplama",
   },
   {
-    title: "2026 Gelir Vergisi Hesaplama",
-    href: "/hesaplamalar/gelir-vergisi-hesaplama",
-  },
-  {
     title: "Faiz Hesaplama",
     href: "/hesaplamalar/faiz-hesaplama",
-  },
-  {
-    title: "Mevduat Faizi Hesaplama",
-    href: "/hesaplamalar/mevduat-faizi-hesaplama",
   },
   {
     title: "Maaş Hesaplama",
@@ -58,8 +50,8 @@ const calculations = [
     href: "/hesaplamalar/vki-hesaplama",
   },
   {
-    title: "Kira Artış Hesaplama",
-    href: "/hesaplamalar/kira-artis-hesaplama",
+    title: "Günlük Su İhtiyacı Hesaplama",
+    href: "/hesaplamalar/su-ihtiyaci-hesaplama",
   },
 ];
 
@@ -88,16 +80,20 @@ export default function SearchBox() {
       </div>
 
       {normalizedQuery.length > 0 && (
-        <div className="absolute z-50 mt-3 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+        <div className="absolute z-50 mt-3 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-2xl">
           {filtered.length > 0 ? (
             filtered.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className="flex items-center justify-between border-b border-slate-100 px-6 py-4 transition last:border-b-0 hover:bg-blue-50 hover:text-blue-700"
+                className="flex items-center justify-between border-b border-slate-100 px-6 py-4 font-medium text-slate-700 transition last:border-b-0 hover:bg-blue-50 hover:text-blue-700"
               >
                 <span>{item.title}</span>
-                <ArrowRight size={18} />
+
+                <ArrowRight
+                  size={18}
+                  className="shrink-0 text-slate-400"
+                />
               </Link>
             ))
           ) : (
