@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import RentIncreaseCalculator from "@/components/calculators/RentIncreaseCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/kira-artis-hesaplama`;
 
 export const metadata: Metadata = {
   title: "Kira Artış Hesaplama",
@@ -20,9 +24,97 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "Kira Artış Hesaplama",
+      description:
+        "Mevcut kira tutarı ve artış oranını girerek yeni aylık kira bedelini, artış tutarını ve yıllık farkı hesaplayın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Kira Artış Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Kira artış oranı her ay aynı mıdır?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hayır. Kullanılacak oran, sözleşmenin yenilendiği dönemdeki güncel verilere ve geçerli kurallara göre değişebilir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Artış oranını kendim değiştirebilir miyim?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Evet. Araçtaki artış oranı alanına hesaplamak istediğiniz oranı yazabilirsiniz.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Yeni kira bedeli nasıl bulunur?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Mevcut kiraya, mevcut kiranın artış oranına karşılık gelen tutar eklenerek yeni kira bedeli bulunur.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Hesaplama sonucu hukuken bağlayıcı mıdır?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hayır. Sonuç yalnızca genel bilgilendirme ve matematiksel hesaplama amacı taşır. Hukuki uyuşmazlıklarda uzman görüşü alınmalıdır.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function KiraArtisHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
