@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import DepositInterestCalculator from "@/components/calculators/DepositInterestCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/mevduat-faizi-hesaplama`;
 
 export const metadata: Metadata = {
   title: "Mevduat Faizi Hesaplama",
@@ -20,9 +24,97 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "Mevduat Faizi Hesaplama",
+      description:
+        "Ana para, yıllık faiz oranı, vade ve stopaj oranını girerek brüt faiz, net faiz ve vade sonu toplam tutarı hesaplayın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Mevduat Faizi Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Mevduat faizi günlük mü hesaplanır?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Birçok vadeli mevduat hesabında faiz, yıllık oran üzerinden gün sayısına göre hesaplanır.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Stopaj oranını nereden öğrenebilirim?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Stopaj oranı ürün türüne, vade süresine ve yürürlükteki düzenlemelere göre değişebilir. Güncel oran bankadan veya resmî kaynaklardan kontrol edilmelidir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Ay seçeneğinde neden 30 gün kullanılıyor?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hesaplamayı sadeleştirmek için her ay yaklaşık 30 gün kabul edilir. Kesin vade hesabında bankanın kullandığı gün sayısı esas alınmalıdır.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Sonuç bankanın vereceği tutarla aynı olur mu?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Her zaman aynı olmayabilir. Bankanın faiz hesaplama yöntemi, gün sayısı, stopaj oranı ve kampanya şartları sonucu değiştirebilir.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function MevduatFaiziHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
@@ -164,9 +256,9 @@ export default function MevduatFaiziHesaplamaPage() {
 
           <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-6">
             <p className="leading-8 text-amber-900">
-              Bankalar vade süresi, gün hesabı, faiz tahakkuku, stopaj ve kampanya
-              şartlarında farklı uygulamalar kullanabilir. Bu nedenle sonuç
-              yaklaşık bilgi verir.
+              Bankalar vade süresi, gün hesabı, faiz tahakkuku, stopaj ve
+              kampanya şartlarında farklı uygulamalar kullanabilir. Bu nedenle
+              sonuç yaklaşık bilgi verir.
             </p>
           </div>
         </section>
