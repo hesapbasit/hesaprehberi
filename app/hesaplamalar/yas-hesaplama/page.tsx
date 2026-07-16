@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import AgeCalculator from "@/components/calculators/AgeCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/yas-hesaplama`;
 
 export const metadata: Metadata = {
   title: "Yaş Hesaplama",
@@ -20,9 +24,100 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "Yaş Hesaplama",
+      description:
+        "Doğum tarihinizi girerek yaşınızı yıl, ay ve gün olarak hesaplayın. Toplam yaşadığınız gün sayısını ve sonraki doğum gününe kalan süreyi öğrenin.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+      mainEntity: {
+        "@id": `${pageUrl}/#faq`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Yaş Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Yaş yalnızca doğum yılına göre hesaplanabilir mi?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Tam yaş için doğum yılıyla birlikte ay ve gün bilgilerinin de dikkate alınması gerekir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Doğum günü bugünse yeni yaş tamamlanmış olur mu?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Evet. Hesaplama tarihi doğum gününüzle aynı tarihe geldiğinde yeni yaşınız tamamlanmış kabul edilir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Toplam yaşanan gün sayısı kesin midir?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Araç, seçilen iki tarih arasındaki takvim günlerini hesaplar. Saat farkları dikkate alınmaz.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Gelecekteki bir tarihte kaç yaşında olacağımı hesaplayabilir miyim?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Evet. Hesaplama tarihini gelecekteki bir gün olarak seçerek o tarihteki yaşınızı öğrenebilirsiniz.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function YasHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
