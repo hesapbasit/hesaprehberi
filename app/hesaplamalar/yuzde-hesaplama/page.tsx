@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 
+import PercentageCalculator from "@/components/calculators/PercentageCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
-import PercentageCalculator from "@/components/calculators/PercentageCalculator";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/yuzde-hesaplama`;
 
 export const metadata: Metadata = {
   title: "Yüzde Hesaplama",
@@ -20,9 +24,100 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "Yüzde Hesaplama",
+      description:
+        "Bir sayının yüzdesini, yüzde artışını, yüzde azalışını, iki sayı arasındaki yüzde değişimini ve oranı ücretsiz hesaplayın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+      mainEntity: {
+        "@id": `${pageUrl}/#faq`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Yüzde Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Bir sayının yüzde 10'u nasıl bulunur?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Sayıyı 10 ile çarpıp 100'e bölebilir veya doğrudan 10'a bölebilirsiniz.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Yüzde artışı nasıl hesaplanır?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Ana değerin yüzdesi hesaplanır ve bulunan tutar ana değere eklenir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Bir sayının diğerinin yüzde kaçı olduğu nasıl bulunur?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "İlk sayı ikinci sayıya bölünür ve sonuç 100 ile çarpılır.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Yüzde değişiminde başlangıç değeri sıfır olabilir mi?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hayır. Sıfıra bölme yapılamayacağı için başlangıç değeri sıfır olduğunda standart yüzde değişimi hesaplanamaz.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function YuzdeHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
