@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 
+import DiscountCalculator from "@/components/calculators/DiscountCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
-import DiscountCalculator from "@/components/calculators/DiscountCalculator";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/indirim-hesaplama`;
 
 export const metadata: Metadata = {
   title: "İndirim Hesaplama",
@@ -20,9 +24,100 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "İndirim Hesaplama",
+      description:
+        "Ürün fiyatı ve indirim oranını girerek indirim tutarını ve indirimli fiyatı ücretsiz hesaplayın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+      mainEntity: {
+        "@id": `${pageUrl}/#faq`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "İndirim Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Yüzde 10 indirim nasıl hesaplanır?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Ürün fiyatını 10 ile çarpıp 100'e bölebilir veya fiyatı doğrudan 10'a bölebilirsiniz.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Yüzde 50 indirim ne anlama gelir?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Ürünün normal fiyatının yarısı kadar indirim uygulanması anlamına gelir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "İndirim oranı yüzde 100 olabilir mi?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Evet. Yüzde 100 indirim uygulanırsa ürünün hesaplanan satış fiyatı sıfır olur.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "İndirim oranı yüzde 100'den büyük olabilir mi?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Normal alışveriş indirimlerinde oran genellikle yüzde 0 ile yüzde 100 arasındadır. Daha yüksek oranlar negatif fiyat oluşturacağı için standart indirim hesabına uygun değildir.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function IndirimHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
