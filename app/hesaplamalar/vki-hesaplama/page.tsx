@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import BmiCalculator from "@/components/calculators/BmiCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import StructuredData from "@/components/common/StructuredData";
+
+const baseUrl = "https://hesaprehberi.vercel.app";
+const pageUrl = `${baseUrl}/hesaplamalar/vki-hesaplama`;
 
 export const metadata: Metadata = {
   title: "VKİ Hesaplama",
@@ -20,9 +24,100 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: "VKİ Hesaplama",
+      description:
+        "Boy ve kilo bilgilerinizi girerek vücut kitle indeksinizi, VKİ kategorinizi ve tahmini normal kilo aralığınızı ücretsiz hesaplayın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${pageUrl}/#breadcrumb`,
+      },
+      mainEntity: {
+        "@id": `${pageUrl}/#faq`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Hesaplamalar",
+          item: `${baseUrl}/hesaplamalar`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "VKİ Hesaplama",
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}/#faq`,
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "VKİ ile ideal kilo bulunabilir mi?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "VKİ kullanılarak boya göre yaklaşık normal kilo aralığı hesaplanabilir. Ancak vücut yapısı ve kas oranı gibi faktörler değerlendirmeyi etkileyebilir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "VKİ çocuklarda aynı şekilde hesaplanır mı?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Matematiksel işlem aynı olsa da çocuklarda değerlendirme yaşa ve cinsiyete göre büyüme eğrileri üzerinden yapılır.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Sporcularda VKİ doğru sonuç verir mi?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Kas kütlesi yüksek kişilerde VKİ değeri yüksek çıkabilir. Bu nedenle vücut yağ oranı gibi ek ölçümlerin değerlendirilmesi gerekebilir.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Sonuç tıbbi teşhis sayılır mı?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hayır. Sonuç yalnızca genel bilgilendirme amacı taşır ve tıbbi değerlendirme yerine geçmez.",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export default function VkiHesaplamaPage() {
   return (
     <main className="min-h-screen bg-slate-100 py-12 md:py-16">
+      <StructuredData data={structuredData} />
+
       <div className="mx-auto max-w-6xl px-6">
         <Breadcrumb
           items={[
