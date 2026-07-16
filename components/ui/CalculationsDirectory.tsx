@@ -9,6 +9,8 @@ import {
   CalendarRange,
   ChartNoAxesColumn,
   Droplets,
+  Flame,
+  Gauge,
   House,
   Landmark,
   Percent,
@@ -134,6 +136,22 @@ const calculations = [
     category: "Sağlık",
     icon: Droplets,
     href: "/hesaplamalar/su-ihtiyaci-hesaplama",
+  },
+  {
+    title: "Günlük Kalori İhtiyacı Hesaplama",
+    description:
+      "Yaş, boy, kilo ve aktivite seviyenize göre günlük kalori ihtiyacınızı hesaplayın.",
+    category: "Sağlık",
+    icon: Flame,
+    href: "/hesaplamalar/kalori-ihtiyaci-hesaplama",
+  },
+  {
+    title: "Bazal Metabolizma Hızı Hesaplama",
+    description:
+      "Yaş, cinsiyet, boy ve kilonuza göre bazal metabolizma hızınızı hesaplayın.",
+    category: "Sağlık",
+    icon: Gauge,
+    href: "/hesaplamalar/bazal-metabolizma-hesaplama",
   },
   {
     title: "Kira Artış Hesaplama",

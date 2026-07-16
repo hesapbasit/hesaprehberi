@@ -103,6 +103,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/hesaplamalar/kalori-ihtiyaci-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/hesaplamalar/bazal-metabolizma-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/hesaplamalar/kira-artis-hesaplama`,
       lastModified,
       changeFrequency: "monthly",

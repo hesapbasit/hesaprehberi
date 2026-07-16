@@ -53,6 +53,14 @@ const calculations = [
     title: "Günlük Su İhtiyacı Hesaplama",
     href: "/hesaplamalar/su-ihtiyaci-hesaplama",
   },
+  {
+    title: "Günlük Kalori İhtiyacı Hesaplama",
+    href: "/hesaplamalar/kalori-ihtiyaci-hesaplama",
+  },
+  {
+    title: "Bazal Metabolizma Hızı Hesaplama",
+    href: "/hesaplamalar/bazal-metabolizma-hesaplama",
+  },
 ];
 
 export default function SearchBox() {
