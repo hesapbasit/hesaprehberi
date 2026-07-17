@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 const baseUrl = "https://hesaprehberi.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-07-15");
+  const lastModified = new Date("2026-07-17");
 
   return [
     {
@@ -92,6 +92,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/hesaplamalar/vki-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/hesaplamalar/ideal-kilo-hesaplama`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/hesaplamalar/vucut-yag-orani-hesaplama`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,

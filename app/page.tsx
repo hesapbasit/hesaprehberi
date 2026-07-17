@@ -9,11 +9,13 @@ import {
   Droplets,
   Flame,
   Gauge,
+  HeartPulse,
   House,
   Landmark,
   Percent,
   PiggyBank,
   Receipt,
+  Scale,
   TrendingUp,
   Wallet,
 } from "lucide-react";
@@ -79,6 +81,16 @@ const categories = [
     title: "VKİ Hesaplama",
     icon: Activity,
     href: "/hesaplamalar/vki-hesaplama",
+  },
+  {
+    title: "İdeal Kilo Hesaplama",
+    icon: Scale,
+    href: "/hesaplamalar/ideal-kilo-hesaplama",
+  },
+  {
+    title: "Vücut Yağ Oranı Hesaplama",
+    icon: HeartPulse,
+    href: "/hesaplamalar/vucut-yag-orani-hesaplama",
   },
   {
     title: "Günlük Su İhtiyacı Hesaplama",
@@ -156,10 +168,10 @@ export default function Home() {
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
               HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, günlük su ihtiyacı, günlük kalori
-              ihtiyacı, bazal metabolizma, gelir vergisi, kira artışı ve
-              mevduat faizi hesaplamalarını saniyeler içinde ücretsiz
-              gerçekleştirebilirsiniz.
+              indirim, yaş, gün, VKİ, ideal kilo, vücut yağ oranı, günlük su
+              ihtiyacı, günlük kalori ihtiyacı, bazal metabolizma, gelir
+              vergisi, kira artışı ve mevduat faizi hesaplamalarını saniyeler
+              içinde ücretsiz gerçekleştirebilirsiniz.
             </p>
 
             <Link
@@ -247,11 +259,11 @@ export default function Home() {
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
               HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, günlük su ihtiyacı, günlük kalori
-              ihtiyacı, bazal metabolizma hızı, gelir vergisi, kira artışı ve
-              mevduat faizi gibi günlük hayatta ihtiyaç duyulan hesaplama
-              araçlarını tek platformda sunan ücretsiz bir hesaplama
-              platformudur.
+              indirim, yaş, gün, VKİ, ideal kilo, vücut yağ oranı, günlük su
+              ihtiyacı, günlük kalori ihtiyacı, bazal metabolizma hızı, gelir
+              vergisi, kira artışı ve mevduat faizi gibi günlük hayatta ihtiyaç
+              duyulan hesaplama araçlarını tek platformda sunan ücretsiz bir
+              hesaplama platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">

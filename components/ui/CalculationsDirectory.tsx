@@ -11,11 +11,13 @@ import {
   Droplets,
   Flame,
   Gauge,
+  HeartPulse,
   House,
   Landmark,
   Percent,
   PiggyBank,
   Receipt,
+  Scale,
   Search,
   TrendingUp,
   Wallet,
@@ -128,6 +130,22 @@ const calculations = [
     category: "Sağlık",
     icon: Activity,
     href: "/hesaplamalar/vki-hesaplama",
+  },
+  {
+    title: "İdeal Kilo Hesaplama",
+    description:
+      "Boyunuza ve cinsiyetinize göre tahmini ideal kilonuzu ve sağlıklı kilo aralığınızı hesaplayın.",
+    category: "Sağlık",
+    icon: Scale,
+    href: "/hesaplamalar/ideal-kilo-hesaplama",
+  },
+  {
+    title: "Vücut Yağ Oranı Hesaplama",
+    description:
+      "Boy, boyun, bel ve kalça ölçülerinize göre tahmini vücut yağ oranınızı hesaplayın.",
+    category: "Sağlık",
+    icon: HeartPulse,
+    href: "/hesaplamalar/vucut-yag-orani-hesaplama",
   },
   {
     title: "Günlük Su İhtiyacı Hesaplama",

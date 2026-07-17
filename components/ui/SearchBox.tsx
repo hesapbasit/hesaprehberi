@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 const calculations = [
   {
@@ -50,6 +50,14 @@ const calculations = [
     href: "/hesaplamalar/vki-hesaplama",
   },
   {
+    title: "İdeal Kilo Hesaplama",
+    href: "/hesaplamalar/ideal-kilo-hesaplama",
+  },
+  {
+    title: "Vücut Yağ Oranı Hesaplama",
+    href: "/hesaplamalar/vucut-yag-orani-hesaplama",
+  },
+  {
     title: "Günlük Su İhtiyacı Hesaplama",
     href: "/hesaplamalar/su-ihtiyaci-hesaplama",
   },
@@ -60,6 +68,18 @@ const calculations = [
   {
     title: "Bazal Metabolizma Hızı Hesaplama",
     href: "/hesaplamalar/bazal-metabolizma-hesaplama",
+  },
+  {
+    title: "2026 Gelir Vergisi Hesaplama",
+    href: "/hesaplamalar/gelir-vergisi-hesaplama",
+  },
+  {
+    title: "Kira Artış Hesaplama",
+    href: "/hesaplamalar/kira-artis-hesaplama",
+  },
+  {
+    title: "Mevduat Faizi Hesaplama",
+    href: "/hesaplamalar/mevduat-faizi-hesaplama",
   },
 ];
 
@@ -92,8 +112,9 @@ export default function SearchBox() {
           {filtered.length > 0 ? (
             filtered.map((item) => (
               <Link
-                key={item.title}
+                key={item.href}
                 href={item.href}
+                onClick={() => setQuery("")}
                 className="flex items-center justify-between border-b border-slate-100 px-6 py-4 font-medium text-slate-700 transition last:border-b-0 hover:bg-blue-50 hover:text-blue-700"
               >
                 <span>{item.title}</span>
