@@ -1,121 +1,91 @@
 import type { Metadata } from "next";
 
-import Breadcrumb from "@/components/common/Breadcrumb";
-import ShareButtons from "@/components/common/ShareButtons";
 import FaizCalculator from "@/components/calculators/FaizCalculator";
+import CalculatorLayout, {
+  type CalculatorContentSection,
+  type CalculatorFaqItem,
+} from "@/components/calculators/CalculatorLayout";
 
-export const metadata: Metadata = {
-  title: "Faiz Hesaplama",
-  description:
-    "Anapara, faiz oranı ve süre bilgilerini girerek basit veya bileşik faiz getirisini ücretsiz hesaplayın.",
-  alternates: {
-    canonical: "/hesaplamalar/faiz-hesaplama",
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
+
+const canonicalPath = "/hesaplamalar/faiz-hesaplama";
+
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `${canonicalPath} adresine ait hesaplama bilgisi data/calculators.ts dosyasında bulunamadı.`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+const contentSections: CalculatorContentSection[] = [
+  {
+    title: "Faiz Hesaplama Nasıl Yapılır?",
+    paragraphs: [
+      "Basit faiz hesabında faiz yalnızca başlangıçtaki anapara üzerinden hesaplanır. Bileşik faizde ise her dönemde oluşan faiz anaparaya eklenir ve sonraki dönemlerde yeni toplam üzerinden faiz işler.",
+      "Banka ve finans kuruluşlarının uyguladığı stopaj, vergi, vade koşulları ve ürün özellikleri gerçek sonucu değiştirebilir.",
+    ],
+    cards: [
+      {
+        title: "Basit Faiz",
+        description:
+          "Faiz yalnızca başlangıçtaki anapara üzerinden hesaplanır.",
+      },
+      {
+        title: "Bileşik Faiz",
+        description:
+          "Her dönemde oluşan faiz anaparaya eklenir ve yeni toplam üzerinden tekrar faiz hesaplanır.",
+      },
+      {
+        title: "Gerçek Getiri",
+        description:
+          "Stopaj, vergi, vade ve finans kuruluşunun koşulları net getiriyi etkileyebilir.",
+      },
+    ],
   },
-  openGraph: {
-    title: "Faiz Hesaplama | HesapRehberi",
-    description:
-      "Basit ve bileşik faiz getirisini saniyeler içinde hesaplayın.",
-    url: "/hesaplamalar/faiz-hesaplama",
-    type: "website",
+];
+
+const faqItems: CalculatorFaqItem[] = [
+  {
+    question: "Basit faiz nedir?",
+    answer:
+      "Basit faiz, faizin yalnızca başlangıç anaparası üzerinden hesaplandığı yöntemdir.",
   },
-};
+  {
+    question: "Bileşik faiz nedir?",
+    answer:
+      "Bileşik faiz, önceki dönemlerde oluşan faizin anaparaya eklenerek yeni toplam üzerinden tekrar faiz hesaplanmasıdır.",
+  },
+  {
+    question: "Faiz hesaplama sonuçları kesin midir?",
+    answer:
+      "Hayır. Stopaj, vergi, vade koşulları, ürün özellikleri ve finans kuruluşlarının politikaları gerçek getiriyi değiştirebilir.",
+  },
+];
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
 
 export default function FaizHesaplamaPage() {
   return (
-    <main className="min-h-screen bg-slate-100 py-12 md:py-16">
-      <div className="mx-auto max-w-6xl px-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "Hesaplamalar",
-              href: "/hesaplamalar",
-            },
-            {
-              label: "Faiz Hesaplama",
-            },
-          ]}
-        />
-
-        <div className="mb-12 text-center">
-          <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            Yatırım Araçları
-          </span>
-
-          <h1 className="mt-6 text-4xl font-bold text-slate-900 md:text-5xl">
-            Faiz Hesaplama
-          </h1>
-
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Anapara, yıllık faiz oranı ve süre bilgilerini girerek basit veya
-            bileşik faiz getirisini hesaplayın.
-          </p>
-
-          <ShareButtons
-            title="Faiz Hesaplama | HesapRehberi"
-            description="Basit ve bileşik faiz getirisini ücretsiz hesaplayın."
-          />
-        </div>
-
-        <FaizCalculator />
-
-        <section className="mt-16 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Faiz Hesaplama Nasıl Yapılır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Basit faiz hesabında faiz yalnızca başlangıçtaki anapara üzerinden
-            hesaplanır. Bileşik faizde ise her dönemde oluşan faiz anaparaya
-            eklenir ve sonraki dönemlerde yeni toplam üzerinden faiz işler.
-          </p>
-
-          <p className="mt-5 leading-8 text-slate-600">
-            Banka ve finans kuruluşlarının uyguladığı stopaj, vergi, vade
-            koşulları ve ürün özellikleri gerçek sonucu değiştirebilir.
-          </p>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Sık Sorulan Sorular
-          </h2>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Basit faiz nedir?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Faizin yalnızca başlangıç anaparası üzerinden hesaplandığı
-                yöntemdir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Bileşik faiz nedir?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Önceki dönemlerde oluşan faizin anaparaya eklenerek yeni toplam
-                üzerinden tekrar faiz hesaplanmasıdır.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Sonuçlar kesin midir?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Hayır. Stopaj, vergi, vade koşulları ve kurum politikaları gerçek
-                getiriyi değiştirebilir.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+    <CalculatorLayout
+      calculator={calculator}
+      contentSections={contentSections}
+      faqItems={faqItems}
+      warningTitle="Önemli Bilgilendirme"
+      warningText="Bu araç yalnızca genel bilgilendirme amacıyla yaklaşık sonuç üretir. Yatırım kararı vermeden önce bankanızın güncel oranlarını, stopaj kesintilerini ve ürün koşullarını kontrol edin."
+    >
+      <FaizCalculator />
+    </CalculatorLayout>
   );
 }

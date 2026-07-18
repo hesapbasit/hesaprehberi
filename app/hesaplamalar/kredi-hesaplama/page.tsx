@@ -1,24 +1,32 @@
 import type { Metadata } from "next";
 
+import KrediCalculator from "@/components/calculators/KrediCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
-import KrediCalculator from "@/components/calculators/KrediCalculator";
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Kredi Hesaplama",
-  description:
-    "Kredi tutarı, vade ve aylık faiz oranını girerek aylık taksit, toplam faiz ve toplam geri ödeme tutarını ücretsiz hesaplayın.",
-  alternates: {
-    canonical: "/hesaplamalar/kredi-hesaplama",
-  },
-  openGraph: {
-    title: "Kredi Hesaplama | HesapRehberi",
-    description:
-      "Kredi tutarı, vade ve faiz oranına göre aylık taksit ve toplam geri ödeme tutarını hesaplayın.",
-    url: "/hesaplamalar/kredi-hesaplama",
-    type: "website",
-  },
-};
+const canonicalPath = "/hesaplamalar/kredi-hesaplama";
+
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `${canonicalPath} adresine ait hesaplama bilgisi data/calculators.ts dosyasında bulunamadı.`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
 
 export default function KrediHesaplamaPage() {
   return (
@@ -31,28 +39,27 @@ export default function KrediHesaplamaPage() {
               href: "/hesaplamalar",
             },
             {
-              label: "Kredi Hesaplama",
+              label: calculator.title,
             },
           ]}
         />
 
         <div className="mb-12 text-center">
           <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            Kredi Araçları
+            {calculator.category}
           </span>
 
           <h1 className="mt-6 text-4xl font-bold text-slate-900 md:text-5xl">
-            Kredi Hesaplama
+            {calculator.title}
           </h1>
 
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Kredi tutarı, vade ve aylık faiz oranını girerek aylık taksit,
-            toplam faiz ve toplam geri ödeme tutarını hesaplayın.
+            {calculator.description}
           </p>
 
           <ShareButtons
-            title="Kredi Hesaplama | HesapRehberi"
-            description="Kredi taksitinizi ve toplam geri ödeme tutarını ücretsiz hesaplayın."
+            title={`${calculator.title} | HesapRehberi`}
+            description={calculator.description}
           />
         </div>
 

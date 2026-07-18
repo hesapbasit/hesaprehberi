@@ -1,322 +1,183 @@
 import type { Metadata } from "next";
 
+import CalculatorLayout, {
+  type CalculatorContentSection,
+  type CalculatorFaqItem,
+} from "@/components/calculators/CalculatorLayout";
 import RentIncreaseCalculator from "@/components/calculators/RentIncreaseCalculator";
-import Breadcrumb from "@/components/common/Breadcrumb";
-import ShareButtons from "@/components/common/ShareButtons";
-import StructuredData from "@/components/common/StructuredData";
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
 
-const baseUrl = "https://hesaprehberi.vercel.app";
-const pageUrl = `${baseUrl}/hesaplamalar/kira-artis-hesaplama`;
+const canonicalPath =
+  "/hesaplamalar/kira-artis-hesaplama";
 
-export const metadata: Metadata = {
-  title: "Kira Artış Hesaplama",
-  description:
-    "Mevcut kira tutarı ve artış oranını girerek yeni aylık kira bedelini, artış tutarını ve yıllık farkı hesaplayın.",
-  alternates: {
-    canonical: "/hesaplamalar/kira-artis-hesaplama",
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator =
+    getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `Kira artış hesaplama aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
+
+const contentSections: CalculatorContentSection[] = [
+  {
+    title: "Kira artışı nasıl hesaplanır?",
+    paragraphs: [
+      "Kira artış tutarı, mevcut aylık kira bedelinin uygulanacak artış oranıyla çarpılması ve sonucun 100'e bölünmesiyle hesaplanır.",
+      "Yeni aylık kira bedeli ise mevcut kiraya hesaplanan artış tutarının eklenmesiyle bulunur.",
+    ],
+    formula:
+      "Artış tutarı = Mevcut kira × Artış oranı / 100",
   },
-  openGraph: {
-    title: "Kira Artış Hesaplama | HesapRehberi",
-    description:
-      "Kira artış oranına göre yeni aylık kira bedelini ve artış tutarını ücretsiz hesaplayın.",
-    url: "/hesaplamalar/kira-artis-hesaplama",
-    type: "website",
+  {
+    title: "Yeni kira bedeli nasıl bulunur?",
+    paragraphs: [
+      "Artış tutarı hesaplandıktan sonra mevcut kira bedeline eklenerek yeni aylık kira tutarı bulunur.",
+      "Bu yöntem girilen oran üzerinden tamamen matematiksel bir hesaplama yapar.",
+    ],
+    formula:
+      "Yeni kira = Mevcut kira + Artış tutarı",
   },
-};
+  {
+    title: "Kira artış oranı nasıl belirlenir?",
+    paragraphs: [
+      "Kullanılacak oran kira sözleşmesinin yenileme tarihine ve yürürlükteki mevzuata göre değişebilir.",
+      "Bu nedenle hesaplayıcıya ilgili dönem için geçerli oranın girilmesi gerekir.",
+      "Araç yalnızca girilen oran üzerinden hesaplama yapar ve oranı kendisi belirlemez.",
+    ],
+  },
+  {
+    title: "Bir yıllık kira farkı nasıl hesaplanır?",
+    paragraphs: [
+      "Aylık artış tutarı 12 ile çarpılarak yeni kira döneminde oluşacak yaklaşık yıllık fark hesaplanabilir.",
+      "Bu değer yalnızca matematiksel toplamı ifade eder ve sözleşme koşullarını dikkate almaz.",
+    ],
+    formula:
+      "Yıllık kira farkı = Aylık artış tutarı × 12",
+  },
+];
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${pageUrl}/#webpage`,
-      url: pageUrl,
-      name: "Kira Artış Hesaplama",
-      description:
-        "Mevcut kira tutarı ve artış oranını girerek yeni aylık kira bedelini, artış tutarını ve yıllık farkı hesaplayın.",
-      inLanguage: "tr-TR",
-      isPartOf: {
-        "@id": `${baseUrl}/#website`,
-      },
-      about: {
-        "@id": `${baseUrl}/#organization`,
-      },
-      breadcrumb: {
-        "@id": `${pageUrl}/#breadcrumb`,
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${pageUrl}/#breadcrumb`,
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Ana Sayfa",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Hesaplamalar",
-          item: `${baseUrl}/hesaplamalar`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Kira Artış Hesaplama",
-          item: pageUrl,
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `${pageUrl}/#faq`,
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "Kira artış oranı her ay aynı mıdır?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Hayır. Kullanılacak oran, sözleşmenin yenilendiği dönemdeki güncel verilere ve geçerli kurallara göre değişebilir.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Artış oranını kendim değiştirebilir miyim?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Evet. Araçtaki artış oranı alanına hesaplamak istediğiniz oranı yazabilirsiniz.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Yeni kira bedeli nasıl bulunur?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Mevcut kiraya, mevcut kiranın artış oranına karşılık gelen tutar eklenerek yeni kira bedeli bulunur.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Hesaplama sonucu hukuken bağlayıcı mıdır?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Hayır. Sonuç yalnızca genel bilgilendirme ve matematiksel hesaplama amacı taşır. Hukuki uyuşmazlıklarda uzman görüşü alınmalıdır.",
-          },
-        },
-      ],
-    },
-  ],
-};
+const faqItems: CalculatorFaqItem[] = [
+  {
+    question: "Kira artış oranı her ay aynı mıdır?",
+    answer:
+      "Hayır. Kullanılacak oran sözleşmenin yenilendiği dönemdeki güncel verilere ve yürürlükteki kurallara göre değişebilir.",
+  },
+  {
+    question: "Artış oranını kendim değiştirebilir miyim?",
+    answer:
+      "Evet. Hesaplayıcıdaki artış oranı alanına istediğiniz oranı girerek hesaplama yapabilirsiniz.",
+  },
+  {
+    question: "Yeni kira bedeli nasıl bulunur?",
+    answer:
+      "Mevcut kira tutarına hesaplanan artış miktarı eklenerek yeni aylık kira bedeli bulunur.",
+  },
+  {
+    question: "Hesaplama sonucu hukuken bağlayıcı mıdır?",
+    answer:
+      "Hayır. Sonuç yalnızca matematiksel hesaplama ve genel bilgilendirme amacı taşır. Hukuki uyuşmazlıklarda uzman görüşü alınmalıdır.",
+  },
+  {
+    question: "Yıllık kira farkı nasıl hesaplanır?",
+    answer:
+      "Aylık artış tutarı 12 ile çarpılarak yaklaşık yıllık kira farkı bulunabilir.",
+  },
+  {
+    question: "Bu araç TÜFE oranını otomatik alıyor mu?",
+    answer:
+      "Hayır. Hesaplayıcı yalnızca sizin girdiğiniz artış oranını kullanır ve güncel oranları otomatik olarak çekmez.",
+  },
+];
 
 export default function KiraArtisHesaplamaPage() {
   return (
-    <main className="min-h-screen bg-slate-100 py-12 md:py-16">
-      <StructuredData data={structuredData} />
+    <CalculatorLayout
+      calculator={calculator}
+      categoryClassName="bg-blue-100 text-blue-700"
+      contentSections={contentSections}
+      faqItems={faqItems}
+      warningTitle="Hukuki bilgilendirme"
+      warningText="Bu araç yalnızca girilen kira tutarı ve artış oranına göre matematiksel hesaplama yapar. Güncel mevzuat, kira sözleşmesi hükümleri, mahkeme kararları ve taraflar arasındaki özel anlaşmalar hesaplamaya dahil değildir. Hukuki durumlarda uzman görüşü alınmalıdır."
+    >
+      <RentIncreaseCalculator />
 
-      <div className="mx-auto max-w-6xl px-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "Hesaplamalar",
-              href: "/hesaplamalar",
-            },
-            {
-              label: "Kira Artış Hesaplama",
-            },
-          ]}
-        />
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">
+          Örnek kira artışı hesaplaması
+        </h2>
 
-        <div className="mb-12 text-center">
-          <span className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            Kira ve Konut Araçları
-          </span>
+        <p className="mt-5 max-w-5xl leading-8 text-slate-600">
+          Mevcut kira bedelinin 20.000 ₺ ve artış oranının %32,03
+          olduğunu varsayalım. Bu durumda aylık artış tutarı yaklaşık
+          6.406 ₺ olur ve yeni kira bedeli 26.406 ₺ olarak hesaplanır.
+        </p>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Kira Artış Hesaplama
-          </h1>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Mevcut kira
+            </p>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Mevcut aylık kira tutarınızı ve uygulanacak artış oranını girerek
-            yeni kira bedelini, aylık artış tutarını ve bir yıllık toplam farkı
-            hesaplayın.
-          </p>
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              20.000 ₺
+            </p>
+          </article>
 
-          <ShareButtons
-            title="Kira Artış Hesaplama | HesapRehberi"
-            description="Kira artış oranına göre yeni kira bedelini ücretsiz hesaplayın."
-          />
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Artış oranı
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              %32,03
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-blue-200 bg-blue-50 p-6">
+            <p className="text-sm font-medium text-blue-700">
+              Artış tutarı
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-blue-900">
+              6.406 ₺
+            </p>
+          </article>
+
+          <article className="rounded-2xl bg-blue-600 p-6 text-white">
+            <p className="text-sm font-medium text-blue-100">
+              Yeni kira
+            </p>
+
+            <p className="mt-2 text-xl font-bold">
+              26.406 ₺
+            </p>
+          </article>
         </div>
 
-        <RentIncreaseCalculator />
-
-        <section className="mt-16 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Kira Artışı Nasıl Hesaplanır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Kira artış tutarı, mevcut aylık kira bedelinin uygulanacak artış
-            oranıyla çarpılması ve sonucun 100&apos;e bölünmesiyle hesaplanır.
+        <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
+          <p className="font-semibold leading-7 text-blue-900">
+            20.000 × %32,03 = 6.406 ₺ artış
           </p>
 
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
-            <p className="font-semibold leading-7 text-blue-900">
-              Artış Tutarı = Mevcut Kira × Artış Oranı / 100
-            </p>
-          </div>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Yeni aylık kira bedeli ise mevcut kiraya hesaplanan artış
-            tutarının eklenmesiyle bulunur.
+          <p className="mt-2 font-semibold leading-7 text-blue-900">
+            20.000 + 6.406 = 26.406 ₺ yeni kira
           </p>
-
-          <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-6">
-            <p className="font-semibold leading-7 text-green-900">
-              Yeni Kira = Mevcut Kira + Artış Tutarı
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Örnek Kira Artışı Hesaplama
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Mevcut kira bedelinin 20.000 ₺ ve artış oranının %32,03 olduğunu
-            varsayalım. Bu durumda aylık artış tutarı 6.406 ₺ olur ve yeni kira
-            bedeli 26.406 ₺ olarak hesaplanır.
-          </p>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <p className="text-sm font-medium text-slate-500">
-                Mevcut Kira
-              </p>
-
-              <p className="mt-2 text-2xl font-bold text-slate-900">
-                20.000 ₺
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <p className="text-sm font-medium text-slate-500">
-                Artış Oranı
-              </p>
-
-              <p className="mt-2 text-2xl font-bold text-slate-900">
-                %32,03
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-blue-600 p-6 text-white">
-              <p className="text-sm font-medium text-blue-100">
-                Yeni Aylık Kira
-              </p>
-
-              <p className="mt-2 text-2xl font-bold">26.406 ₺</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Kira Artış Oranı Nasıl Belirlenir?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Hesaplamada kullanılacak oran, kira sözleşmesinin yenileme
-            dönemine ve geçerli mevzuata göre değişebilir. Bu nedenle aracın
-            oran alanına yenileme tarihiniz için geçerli oranı girmeniz gerekir.
-          </p>
-
-          <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <p className="leading-8 text-amber-900">
-              Hesaplama aracı yalnızca girilen kira tutarı ve oran üzerinden
-              matematiksel sonuç üretir. Sözleşme hükümleri, beş yılı aşan kira
-              ilişkileri, tarafların anlaşması veya mahkeme kararı gibi özel
-              durumları değerlendirmez.
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Bir Yıllık Kira Farkı
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Aylık artış tutarı 12 ile çarpılarak yeni kira döneminde bir yıl
-            boyunca oluşacak toplam fark hesaplanabilir.
-          </p>
-
-          <div className="mt-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-6">
-            <p className="font-semibold leading-7 text-indigo-900">
-              Bir Yıllık Toplam Fark = Aylık Artış Tutarı × 12
-            </p>
-          </div>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Yukarıdaki örnekte aylık artış tutarı 6.406 ₺ olduğu için bir
-            yıllık toplam kira farkı 76.872 ₺ olur.
-          </p>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Sık Sorulan Sorular
-          </h2>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Kira artış oranı her ay aynı mıdır?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Hayır. Kullanılacak oran, sözleşmenin yenilendiği dönemdeki
-                güncel verilere ve geçerli kurallara göre değişebilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Artış oranını kendim değiştirebilir miyim?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Evet. Araçtaki artış oranı alanına hesaplamak istediğiniz oranı
-                yazabilirsiniz.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Yeni kira bedeli nasıl bulunur?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Mevcut kiraya, mevcut kiranın artış oranına karşılık gelen
-                tutarı ekleyerek bulunur.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Hesaplama sonucu hukuken bağlayıcı mıdır?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Hayır. Sonuç yalnızca genel bilgilendirme ve matematiksel
-                hesaplama amacı taşır. Hukuki uyuşmazlıklarda uzman görüşü
-                alınmalıdır.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+        </div>
+      </section>
+    </CalculatorLayout>
   );
 }

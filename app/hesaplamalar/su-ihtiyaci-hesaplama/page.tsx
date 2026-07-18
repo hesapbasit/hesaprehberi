@@ -1,213 +1,209 @@
 import type { Metadata } from "next";
 
+import CalculatorLayout, {
+  type CalculatorContentSection,
+  type CalculatorFaqItem,
+} from "@/components/calculators/CalculatorLayout";
 import WaterIntakeCalculator from "@/components/calculators/WaterIntakeCalculator";
-import Breadcrumb from "@/components/common/Breadcrumb";
-import ShareButtons from "@/components/common/ShareButtons";
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Günlük Su İhtiyacı Hesaplama",
-  description:
-    "Kilonuz, aktivite seviyeniz ve hava koşullarına göre günlük tahmini su ihtiyacınızı litre, mililitre ve bardak olarak hesaplayın.",
-  alternates: {
-    canonical: "/hesaplamalar/su-ihtiyaci-hesaplama",
-  },
-  openGraph: {
-    title: "Günlük Su İhtiyacı Hesaplama | HesapRehberi",
-    description:
-      "Günlük tahmini su ihtiyacınızı kilo ve aktivite seviyenize göre hesaplayın.",
-    url: "/hesaplamalar/su-ihtiyaci-hesaplama",
-    type: "website",
-  },
-};
+const canonicalPath =
+  "/hesaplamalar/su-ihtiyaci-hesaplama";
 
-export default function Page() {
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator =
+    getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `Su ihtiyacı hesaplama aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
+
+const contentSections: CalculatorContentSection[] = [
+  {
+    title: "Günlük su ihtiyacı nasıl hesaplanır?",
+    paragraphs: [
+      "Günlük su ihtiyacı kişiden kişiye değişebilir. Genel hesaplamalarda vücut ağırlığı, aktivite seviyesi, hava sıcaklığı ve terleme miktarı dikkate alınır.",
+      "Bu araçta düşük aktivite için kilogram başına yaklaşık 30 ml, orta aktivite için 35 ml ve yüksek aktivite için 40 ml temel alınır.",
+      "Sıcak hava veya yoğun terleme seçildiğinde tahmini günlük miktara ek su eklenir.",
+    ],
+    formula:
+      "Tahmini su ihtiyacı = Vücut ağırlığı × Günlük mililitre katsayısı",
+  },
+  {
+    title: "Su ihtiyacını etkileyen faktörler",
+    paragraphs: [
+      "Günlük sıvı ihtiyacı yalnızca kişinin kilosuna bağlı değildir.",
+      "Fiziksel aktivite, yaşanılan iklim, sağlık durumu ve terleme miktarı ihtiyaç duyulan su miktarını önemli ölçüde değiştirebilir.",
+    ],
+    cards: [
+      {
+        title: "Vücut ağırlığı",
+        description:
+          "Vücut ağırlığı arttıkça tahmini günlük sıvı ihtiyacı da genellikle artar.",
+      },
+      {
+        title: "Fiziksel aktivite",
+        description:
+          "Egzersiz ve yoğun fiziksel çalışma terlemeyi artırdığı için daha fazla sıvı gerekebilir.",
+      },
+      {
+        title: "Hava sıcaklığı",
+        description:
+          "Sıcak ve nemli hava koşullarında vücut daha fazla sıvı kaybedebilir.",
+      },
+      {
+        title: "Sağlık durumu",
+        description:
+          "Bazı sağlık durumları ve kullanılan ilaçlar günlük sıvı ihtiyacını değiştirebilir.",
+      },
+    ],
+  },
+  {
+    title: "Su yalnızca içme suyundan mı alınır?",
+    paragraphs: [
+      "Günlük toplam sıvı alımına suyun yanı sıra çorba, süt, ayran, şekersiz içecekler ve su oranı yüksek meyve ve sebzeler de katkı sağlayabilir.",
+      "Bununla birlikte şekerli içecekleri veya yüksek kafeinli ürünleri yalnızca sıvı ihtiyacını karşılamak amacıyla tüketmek uygun değildir.",
+      "Günlük sıvı tüketiminin önemli bir bölümünün doğrudan sudan karşılanması daha dengeli bir yaklaşım olabilir.",
+    ],
+  },
+  {
+    title: "Su ihtiyacı sonucu nasıl değerlendirilmelidir?",
+    paragraphs: [
+      "Hesaplama sonucu genel bir günlük sıvı tahmini sunar.",
+      "Egzersiz süresi, terleme miktarı, hava sıcaklığı, hamilelik, emzirme dönemi, hastalıklar ve kullanılan ilaçlar gerçek ihtiyacı değiştirebilir.",
+      "Özellikle sıvı kısıtlaması gerektiren bir sağlık durumunda genel hesaplama sonuçları yerine doktor önerisi esas alınmalıdır.",
+    ],
+  },
+];
+
+const faqItems: CalculatorFaqItem[] = [
+  {
+    question: "Günde 2 litre su herkes için yeterli midir?",
+    answer:
+      "Hayır. Günlük ihtiyaç kişinin kilosuna, aktivite düzeyine, yaşadığı iklime, terleme miktarına ve sağlık durumuna göre değişebilir.",
+  },
+  {
+    question: "Spor yaptığım günlerde daha fazla su içmeli miyim?",
+    answer:
+      "Egzersiz sırasında terleme arttığı için ek sıvı ihtiyacı oluşabilir. Egzersizin süresi, yoğunluğu ve hava koşulları ihtiyaç duyulan ek miktarı etkiler.",
+  },
+  {
+    question: "Çay ve kahve günlük sıvı hesabına dahil olur mu?",
+    answer:
+      "Çay ve kahve günlük sıvı alımına katkı sağlayabilir. Ancak suyun tamamen yerine geçmeleri önerilmez ve aşırı kafein tüketiminden kaçınılmalıdır.",
+  },
+  {
+    question: "Fazla su içmek zararlı olabilir mi?",
+    answer:
+      "Evet. Çok kısa sürede aşırı miktarda su tüketmek vücudun elektrolit dengesini bozabilir. Dengeli ve gün içine yayılmış tüketim önemlidir.",
+  },
+  {
+    question: "Sıcak havalarda su ihtiyacı artar mı?",
+    answer:
+      "Evet. Sıcak ve nemli havalarda terleme yoluyla kaybedilen sıvı arttığı için günlük su ihtiyacı da yükselebilir.",
+  },
+  {
+    question: "Yemeklerden alınan su hesaba dahil olur mu?",
+    answer:
+      "Evet. Çorba, süt ürünleri, meyve ve sebzeler gibi su içeriği yüksek besinler günlük toplam sıvı alımına katkı sağlar.",
+  },
+  {
+    question: "Bardak hesabında kaç mililitre kullanılır?",
+    answer:
+      "Araçtaki bardak karşılığı, hesaplayıcı bileşeninde kullanılan standart bardak hacmine göre belirlenir. Evde kullanılan bardakların hacmi farklı olabilir.",
+  },
+];
+
+export default function SuIhtiyaciHesaplamaPage() {
   return (
-    <main className="min-h-screen bg-slate-100 py-12 md:py-16">
-      <div className="mx-auto max-w-6xl px-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "Hesaplamalar",
-              href: "/hesaplamalar",
-            },
-            {
-              label: "Günlük Su İhtiyacı Hesaplama",
-            },
-          ]}
-        />
+    <CalculatorLayout
+      calculator={calculator}
+      categoryClassName="bg-cyan-100 text-cyan-700"
+      contentSections={contentSections}
+      faqItems={faqItems}
+      warningTitle="Sağlık bilgilendirmesi"
+      warningText="Bu araç yalnızca genel bir günlük sıvı ihtiyacı tahmini sunar. Kalp, böbrek veya sıvı dengesiyle ilgili bir sağlık durumunuz varsa doktorunuzun önerisi önceliklidir. Hesaplama sonucu tıbbi tavsiye yerine geçmez."
+    >
+      <WaterIntakeCalculator />
 
-        <div className="mb-12 text-center">
-          <span className="inline-flex rounded-full bg-cyan-100 px-4 py-2 text-sm font-semibold text-cyan-700">
-            Sağlık Araçları
-          </span>
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">
+          Örnek günlük su ihtiyacı hesaplaması
+        </h2>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Günlük Su İhtiyacı Hesaplama
-          </h1>
+        <p className="mt-5 max-w-5xl leading-8 text-slate-600">
+          Vücut ağırlığı 70 kg olan ve orta düzeyde aktif bir kişi için
+          kilogram başına 35 ml temel alındığında günlük tahmini su
+          ihtiyacı 2.450 ml, yani yaklaşık 2,45 litre olur.
+        </p>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Kilonuzu, günlük aktivite seviyenizi ve hava koşullarını girerek
-            günlük tahmini su ihtiyacınızı litre, mililitre ve bardak olarak
-            hesaplayın.
-          </p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Vücut ağırlığı
+            </p>
 
-          <ShareButtons
-            title="Günlük Su İhtiyacı Hesaplama | HesapRehberi"
-            description="Kilonuza ve aktivite seviyenize göre günlük tahmini su ihtiyacınızı hesaplayın."
-          />
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              70 kg
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Aktivite düzeyi
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              Orta aktif
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-cyan-200 bg-cyan-50 p-6">
+            <p className="text-sm font-medium text-cyan-700">
+              Kullanılan katsayı
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-cyan-900">
+              35 ml/kg
+            </p>
+          </article>
+
+          <article className="rounded-2xl bg-cyan-600 p-6 text-white">
+            <p className="text-sm font-medium text-cyan-100">
+              Günlük tahmin
+            </p>
+
+            <p className="mt-2 text-xl font-bold">
+              2,45 litre
+            </p>
+          </article>
         </div>
 
-        <WaterIntakeCalculator />
-
-        <section className="mt-16 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Günlük Su İhtiyacı Nasıl Hesaplanır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Günlük su ihtiyacı kişiden kişiye değişebilir. Genel
-            hesaplamalarda vücut ağırlığı, aktivite seviyesi, hava sıcaklığı ve
-            terleme miktarı dikkate alınır.
+        <div className="mt-6 rounded-2xl border border-cyan-200 bg-cyan-50 p-6">
+          <p className="font-semibold leading-7 text-cyan-900">
+            70 × 35 = 2.450 ml
           </p>
 
-          <div className="mt-6 rounded-2xl border border-cyan-200 bg-cyan-50 p-6">
-            <p className="font-semibold text-cyan-900">
-              Tahmini Su İhtiyacı = Kilo × Günlük Mililitre Katsayısı
-            </p>
-          </div>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Bu araçta düşük aktivite için kilogram başına yaklaşık 30 ml, orta
-            aktivite için 35 ml ve yüksek aktivite için 40 ml temel alınır.
-            Sıcak hava veya yoğun terleme seçildiğinde tahmini miktara ek su
-            eklenir.
+          <p className="mt-2 leading-7 text-cyan-800">
+            Sıcak hava veya yoğun terleme durumunda hesaplayıcının eklediği
+            miktar sonucunda günlük ihtiyaç daha yüksek çıkabilir.
           </p>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Su İhtiyacını Etkileyen Faktörler
-          </h2>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <h3 className="text-lg font-bold text-slate-900">
-                Vücut Ağırlığı
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Vücut ağırlığı arttıkça tahmini günlük sıvı ihtiyacı da
-                genellikle artar.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <h3 className="text-lg font-bold text-slate-900">
-                Fiziksel Aktivite
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Egzersiz ve yoğun fiziksel çalışma terlemeyi artırdığı için daha
-                fazla sıvı gerekebilir.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <h3 className="text-lg font-bold text-slate-900">
-                Hava Sıcaklığı
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Sıcak ve nemli hava koşullarında vücut daha fazla sıvı
-                kaybedebilir.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <h3 className="text-lg font-bold text-slate-900">
-                Sağlık Durumu
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Bazı sağlık durumları ve kullanılan ilaçlar günlük sıvı
-                ihtiyacını değiştirebilir.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Su Yalnızca İçme Suyundan mı Alınır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Günlük toplam sıvı alımına suyun yanı sıra çorba, süt, ayran,
-            şekersiz içecekler ve su oranı yüksek meyve ve sebzeler de katkı
-            sağlayabilir.
-          </p>
-
-          <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <p className="leading-7 text-amber-900">
-              Hesaplama sonucu genel bir tahmindir. Kalp, böbrek veya sıvı
-              dengesiyle ilgili bir sağlık durumunuz varsa sağlık uzmanının
-              önerisi önceliklidir.
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Sık Sorulan Sorular
-          </h2>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Günde 2 litre su herkes için yeterli midir?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Hayır. İhtiyaç kişinin kilosuna, aktivitesine, yaşadığı iklime
-                ve sağlık durumuna göre değişebilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Spor yaptığım günlerde daha fazla su içmeli miyim?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Egzersiz sırasında terleme arttığı için ek sıvı ihtiyacı
-                oluşabilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Çay ve kahve günlük sıvı hesabına dahil olur mu?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Sıvı alımına katkı sağlayabilirler ancak suyun tamamen yerine
-                geçmeleri önerilmez.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Fazla su içmek zararlı olabilir mi?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Çok kısa sürede aşırı miktarda su tüketmek vücudun elektrolit
-                dengesini bozabilir. Dengeli tüketim önemlidir.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+        </div>
+      </section>
+    </CalculatorLayout>
   );
 }

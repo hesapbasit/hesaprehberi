@@ -10,11 +10,13 @@ const baseUrl = "https://hesaprehberi.vercel.app";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -30,6 +32,8 @@ export const metadata: Metadata = {
 
   keywords: [
     "hesaplama",
+    "hesaplama araçları",
+    "online hesaplama",
     "kredi hesaplama",
     "KDV hesaplama",
     "faiz hesaplama",
@@ -42,9 +46,12 @@ export const metadata: Metadata = {
     "yaş hesaplama",
     "gün hesaplama",
     "VKİ hesaplama",
+    "kalori hesaplama",
+    "ideal kilo hesaplama",
   ],
 
   applicationName: "HesapRehberi",
+  category: "finance",
 
   authors: [
     {
@@ -55,10 +62,6 @@ export const metadata: Metadata = {
 
   creator: "HesapRehberi",
   publisher: "HesapRehberi",
-
-  alternates: {
-    canonical: "/",
-  },
 
   verification: {
     google: "AHbCnRhY8MW2JgCt88JEcRV18T0ws4Dp02MyqepeFDo",
@@ -71,36 +74,45 @@ export const metadata: Metadata = {
     siteName: "HesapRehberi",
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
     description:
-      "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz yapın.",
+      "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
     images: [
       {
         url: "/logo.jpg",
-        width: 1200,
-        height: 630,
-        alt: "HesapRehberi",
+        alt: "HesapRehberi hesaplama platformu",
       },
     ],
   },
 
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
     description:
-      "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz yapın.",
+      "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
     images: ["/logo.jpg"],
   },
 
   robots: {
     index: true,
     follow: true,
+    nocache: false,
+
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-image-preview": "large",
       "max-snippet": -1,
       "max-video-preview": -1,
     },
   },
+
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+
+  referrer: "origin-when-cross-origin",
 };
 
 const structuredData = {
@@ -110,25 +122,46 @@ const structuredData = {
       "@type": "Organization",
       "@id": `${baseUrl}/#organization`,
       name: "HesapRehberi",
+      alternateName: "Hesap Rehberi",
       url: baseUrl,
+
       logo: {
         "@type": "ImageObject",
+        "@id": `${baseUrl}/#logo`,
         url: `${baseUrl}/logo.jpg`,
+        contentUrl: `${baseUrl}/logo.jpg`,
+        caption: "HesapRehberi",
       },
+
       description:
         "Finans, vergi, maaş, kira, tarih ve sağlık alanlarında ücretsiz hesaplama araçları sunan platform.",
     },
+
     {
       "@type": "WebSite",
       "@id": `${baseUrl}/#website`,
       url: baseUrl,
       name: "HesapRehberi",
       alternateName: "Hesap Rehberi",
+
       description:
         "Kredi, KDV, faiz, maaş, döviz, vergi, kira, mevduat, tarih ve sağlık hesaplamalarını ücretsiz yapın.",
+
       inLanguage: "tr-TR",
+
       publisher: {
         "@id": `${baseUrl}/#organization`,
+      },
+
+      potentialAction: {
+        "@type": "SearchAction",
+
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${baseUrl}/hesaplamalar?arama={search_term_string}`,
+        },
+
+        "query-input": "required name=search_term_string",
       },
     },
   ],

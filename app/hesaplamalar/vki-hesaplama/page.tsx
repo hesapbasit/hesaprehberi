@@ -1,302 +1,147 @@
 import type { Metadata } from "next";
 
+import CalculatorLayout, {
+  type CalculatorContentSection,
+  type CalculatorFaqItem,
+} from "@/components/calculators/CalculatorLayout";
 import BmiCalculator from "@/components/calculators/BmiCalculator";
-import Breadcrumb from "@/components/common/Breadcrumb";
-import ShareButtons from "@/components/common/ShareButtons";
-import StructuredData from "@/components/common/StructuredData";
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
 
-const baseUrl = "https://hesaprehberi.vercel.app";
-const pageUrl = `${baseUrl}/hesaplamalar/vki-hesaplama`;
+const canonicalPath = "/hesaplamalar/vki-hesaplama";
 
-export const metadata: Metadata = {
-  title: "VKİ Hesaplama",
-  description:
-    "Boy ve kilo bilgilerinizi girerek vücut kitle indeksinizi, VKİ kategorinizi ve tahmini normal kilo aralığınızı ücretsiz hesaplayın.",
-  alternates: {
-    canonical: "/hesaplamalar/vki-hesaplama",
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `VKİ hesaplama aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
+
+const contentSections: CalculatorContentSection[] = [
+  {
+    title: "VKİ nasıl hesaplanır?",
+    paragraphs: [
+      "Vücut Kitle İndeksi (VKİ), kilogram cinsinden ağırlığın metre cinsinden boyun karesine bölünmesiyle hesaplanır.",
+      "Örneğin 70 kilogram ağırlığında ve 1,75 metre boyunda bir kişinin VKİ değeri yaklaşık 22,9 olur.",
+    ],
+    formula: "VKİ = Kilo / Boy²",
   },
-  openGraph: {
-    title: "VKİ Hesaplama | HesapRehberi",
-    description:
-      "Boy ve kilo bilgilerinize göre vücut kitle indeksinizi kolayca hesaplayın.",
-    url: "/hesaplamalar/vki-hesaplama",
-    type: "website",
+  {
+    title: "VKİ değerleri ne anlama gelir?",
+    cards: [
+      {
+        title: "18,5 altı",
+        description: "Genel sınıflandırmada zayıf kabul edilir.",
+      },
+      {
+        title: "18,5 - 24,9",
+        description: "Normal kilo aralığı olarak değerlendirilir.",
+      },
+      {
+        title: "25 - 29,9",
+        description: "Fazla kilolu olarak değerlendirilir.",
+      },
+      {
+        title: "30 ve üzeri",
+        description: "Obez kategorisinde değerlendirilir.",
+      },
+    ],
   },
-};
+  {
+    title: "VKİ herkes için aynı sonucu verir mi?",
+    paragraphs: [
+      "VKİ yetişkinler için genel bir tarama ölçütüdür.",
+      "Kas oranı yüksek sporcular, hamileler, çocuklar, yaşlılar ve bazı sağlık durumlarında tek başına yeterli değerlendirme sağlamayabilir.",
+    ],
+  },
+];
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${pageUrl}/#webpage`,
-      url: pageUrl,
-      name: "VKİ Hesaplama",
-      description:
-        "Boy ve kilo bilgilerinizi girerek vücut kitle indeksinizi, VKİ kategorinizi ve tahmini normal kilo aralığınızı ücretsiz hesaplayın.",
-      inLanguage: "tr-TR",
-      isPartOf: {
-        "@id": `${baseUrl}/#website`,
-      },
-      about: {
-        "@id": `${baseUrl}/#organization`,
-      },
-      breadcrumb: {
-        "@id": `${pageUrl}/#breadcrumb`,
-      },
-      mainEntity: {
-        "@id": `${pageUrl}/#faq`,
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${pageUrl}/#breadcrumb`,
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Ana Sayfa",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Hesaplamalar",
-          item: `${baseUrl}/hesaplamalar`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "VKİ Hesaplama",
-          item: pageUrl,
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `${pageUrl}/#faq`,
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "VKİ ile ideal kilo bulunabilir mi?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "VKİ kullanılarak boya göre yaklaşık normal kilo aralığı hesaplanabilir. Ancak vücut yapısı ve kas oranı gibi faktörler değerlendirmeyi etkileyebilir.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "VKİ çocuklarda aynı şekilde hesaplanır mı?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Matematiksel işlem aynı olsa da çocuklarda değerlendirme yaşa ve cinsiyete göre büyüme eğrileri üzerinden yapılır.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Sporcularda VKİ doğru sonuç verir mi?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Kas kütlesi yüksek kişilerde VKİ değeri yüksek çıkabilir. Bu nedenle vücut yağ oranı gibi ek ölçümlerin değerlendirilmesi gerekebilir.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Sonuç tıbbi teşhis sayılır mı?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Hayır. Sonuç yalnızca genel bilgilendirme amacı taşır ve tıbbi değerlendirme yerine geçmez.",
-          },
-        },
-      ],
-    },
-  ],
-};
+const faqItems: CalculatorFaqItem[] = [
+  {
+    question: "VKİ ile ideal kilo bulunabilir mi?",
+    answer:
+      "VKİ kullanılarak boya göre yaklaşık normal kilo aralığı hesaplanabilir. Ancak vücut yapısı ve kas oranı gibi faktörler sonucu etkileyebilir.",
+  },
+  {
+    question: "VKİ çocuklarda aynı şekilde hesaplanır mı?",
+    answer:
+      "Matematiksel işlem aynı olsa da çocuklarda değerlendirme yaş ve cinsiyete göre büyüme eğrileri üzerinden yapılır.",
+  },
+  {
+    question: "Sporcularda VKİ doğru sonuç verir mi?",
+    answer:
+      "Kas kütlesi yüksek kişilerde VKİ olduğundan yüksek çıkabilir. Bu nedenle vücut yağ oranı gibi ek ölçümler de değerlendirilmelidir.",
+  },
+  {
+    question: "Sonuç tıbbi teşhis sayılır mı?",
+    answer:
+      "Hayır. Bu hesaplama yalnızca genel bilgilendirme amacı taşır ve tıbbi değerlendirme yerine geçmez.",
+  },
+  {
+    question: "Normal VKİ aralığı nedir?",
+    answer:
+      "Genel yetişkin sınıflandırmasına göre 18,5 ile 24,9 arasındaki VKİ değeri normal kilo aralığı olarak kabul edilir.",
+  },
+];
 
 export default function VkiHesaplamaPage() {
   return (
-    <main className="min-h-screen bg-slate-100 py-12 md:py-16">
-      <StructuredData data={structuredData} />
+    <CalculatorLayout
+      calculator={calculator}
+      categoryClassName="bg-emerald-100 text-emerald-700"
+      contentSections={contentSections}
+      faqItems={faqItems}
+      warningTitle="Sağlık bilgilendirmesi"
+      warningText="Bu hesaplama yalnızca genel bilgilendirme amacı taşır. VKİ tek başına sağlık durumu hakkında kesin sonuç vermez. Tanı ve tedavi için mutlaka bir sağlık uzmanına danışınız."
+    >
+      <BmiCalculator />
 
-      <div className="mx-auto max-w-6xl px-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "Hesaplamalar",
-              href: "/hesaplamalar",
-            },
-            {
-              label: "VKİ Hesaplama",
-            },
-          ]}
-        />
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">
+          Örnek VKİ hesaplaması
+        </h2>
 
-        <div className="mb-12 text-center">
-          <span className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            Sağlık Araçları
-          </span>
+        <p className="mt-5 leading-8 text-slate-600">
+          Boyu <strong>1,75 m</strong>, kilosu <strong>70 kg</strong> olan
+          bir kişinin VKİ değeri yaklaşık <strong>22,9</strong> olur ve bu
+          değer genel sınıflandırmada normal kilo aralığında yer alır.
+        </p>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            VKİ Hesaplama
-          </h1>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm text-slate-500">Boy</p>
+            <p className="mt-2 text-xl font-bold">1,75 m</p>
+          </article>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Boy ve kilo bilgilerinizi girerek vücut kitle indeksinizi,
-            bulunduğunuz VKİ kategorisini ve tahmini normal kilo aralığınızı
-            hesaplayın.
-          </p>
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm text-slate-500">Kilo</p>
+            <p className="mt-2 text-xl font-bold">70 kg</p>
+          </article>
 
-          <ShareButtons
-            title="VKİ Hesaplama | HesapRehberi"
-            description="Boy ve kilo bilgilerinize göre vücut kitle indeksinizi ücretsiz hesaplayın."
-          />
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm text-slate-500">VKİ</p>
+            <p className="mt-2 text-xl font-bold">22,9</p>
+          </article>
+
+          <article className="rounded-2xl bg-emerald-600 p-6 text-white">
+            <p className="text-sm text-emerald-100">Kategori</p>
+            <p className="mt-2 text-xl font-bold">Normal</p>
+          </article>
         </div>
-
-        <BmiCalculator />
-
-        <section className="mt-16 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            VKİ Nasıl Hesaplanır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Vücut kitle indeksi, kilogram cinsinden ağırlığın metre cinsinden
-            boyun karesine bölünmesiyle hesaplanır.
-          </p>
-
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
-            <p className="font-semibold text-blue-900">
-              VKİ = Kilo / Boy²
-            </p>
-          </div>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Örneğin 70 kilogram ağırlığında ve 1,75 metre boyunda bir kişinin
-            VKİ değeri yaklaşık 22,9 olur.
-          </p>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            VKİ Değerleri Ne Anlama Gelir?
-          </h2>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <div className="rounded-2xl border border-sky-200 bg-sky-50 p-6">
-              <h3 className="text-lg font-bold text-sky-900">
-                18,5 Altı
-              </h3>
-
-              <p className="mt-3 leading-7 text-sky-800">
-                Genel sınıflandırmada zayıf kabul edilir.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-green-200 bg-green-50 p-6">
-              <h3 className="text-lg font-bold text-green-900">
-                18,5 - 24,9
-              </h3>
-
-              <p className="mt-3 leading-7 text-green-800">
-                Genel sınıflandırmada normal kilo aralığıdır.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
-              <h3 className="text-lg font-bold text-amber-900">
-                25 - 29,9
-              </h3>
-
-              <p className="mt-3 leading-7 text-amber-800">
-                Genel sınıflandırmada fazla kilolu kabul edilir.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
-              <h3 className="text-lg font-bold text-red-900">
-                30 ve Üzeri
-              </h3>
-
-              <p className="mt-3 leading-7 text-red-800">
-                Genel sınıflandırmada obez kategorisindedir.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            VKİ Sonucu Herkes İçin Uygun mudur?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            VKİ yetişkinler için genel bir tarama ölçütüdür. Kas oranı yüksek
-            sporcular, hamileler, çocuklar, yaşlılar ve bazı özel sağlık
-            durumlarında sonuç tek başına yeterli değerlendirme sağlamayabilir.
-          </p>
-
-          <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <p className="leading-7 text-amber-900">
-              Bu araç tıbbi teşhis veya tedavi amacı taşımaz. Sağlığınızla
-              ilgili kararlar için sağlık uzmanına danışmanız gerekir.
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Sık Sorulan Sorular
-          </h2>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                VKİ ile ideal kilo bulunabilir mi?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                VKİ kullanılarak boya göre yaklaşık normal kilo aralığı
-                hesaplanabilir. Ancak vücut yapısı ve kas oranı gibi faktörler
-                değerlendirmeyi etkileyebilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                VKİ çocuklarda aynı şekilde hesaplanır mı?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Matematiksel işlem aynı olsa da çocuklarda değerlendirme yaşa
-                ve cinsiyete göre büyüme eğrileri üzerinden yapılır.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Sporcularda VKİ doğru sonuç verir mi?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Kas kütlesi yüksek kişilerde VKİ değeri yüksek çıkabilir. Bu
-                nedenle vücut yağ oranı gibi ek ölçümlerin değerlendirilmesi
-                gerekebilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Sonuç tıbbi teşhis sayılır mı?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Hayır. Sonuç yalnızca genel bilgilendirme amacı taşır ve tıbbi
-                değerlendirme yerine geçmez.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+      </section>
+    </CalculatorLayout>
   );
 }

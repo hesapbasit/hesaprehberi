@@ -1,128 +1,10 @@
-import {
-  Activity,
-  BadgePercent,
-  Banknote,
-  Briefcase,
-  CalendarDays,
-  CalendarRange,
-  ChartNoAxesColumn,
-  Droplets,
-  Flame,
-  Gauge,
-  HeartPulse,
-  House,
-  Landmark,
-  Percent,
-  PiggyBank,
-  Receipt,
-  Scale,
-  TrendingUp,
-  Wallet,
-} from "lucide-react";
 import Link from "next/link";
 
 import Hero from "@/components/layout/Hero";
 import CategoryCard from "@/components/ui/CategoryCard";
 import HomeFaq from "@/components/ui/HomeFaq";
 import LatestArticles from "@/components/ui/LatestArticles";
-
-const categories = [
-  {
-    title: "Kredi Hesaplama",
-    icon: Wallet,
-    href: "/hesaplamalar/kredi-hesaplama",
-  },
-  {
-    title: "KDV Hesaplama",
-    icon: Receipt,
-    href: "/hesaplamalar/kdv-hesaplama",
-  },
-  {
-    title: "Faiz Hesaplama",
-    icon: TrendingUp,
-    href: "/hesaplamalar/faiz-hesaplama",
-  },
-  {
-    title: "Maaş Hesaplama",
-    icon: Briefcase,
-    href: "/hesaplamalar/maas-hesaplama",
-  },
-  {
-    title: "Döviz Hesaplama",
-    icon: Banknote,
-    href: "/hesaplamalar/doviz-hesaplama",
-  },
-  {
-    title: "Enflasyon Hesaplama",
-    icon: ChartNoAxesColumn,
-    href: "/hesaplamalar/enflasyon-hesaplama",
-  },
-  {
-    title: "Yüzde Hesaplama",
-    icon: Percent,
-    href: "/hesaplamalar/yuzde-hesaplama",
-  },
-  {
-    title: "İndirim Hesaplama",
-    icon: BadgePercent,
-    href: "/hesaplamalar/indirim-hesaplama",
-  },
-  {
-    title: "Yaş Hesaplama",
-    icon: CalendarDays,
-    href: "/hesaplamalar/yas-hesaplama",
-  },
-  {
-    title: "Gün Hesaplama",
-    icon: CalendarRange,
-    href: "/hesaplamalar/gun-hesaplama",
-  },
-  {
-    title: "VKİ Hesaplama",
-    icon: Activity,
-    href: "/hesaplamalar/vki-hesaplama",
-  },
-  {
-    title: "İdeal Kilo Hesaplama",
-    icon: Scale,
-    href: "/hesaplamalar/ideal-kilo-hesaplama",
-  },
-  {
-    title: "Vücut Yağ Oranı Hesaplama",
-    icon: HeartPulse,
-    href: "/hesaplamalar/vucut-yag-orani-hesaplama",
-  },
-  {
-    title: "Günlük Su İhtiyacı Hesaplama",
-    icon: Droplets,
-    href: "/hesaplamalar/su-ihtiyaci-hesaplama",
-  },
-  {
-    title: "Günlük Kalori İhtiyacı Hesaplama",
-    icon: Flame,
-    href: "/hesaplamalar/kalori-ihtiyaci-hesaplama",
-  },
-  {
-    title: "Bazal Metabolizma Hızı Hesaplama",
-    icon: Gauge,
-    href: "/hesaplamalar/bazal-metabolizma-hesaplama",
-  },
-  {
-    title: "2026 Gelir Vergisi Hesaplama",
-    icon: Landmark,
-    href: "/hesaplamalar/gelir-vergisi-hesaplama",
-  },
-  {
-    title: "Kira Artış Hesaplama",
-    icon: House,
-    href: "/hesaplamalar/kira-artis-hesaplama",
-  },
-  {
-    title: "Mevduat Faizi Hesaplama",
-    icon: PiggyBank,
-    href: "/hesaplamalar/mevduat-faizi-hesaplama",
-  },
-];
+import { featuredCalculators } from "@/data/calculators";
 
 export default function Home() {
   return (
@@ -143,19 +25,29 @@ export default function Home() {
 
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
               Finans, kredi, vergi, maaş, konut, tarih ve sağlık alanlarında
-              ihtiyaç duyacağınız hesaplama araçlarına tek yerden ulaşın.
+              ihtiyaç duyacağınız popüler hesaplama araçlarına tek yerden
+              ulaşın.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category) => (
+            {featuredCalculators.map((calculator) => (
               <CategoryCard
-                key={category.title}
-                title={category.title}
-                icon={category.icon}
-                href={category.href}
+                key={calculator.href}
+                title={calculator.title}
+                icon={calculator.icon}
+                href={calculator.href}
               />
             ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              href="/hesaplamalar"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-white px-7 py-4 font-semibold text-blue-700 shadow-sm transition hover:-translate-y-1 hover:border-blue-400 hover:shadow-lg"
+            >
+              Tüm Hesaplama Araçlarını Gör →
+            </Link>
           </div>
         </section>
 
@@ -167,10 +59,8 @@ export default function Home() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
-              HesapRehberi ile kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, ideal kilo, vücut yağ oranı, günlük su
-              ihtiyacı, günlük kalori ihtiyacı, bazal metabolizma, gelir
-              vergisi, kira artışı ve mevduat faizi hesaplamalarını saniyeler
+              HesapRehberi ile finans, vergi, maaş, alışveriş, tarih, konut ve
+              sağlık alanlarında ihtiyaç duyduğunuz hesaplamaları saniyeler
               içinde ücretsiz gerçekleştirebilirsiniz.
             </p>
 
@@ -205,7 +95,9 @@ export default function Home() {
 
           <div className="mt-16 grid gap-8 md:grid-cols-3">
             <article className="rounded-3xl bg-white p-8 shadow-sm transition hover:-translate-y-2 hover:shadow-xl">
-              <div className="text-5xl">⚡</div>
+              <div className="text-5xl" aria-hidden="true">
+                ⚡
+              </div>
 
               <h3 className="mt-6 text-2xl font-bold text-slate-900">
                 Hızlı Hesaplama
@@ -217,7 +109,9 @@ export default function Home() {
             </article>
 
             <article className="rounded-3xl bg-white p-8 shadow-sm transition hover:-translate-y-2 hover:shadow-xl">
-              <div className="text-5xl">🔒</div>
+              <div className="text-5xl" aria-hidden="true">
+                🔒
+              </div>
 
               <h3 className="mt-6 text-2xl font-bold text-slate-900">
                 Güvenilir Yaklaşım
@@ -230,7 +124,9 @@ export default function Home() {
             </article>
 
             <article className="rounded-3xl bg-white p-8 shadow-sm transition hover:-translate-y-2 hover:shadow-xl">
-              <div className="text-5xl">💯</div>
+              <div className="text-5xl" aria-hidden="true">
+                💯
+              </div>
 
               <h3 className="mt-6 text-2xl font-bold text-slate-900">
                 Tamamen Ücretsiz
@@ -258,12 +154,10 @@ export default function Home() {
             </h2>
 
             <p className="mt-8 text-lg leading-9 text-slate-600">
-              HesapRehberi; kredi, KDV, faiz, maaş, döviz, enflasyon, yüzde,
-              indirim, yaş, gün, VKİ, ideal kilo, vücut yağ oranı, günlük su
-              ihtiyacı, günlük kalori ihtiyacı, bazal metabolizma hızı, gelir
-              vergisi, kira artışı ve mevduat faizi gibi günlük hayatta ihtiyaç
-              duyulan hesaplama araçlarını tek platformda sunan ücretsiz bir
-              hesaplama platformudur.
+              HesapRehberi; finans, vergi, maaş, alışveriş, tarih, konut ve
+              sağlık gibi günlük hayatta ihtiyaç duyulan alanlardaki hesaplama
+              araçlarını tek platformda sunan ücretsiz bir hesaplama
+              platformudur.
             </p>
 
             <p className="mt-6 text-lg leading-9 text-slate-600">

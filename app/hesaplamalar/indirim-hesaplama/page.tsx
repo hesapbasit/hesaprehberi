@@ -1,274 +1,194 @@
 import type { Metadata } from "next";
 
+import CalculatorLayout, {
+  type CalculatorContentSection,
+  type CalculatorFaqItem,
+} from "@/components/calculators/CalculatorLayout";
 import DiscountCalculator from "@/components/calculators/DiscountCalculator";
-import Breadcrumb from "@/components/common/Breadcrumb";
-import ShareButtons from "@/components/common/ShareButtons";
-import StructuredData from "@/components/common/StructuredData";
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
 
-const baseUrl = "https://hesaprehberi.vercel.app";
-const pageUrl = `${baseUrl}/hesaplamalar/indirim-hesaplama`;
+const canonicalPath = "/hesaplamalar/indirim-hesaplama";
 
-export const metadata: Metadata = {
-  title: "İndirim Hesaplama",
-  description:
-    "Ürün fiyatı ve indirim oranını girerek indirim tutarını ve indirimli fiyatı ücretsiz hesaplayın.",
-  alternates: {
-    canonical: "/hesaplamalar/indirim-hesaplama",
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `İndirim hesaplama aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
+
+const contentSections: CalculatorContentSection[] = [
+  {
+    title: "İndirim nasıl hesaplanır?",
+    paragraphs: [
+      "İndirim tutarını bulmak için ürünün normal fiyatı, indirim oranıyla çarpılır ve sonuç 100'e bölünür.",
+      "İndirimli fiyatı bulmak için hesaplanan indirim tutarı ürünün normal fiyatından çıkarılır.",
+    ],
+    formula:
+      "İndirim tutarı = Normal fiyat × İndirim oranı / 100",
   },
-  openGraph: {
-    title: "İndirim Hesaplama | HesapRehberi",
-    description:
-      "İndirim oranına göre ne kadar tasarruf edeceğinizi ve yeni fiyatı hemen hesaplayın.",
-    url: "/hesaplamalar/indirim-hesaplama",
-    type: "website",
+  {
+    title: "İndirimli fiyat nasıl bulunur?",
+    paragraphs: [
+      "İndirimli satış fiyatı, ürünün normal fiyatından indirim tutarının çıkarılmasıyla hesaplanır.",
+      "Aynı işlem normal fiyatın, indirim oranı çıkarıldıktan sonra kalan yüzdeyle çarpılmasıyla da yapılabilir.",
+    ],
+    formula:
+      "İndirimli fiyat = Normal fiyat - İndirim tutarı",
   },
-};
+  {
+    title: "İndirim oranları nasıl değerlendirilir?",
+    paragraphs: [
+      "Yüzde 10 indirim, ürün fiyatının onda biri kadar tasarruf edildiği anlamına gelir.",
+      "Yüzde 50 indirimde ürünün satış fiyatı normal fiyatın yarısına düşer.",
+      "Yüzde 100 indirim uygulandığında hesaplanan satış fiyatı sıfır olur.",
+    ],
+    cards: [
+      {
+        title: "%10 indirim",
+        description:
+          "Normal fiyatın yüzde 10'u kadar indirim uygulanır.",
+      },
+      {
+        title: "%25 indirim",
+        description:
+          "Normal fiyatın dörtte biri kadar tasarruf sağlanır.",
+      },
+      {
+        title: "%50 indirim",
+        description:
+          "Ürünün hesaplanan satış fiyatı normal fiyatın yarısı olur.",
+      },
+      {
+        title: "%100 indirim",
+        description:
+          "Ürünün hesaplanan satış fiyatı sıfır olur.",
+      },
+    ],
+  },
+];
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${pageUrl}/#webpage`,
-      url: pageUrl,
-      name: "İndirim Hesaplama",
-      description:
-        "Ürün fiyatı ve indirim oranını girerek indirim tutarını ve indirimli fiyatı ücretsiz hesaplayın.",
-      inLanguage: "tr-TR",
-      isPartOf: {
-        "@id": `${baseUrl}/#website`,
-      },
-      about: {
-        "@id": `${baseUrl}/#organization`,
-      },
-      breadcrumb: {
-        "@id": `${pageUrl}/#breadcrumb`,
-      },
-      mainEntity: {
-        "@id": `${pageUrl}/#faq`,
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${pageUrl}/#breadcrumb`,
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Ana Sayfa",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Hesaplamalar",
-          item: `${baseUrl}/hesaplamalar`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "İndirim Hesaplama",
-          item: pageUrl,
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `${pageUrl}/#faq`,
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "Yüzde 10 indirim nasıl hesaplanır?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Ürün fiyatını 10 ile çarpıp 100'e bölebilir veya fiyatı doğrudan 10'a bölebilirsiniz.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Yüzde 50 indirim ne anlama gelir?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Ürünün normal fiyatının yarısı kadar indirim uygulanması anlamına gelir.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "İndirim oranı yüzde 100 olabilir mi?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Evet. Yüzde 100 indirim uygulanırsa ürünün hesaplanan satış fiyatı sıfır olur.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "İndirim oranı yüzde 100'den büyük olabilir mi?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Normal alışveriş indirimlerinde oran genellikle yüzde 0 ile yüzde 100 arasındadır. Daha yüksek oranlar negatif fiyat oluşturacağı için standart indirim hesabına uygun değildir.",
-          },
-        },
-      ],
-    },
-  ],
-};
+const faqItems: CalculatorFaqItem[] = [
+  {
+    question: "Yüzde 10 indirim nasıl hesaplanır?",
+    answer:
+      "Ürün fiyatını 10 ile çarpıp 100'e bölebilir veya fiyatı doğrudan 10'a bölebilirsiniz. Bulduğunuz tutar indirim miktarıdır.",
+  },
+  {
+    question: "Yüzde 50 indirim ne anlama gelir?",
+    answer:
+      "Ürünün normal fiyatının yarısı kadar indirim uygulanması anlamına gelir. Örneğin 1.000 ₺ fiyatlı ürün yüzde 50 indirimle 500 ₺ olur.",
+  },
+  {
+    question: "İndirim oranı yüzde 100 olabilir mi?",
+    answer:
+      "Evet. Yüzde 100 indirim uygulandığında hesaplanan satış fiyatı sıfır olur.",
+  },
+  {
+    question: "İndirim oranı yüzde 100'den büyük olabilir mi?",
+    answer:
+      "Standart alışveriş indirimlerinde oran genellikle yüzde 0 ile yüzde 100 arasında olmalıdır. Yüzde 100'den büyük oranlar negatif satış fiyatı oluşturacağı için standart indirim hesabına uygun değildir.",
+  },
+  {
+    question: "İndirim tutarı ile indirimli fiyat aynı şey midir?",
+    answer:
+      "Hayır. İndirim tutarı normal fiyattan düşülen miktardır. İndirimli fiyat ise indirim sonrasında ödenecek kalan tutardır.",
+  },
+  {
+    question: "Arka arkaya iki indirim nasıl hesaplanır?",
+    answer:
+      "İkinci indirim, ilk indirimden sonra oluşan yeni fiyat üzerinden hesaplanır. Örneğin yüzde 20 ve ardından yüzde 10 indirim toplamda yüzde 30 değil, yüzde 28 indirim oluşturur.",
+  },
+];
 
 export default function IndirimHesaplamaPage() {
   return (
-    <main className="min-h-screen bg-slate-100 py-12 md:py-16">
-      <StructuredData data={structuredData} />
+    <CalculatorLayout
+      calculator={calculator}
+      categoryClassName="bg-rose-100 text-rose-700"
+      contentSections={contentSections}
+      faqItems={faqItems}
+      warningTitle="İndirim sonucu hakkında"
+      warningText="Bu araç yalnızca girilen normal fiyat ve indirim oranına göre matematiksel sonuç üretir. Kargo, vergi, kupon, üyelik avantajı, taksit farkı ve mağazaya özel kampanya koşulları hesaplamaya dahil değildir."
+    >
+      <DiscountCalculator />
 
-      <div className="mx-auto max-w-6xl px-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "Hesaplamalar",
-              href: "/hesaplamalar",
-            },
-            {
-              label: "İndirim Hesaplama",
-            },
-          ]}
-        />
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">
+          Örnek indirim hesaplaması
+        </h2>
 
-        <div className="mb-12 text-center">
-          <span className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            Alışveriş Araçları
-          </span>
+        <p className="mt-5 max-w-5xl leading-8 text-slate-600">
+          Normal fiyatı 1.000 ₺ olan bir ürüne yüzde 20 indirim
+          uygulandığında indirim tutarı 200 ₺ olur. Ürünün indirimli satış
+          fiyatı ise 800 ₺ olarak hesaplanır.
+        </p>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            İndirim Hesaplama
-          </h1>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Normal fiyat
+            </p>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Ürünün normal fiyatını ve indirim oranını girerek indirim tutarını,
-            indirimli satış fiyatını ve toplam tasarrufunuzu hesaplayın.
-          </p>
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              1.000 ₺
+            </p>
+          </article>
 
-          <ShareButtons
-            title="İndirim Hesaplama | HesapRehberi"
-            description="İndirim tutarını ve indirimli fiyatı ücretsiz hesaplayın."
-          />
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              İndirim oranı
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              %20
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-rose-200 bg-rose-50 p-6">
+            <p className="text-sm font-medium text-rose-700">
+              İndirim tutarı
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-rose-900">
+              200 ₺
+            </p>
+          </article>
+
+          <article className="rounded-2xl bg-rose-600 p-6 text-white">
+            <p className="text-sm font-medium text-rose-100">
+              İndirimli fiyat
+            </p>
+
+            <p className="mt-2 text-xl font-bold">
+              800 ₺
+            </p>
+          </article>
         </div>
 
-        <DiscountCalculator />
-
-        <section className="mt-16 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            İndirim Nasıl Hesaplanır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            İndirim tutarını bulmak için ürünün normal fiyatı, indirim oranıyla
-            çarpılır ve sonuç 100&apos;e bölünür.
+        <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 p-6">
+          <p className="font-semibold leading-7 text-rose-900">
+            1.000 × 20 / 100 = 200 ₺ indirim tutarı
           </p>
 
-          <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50 p-6">
-            <p className="font-semibold text-blue-900">
-              İndirim Tutarı = Normal Fiyat × İndirim Oranı / 100
-            </p>
-          </div>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            İndirimli fiyatı bulmak için hesaplanan indirim tutarı, ürünün
-            normal fiyatından çıkarılır.
+          <p className="mt-2 font-semibold leading-7 text-rose-900">
+            1.000 - 200 = 800 ₺ indirimli fiyat
           </p>
-
-          <div className="mt-6 rounded-2xl border border-green-200 bg-green-50 p-6">
-            <p className="font-semibold text-green-900">
-              İndirimli Fiyat = Normal Fiyat - İndirim Tutarı
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Örnek İndirim Hesaplama
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Normal fiyatı 1.000 ₺ olan bir ürüne %20 indirim uygulandığında
-            indirim tutarı 200 ₺ olur. Ürünün indirimli fiyatı ise 800 ₺ olarak
-            hesaplanır.
-          </p>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <p className="text-sm font-medium text-slate-500">Normal Fiyat</p>
-              <p className="mt-2 text-2xl font-bold text-slate-900">
-                1.000 ₺
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <p className="text-sm font-medium text-slate-500">
-                İndirim Oranı
-              </p>
-              <p className="mt-2 text-2xl font-bold text-slate-900">%20</p>
-            </div>
-
-            <div className="rounded-2xl bg-blue-600 p-6 text-white">
-              <p className="text-sm font-medium text-blue-100">
-                İndirimli Fiyat
-              </p>
-              <p className="mt-2 text-2xl font-bold">800 ₺</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Sık Sorulan Sorular
-          </h2>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                %10 indirim nasıl hesaplanır?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Ürün fiyatını 10 ile çarpıp 100&apos;e bölebilir veya fiyatı
-                doğrudan 10&apos;a bölebilirsiniz.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                %50 indirim ne anlama gelir?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Ürünün normal fiyatının yarısı kadar indirim uygulanması
-                anlamına gelir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                İndirim oranı %100 olabilir mi?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Evet. %100 indirim uygulanırsa ürünün hesaplanan satış fiyatı
-                sıfır olur.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                İndirim oranı %100&apos;den büyük olabilir mi?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Normal alışveriş indirimlerinde oran genellikle %0 ile %100
-                arasındadır. Daha yüksek oranlar negatif fiyat oluşturacağı
-                için standart indirim hesabına uygun değildir.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+        </div>
+      </section>
+    </CalculatorLayout>
   );
 }

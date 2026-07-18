@@ -4,21 +4,30 @@ import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
 import KdvCalculator from "@/components/calculators/KdvCalculator";
 
-export const metadata: Metadata = {
-  title: "KDV Hesaplama",
-  description:
-    "KDV dahil veya KDV hariç tutarı ücretsiz hesaplayın. %1, %10 ve %20 oranlarıyla hızlı KDV hesaplama aracı.",
-  alternates: {
-    canonical: "/hesaplamalar/kdv-hesaplama",
-  },
-  openGraph: {
-    title: "KDV Hesaplama | HesapRehberi",
-    description:
-      "KDV dahil ve hariç tutarı saniyeler içinde ücretsiz hesaplayın.",
-    url: "/hesaplamalar/kdv-hesaplama",
-    type: "website",
-  },
-};
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
+
+const canonicalPath = "/hesaplamalar/kdv-hesaplama";
+
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `${canonicalPath} adresine ait hesaplama bilgisi data/calculators.ts dosyasında bulunamadı.`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
 
 export default function KdvHesaplamaPage() {
   return (
@@ -31,28 +40,27 @@ export default function KdvHesaplamaPage() {
               href: "/hesaplamalar",
             },
             {
-              label: "KDV Hesaplama",
+              label: calculator.title,
             },
           ]}
         />
 
         <div className="mb-12 text-center">
           <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            Vergi Hesaplama
+            {calculator.category}
           </span>
 
           <h1 className="mt-6 text-4xl font-bold text-slate-900 md:text-5xl">
-            KDV Hesaplama
+            {calculator.title}
           </h1>
 
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-            KDV dahil ve KDV hariç tutarı anında hesaplayın. %1, %10 ve %20
-            KDV oranları desteklenmektedir.
+            {calculator.description}
           </p>
 
           <ShareButtons
-            title="KDV Hesaplama | HesapRehberi"
-            description="KDV dahil ve KDV hariç tutarı ücretsiz hesaplayın."
+            title={`${calculator.title} | HesapRehberi`}
+            description={calculator.description}
           />
         </div>
 

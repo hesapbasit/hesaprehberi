@@ -1,270 +1,185 @@
 import type { Metadata } from "next";
 
+import CalculatorLayout, {
+  type CalculatorContentSection,
+  type CalculatorFaqItem,
+} from "@/components/calculators/CalculatorLayout";
 import AgeCalculator from "@/components/calculators/AgeCalculator";
-import Breadcrumb from "@/components/common/Breadcrumb";
-import ShareButtons from "@/components/common/ShareButtons";
-import StructuredData from "@/components/common/StructuredData";
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
 
-const baseUrl = "https://hesaprehberi.vercel.app";
-const pageUrl = `${baseUrl}/hesaplamalar/yas-hesaplama`;
+const canonicalPath = "/hesaplamalar/yas-hesaplama";
 
-export const metadata: Metadata = {
-  title: "Yaş Hesaplama",
-  description:
-    "Doğum tarihinizi girerek yaşınızı yıl, ay ve gün olarak hesaplayın. Toplam yaşadığınız gün sayısını ve sonraki doğum gününe kalan süreyi öğrenin.",
-  alternates: {
-    canonical: "/hesaplamalar/yas-hesaplama",
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `Yaş hesaplama aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
+
+const contentSections: CalculatorContentSection[] = [
+  {
+    title: "Yaş nasıl hesaplanır?",
+    paragraphs: [
+      "Yaş hesaplama işleminde doğum tarihi ile yaşın hesaplanacağı tarih arasındaki fark dikkate alınır.",
+      "Önce tamamlanan yıllar, ardından son doğum gününden sonra geçen tam aylar ve kalan günler belirlenir.",
+      "Örneğin 15 Mart 2000 tarihinde doğan bir kişi, 15 Mart 2026 tarihinde tam 26 yaşındadır. Hesaplama tarihi doğum gününden önceyse tamamlanan yaş bir eksik olur.",
+    ],
   },
-  openGraph: {
-    title: "Yaş Hesaplama | HesapRehberi",
-    description:
-      "Doğum tarihinize göre tam yaşınızı, toplam gün sayısını ve sonraki doğum gününe kalan süreyi hesaplayın.",
-    url: "/hesaplamalar/yas-hesaplama",
-    type: "website",
+  {
+    title: "Yaş hesaplamada yıl, ay ve gün",
+    paragraphs: [
+      "Yalnızca doğum yılına bakmak tam yaş sonucunu vermeyebilir.",
+      "Doğum ayı ve günü henüz gelmediyse kişi yeni yaşını tamamlamamış kabul edilir.",
+    ],
+    cards: [
+      {
+        title: "Tamamlanan yıl",
+        description:
+          "Doğum tarihinden hesaplama tarihine kadar geçen tam yaş sayısını gösterir.",
+      },
+      {
+        title: "Kalan ay",
+        description:
+          "Son tamamlanan yaştan sonra geçen tam ay sayısını gösterir.",
+      },
+      {
+        title: "Kalan gün",
+        description:
+          "Tam yıllar ve aylardan sonra kalan gün sayısını gösterir.",
+      },
+    ],
   },
-};
+  {
+    title: "Toplam yaşanan gün sayısı nasıl bulunur?",
+    paragraphs: [
+      "Toplam yaşanan gün sayısı, doğum tarihi ile seçilen hesaplama tarihi arasındaki takvim günü farkı üzerinden bulunur.",
+      "Artık yıllarda bulunan 29 Şubat tarihleri de hesaplamaya otomatik olarak dahil edilir.",
+      "Saat bilgileri kullanılmadığı için sonuç seçilen takvim tarihleri arasındaki gün farkını ifade eder.",
+    ],
+  },
+  {
+    title: "Sonraki doğum gününe kalan süre",
+    paragraphs: [
+      "Hesaplayıcı, seçilen hesaplama tarihinden sonraki doğum gününü belirleyerek kalan süreyi gösterebilir.",
+      "Doğum günü hesaplama tarihiyle aynı günse yeni yaş tamamlanmış kabul edilir ve sonraki doğum günü bir sonraki yıl üzerinden hesaplanır.",
+    ],
+  },
+];
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${pageUrl}/#webpage`,
-      url: pageUrl,
-      name: "Yaş Hesaplama",
-      description:
-        "Doğum tarihinizi girerek yaşınızı yıl, ay ve gün olarak hesaplayın. Toplam yaşadığınız gün sayısını ve sonraki doğum gününe kalan süreyi öğrenin.",
-      inLanguage: "tr-TR",
-      isPartOf: {
-        "@id": `${baseUrl}/#website`,
-      },
-      about: {
-        "@id": `${baseUrl}/#organization`,
-      },
-      breadcrumb: {
-        "@id": `${pageUrl}/#breadcrumb`,
-      },
-      mainEntity: {
-        "@id": `${pageUrl}/#faq`,
-      },
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": `${pageUrl}/#breadcrumb`,
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Ana Sayfa",
-          item: baseUrl,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Hesaplamalar",
-          item: `${baseUrl}/hesaplamalar`,
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Yaş Hesaplama",
-          item: pageUrl,
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": `${pageUrl}/#faq`,
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "Yaş yalnızca doğum yılına göre hesaplanabilir mi?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Tam yaş için doğum yılıyla birlikte ay ve gün bilgilerinin de dikkate alınması gerekir.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Doğum günü bugünse yeni yaş tamamlanmış olur mu?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Evet. Hesaplama tarihi doğum gününüzle aynı tarihe geldiğinde yeni yaşınız tamamlanmış kabul edilir.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Toplam yaşanan gün sayısı kesin midir?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Araç, seçilen iki tarih arasındaki takvim günlerini hesaplar. Saat farkları dikkate alınmaz.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Gelecekteki bir tarihte kaç yaşında olacağımı hesaplayabilir miyim?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Evet. Hesaplama tarihini gelecekteki bir gün olarak seçerek o tarihteki yaşınızı öğrenebilirsiniz.",
-          },
-        },
-      ],
-    },
-  ],
-};
+const faqItems: CalculatorFaqItem[] = [
+  {
+    question: "Yaş yalnızca doğum yılına göre hesaplanabilir mi?",
+    answer:
+      "Tam yaş için doğum yılıyla birlikte doğum ayı ve gününün de dikkate alınması gerekir.",
+  },
+  {
+    question: "Doğum günü bugünse yeni yaş tamamlanmış olur mu?",
+    answer:
+      "Evet. Hesaplama tarihi doğum gününüzle aynı tarihe geldiğinde yeni yaşınız tamamlanmış kabul edilir.",
+  },
+  {
+    question: "Toplam yaşanan gün sayısı kesin midir?",
+    answer:
+      "Araç, seçilen iki tarih arasındaki takvim günlerini hesaplar. Saat ve dakika farkları dikkate alınmaz.",
+  },
+  {
+    question:
+      "Gelecekteki bir tarihte kaç yaşında olacağımı hesaplayabilir miyim?",
+    answer:
+      "Evet. Hesaplama tarihini gelecekteki bir gün olarak seçerek o tarihteki yaşınızı öğrenebilirsiniz.",
+  },
+  {
+    question: "Artık yıllar yaş hesabına dahil edilir mi?",
+    answer:
+      "Evet. Tarih sistemi 29 Şubat bulunan artık yılları otomatik olarak hesaba katar.",
+  },
+  {
+    question: "Aynı doğum tarihi için sonuç neden değişebilir?",
+    answer:
+      "Yaş sonucu seçilen hesaplama tarihine göre değişir. Bugünkü tarih yerine geçmiş veya gelecekteki bir tarih seçildiğinde farklı sonuç oluşur.",
+  },
+];
 
 export default function YasHesaplamaPage() {
   return (
-    <main className="min-h-screen bg-slate-100 py-12 md:py-16">
-      <StructuredData data={structuredData} />
+    <CalculatorLayout
+      calculator={calculator}
+      categoryClassName="bg-blue-100 text-blue-700"
+      contentSections={contentSections}
+      faqItems={faqItems}
+      warningTitle="Tarih sonucu hakkında"
+      warningText="Bu araç seçilen doğum tarihi ile hesaplama tarihi arasındaki takvim farkını gösterir. Resmî yaş, okul kaydı, sigorta, emeklilik veya hukuki işlemlerde ilgili kurumun tarih ve yaş kuralları esas alınmalıdır."
+    >
+      <AgeCalculator />
 
-      <div className="mx-auto max-w-6xl px-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "Hesaplamalar",
-              href: "/hesaplamalar",
-            },
-            {
-              label: "Yaş Hesaplama",
-            },
-          ]}
-        />
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">
+          Örnek yaş hesaplaması
+        </h2>
 
-        <div className="mb-12 text-center">
-          <span className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            Tarih Araçları
-          </span>
+        <p className="mt-5 max-w-5xl leading-8 text-slate-600">
+          15 Mart 2000 tarihinde doğan bir kişi için hesaplama tarihi
+          15 Mart 2026 olarak seçildiğinde tamamlanan yaş 26 olur.
+          Hesaplama tarihi 14 Mart 2026 seçilirse kişi henüz 26 yaşını
+          tamamlamadığı için sonuç 25 yıl olarak gösterilir.
+        </p>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Yaş Hesaplama
-          </h1>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Doğum tarihi
+            </p>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Doğum tarihinizi seçerek tam yaşınızı yıl, ay ve gün olarak
-            hesaplayın. Yaşadığınız toplam gün sayısını ve sonraki doğum
-            gününüze kalan süreyi görüntüleyin.
-          </p>
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              15 Mart 2000
+            </p>
+          </article>
 
-          <ShareButtons
-            title="Yaş Hesaplama | HesapRehberi"
-            description="Doğum tarihinize göre yaşınızı yıl, ay ve gün olarak ücretsiz hesaplayın."
-          />
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Hesaplama tarihi
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              15 Mart 2026
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-blue-200 bg-blue-50 p-6">
+            <p className="text-sm font-medium text-blue-700">
+              Geçen süre
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-blue-900">
+              26 tam yıl
+            </p>
+          </article>
+
+          <article className="rounded-2xl bg-blue-600 p-6 text-white">
+            <p className="text-sm font-medium text-blue-100">
+              Tamamlanan yaş
+            </p>
+
+            <p className="mt-2 text-xl font-bold">
+              26 yaş
+            </p>
+          </article>
         </div>
-
-        <AgeCalculator />
-
-        <section className="mt-16 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Yaş Nasıl Hesaplanır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Yaş hesaplama işleminde doğum tarihi ile yaşın hesaplanacağı tarih
-            arasındaki fark dikkate alınır. Önce tamamlanan yıllar, ardından
-            kalan ay ve gün sayısı belirlenir.
-          </p>
-
-          <p className="mt-5 leading-8 text-slate-600">
-            Örneğin 15 Mart 2000 tarihinde doğan bir kişi, 15 Mart 2026
-            tarihinde tam 26 yaşındadır. Hesaplama tarihi doğum gününden önceyse
-            tamamlanan yaş bir eksik olur.
-          </p>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Yaş Hesaplamada Yıl, Ay ve Gün
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Yalnızca doğum yılına bakmak tam yaş sonucunu vermeyebilir. Doğum
-            ayı ve günü henüz gelmediyse kişi yeni yaşını tamamlamamış kabul
-            edilir.
-          </p>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <p className="text-sm font-medium text-slate-500">
-                Tamamlanan Yıl
-              </p>
-
-              <p className="mt-2 text-lg font-semibold text-slate-900">
-                Geçen tam yaş sayısını gösterir.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <p className="text-sm font-medium text-slate-500">Kalan Ay</p>
-
-              <p className="mt-2 text-lg font-semibold text-slate-900">
-                Son doğum gününden sonra geçen tam ayı gösterir.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-100 p-6">
-              <p className="text-sm font-medium text-slate-500">Kalan Gün</p>
-
-              <p className="mt-2 text-lg font-semibold text-slate-900">
-                Tam aylardan sonra kalan gün sayısını gösterir.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Sık Sorulan Sorular
-          </h2>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Yaş yalnızca doğum yılına göre hesaplanabilir mi?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Tam yaş için doğum yılıyla birlikte ay ve gün bilgilerinin de
-                dikkate alınması gerekir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Doğum günü bugünse yeni yaş tamamlanmış olur mu?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Evet. Hesaplama tarihi doğum gününüzle aynı tarihe geldiğinde
-                yeni yaşınız tamamlanmış kabul edilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Toplam yaşanan gün sayısı kesin midir?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Araç, seçilen iki tarih arasındaki takvim günlerini hesaplar.
-                Saat farkları dikkate alınmaz.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Gelecekteki bir tarihte kaç yaşında olacağımı hesaplayabilir
-                miyim?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Evet. Hesaplama tarihini gelecekteki bir gün olarak seçerek o
-                tarihteki yaşınızı öğrenebilirsiniz.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+      </section>
+    </CalculatorLayout>
   );
 }

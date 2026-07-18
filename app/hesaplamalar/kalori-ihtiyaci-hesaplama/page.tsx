@@ -1,127 +1,199 @@
 import type { Metadata } from "next";
 
+import CalculatorLayout, {
+  type CalculatorContentSection,
+  type CalculatorFaqItem,
+} from "@/components/calculators/CalculatorLayout";
 import CalorieCalculator from "@/components/calculators/CalorieCalculator";
-import Breadcrumb from "@/components/common/Breadcrumb";
-import ShareButtons from "@/components/common/ShareButtons";
+import {
+  getCalculatorByHref,
+  type CalculatorItem,
+} from "@/data/calculators";
+import { createCalculatorMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Günlük Kalori İhtiyacı Hesaplama",
-  description:
-    "Yaş, boy, kilo ve aktivite seviyenize göre günlük kalori ihtiyacınızı hesaplayın.",
-  alternates: {
-    canonical: "/hesaplamalar/kalori-ihtiyaci-hesaplama",
-  },
-  openGraph: {
-    title: "Günlük Kalori İhtiyacı Hesaplama | HesapRehberi",
-    description:
-      "Günlük kalori ihtiyacınızı ücretsiz hesaplayın.",
-    url: "/hesaplamalar/kalori-ihtiyaci-hesaplama",
-    type: "website",
-  },
-};
+const canonicalPath =
+  "/hesaplamalar/kalori-ihtiyaci-hesaplama";
 
-export default function Page() {
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator =
+    getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `Kalori ihtiyacı hesaplama aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
+
+export const metadata: Metadata =
+  createCalculatorMetadata(calculator);
+
+const contentSections: CalculatorContentSection[] = [
+  {
+    title: "Günlük kalori ihtiyacı nasıl hesaplanır?",
+    paragraphs: [
+      "Günlük kalori ihtiyacı hesaplanırken önce bazal metabolizma hızı belirlenir.",
+      "Bazal metabolizma hızı, vücudun dinlenme hâlindeyken solunum, dolaşım ve vücut sıcaklığını koruma gibi temel işlevler için harcadığı yaklaşık enerji miktarıdır.",
+      "Daha sonra bazal metabolizma değeri kişinin günlük hareket ve egzersiz düzeyini temsil eden aktivite katsayısıyla çarpılır.",
+    ],
+    formula:
+      "Günlük kalori ihtiyacı = Bazal metabolizma hızı × Aktivite katsayısı",
+  },
+  {
+    title: "Mifflin-St Jeor formülü nedir?",
+    paragraphs: [
+      "Bu araç günlük kalori ihtiyacını tahmin ederken yaygın olarak kullanılan Mifflin-St Jeor formülünü temel alır.",
+      "Formülde yaş, cinsiyet, boy ve kilo bilgileri kullanılarak önce bazal metabolizma hızı hesaplanır.",
+      "Hesaplanan bazal metabolizma değeri aktivite seviyesiyle birlikte değerlendirilerek günlük toplam enerji ihtiyacı tahmin edilir.",
+    ],
+  },
+  {
+    title: "Aktivite seviyesi sonucu nasıl etkiler?",
+    paragraphs: [
+      "Gün içinde daha fazla hareket eden veya düzenli egzersiz yapan kişilerin enerji ihtiyacı genellikle daha yüksektir.",
+      "Masa başında çalışan ve az hareket eden bir kişiyle haftada birkaç gün yoğun egzersiz yapan bir kişinin günlük kalori ihtiyacı aynı olmayabilir.",
+    ],
+    cards: [
+      {
+        title: "Hareketsiz yaşam",
+        description:
+          "Günlük hareketin ve düzenli egzersizin çok az olduğu yaşam biçimidir.",
+      },
+      {
+        title: "Hafif aktif",
+        description:
+          "Haftada birkaç gün hafif egzersiz veya düzenli günlük hareket içerir.",
+      },
+      {
+        title: "Orta düzey aktif",
+        description:
+          "Haftada birkaç gün orta yoğunlukta egzersiz yapan kişileri ifade eder.",
+      },
+      {
+        title: "Çok aktif",
+        description:
+          "Yoğun egzersiz yapan veya fiziksel olarak hareketli bir işte çalışan kişileri kapsar.",
+      },
+    ],
+  },
+  {
+    title: "Kalori sonucu nasıl değerlendirilmelidir?",
+    paragraphs: [
+      "Hesaplama sonucu mevcut kilonuzu korumak için gereken yaklaşık günlük enerji miktarını gösterir.",
+      "Gerçek ihtiyaç; kas oranı, vücut yağ oranı, uyku düzeni, hormonlar, sağlık durumu ve egzersiz yoğunluğu gibi birçok etkene göre değişebilir.",
+      "Kilo verme veya kilo alma hedeflerinde yalnızca kalori miktarı değil, besinlerin kalitesi ve günlük protein, karbonhidrat, yağ dağılımı da önemlidir.",
+    ],
+  },
+];
+
+const faqItems: CalculatorFaqItem[] = [
+  {
+    question: "Kalori ihtiyacı her gün aynı mıdır?",
+    answer:
+      "Hayır. Günlük hareket miktarı, egzersiz süresi ve yoğunluğu nedeniyle kalori ihtiyacı günden güne değişebilir.",
+  },
+  {
+    question: "Kilo vermek için kaç kalori almalıyım?",
+    answer:
+      "Kilo vermek için genellikle günlük enerji ihtiyacının altında kalori alınması gerekir. Ancak uygun kalori açığı kişiden kişiye değişir ve sağlık uzmanı desteğiyle belirlenmelidir.",
+  },
+  {
+    question: "Günde 500 kalori açık vermek uygun mudur?",
+    answer:
+      "Yaklaşık 500 kalorilik günlük açık bazı kişilerde kontrollü kilo kaybı için kullanılabilir. Ancak herkes için uygun olmayabilir ve kişisel sağlık durumu dikkate alınmalıdır.",
+  },
+  {
+    question: "Bu hesaplama sonucu kesin midir?",
+    answer:
+      "Hayır. Hesaplama yaş, boy, kilo, cinsiyet ve aktivite seviyesine dayalı yaklaşık bir tahmin üretir.",
+  },
+  {
+    question: "Bazal metabolizma ile kalori ihtiyacı aynı şey midir?",
+    answer:
+      "Hayır. Bazal metabolizma vücudun dinlenme hâlindeki temel enerji harcamasıdır. Günlük kalori ihtiyacı ise hareket ve egzersiz de dahil edilerek hesaplanır.",
+  },
+  {
+    question: "Kilo almak için ne kadar kalori almalıyım?",
+    answer:
+      "Kilo almak için günlük enerji ihtiyacının üzerinde kalori alınması gerekir. Uygun fazlalık, hedefe ve sağlık durumuna göre kişisel olarak belirlenmelidir.",
+  },
+];
+
+export default function KaloriIhtiyaciHesaplamaPage() {
   return (
-    <main className="min-h-screen bg-slate-100 py-12 md:py-16">
-      <div className="mx-auto max-w-6xl px-6">
-        <Breadcrumb
-          items={[
-            {
-              label: "Hesaplamalar",
-              href: "/hesaplamalar",
-            },
-            {
-              label: "Kalori İhtiyacı Hesaplama",
-            },
-          ]}
-        />
+    <CalculatorLayout
+      calculator={calculator}
+      categoryClassName="bg-orange-100 text-orange-700"
+      contentSections={contentSections}
+      faqItems={faqItems}
+      warningTitle="Sağlık bilgilendirmesi"
+      warningText="Bu araç yalnızca genel bir kalori tahmini sunar. Sonuçlar tıbbi tanı, tedavi veya kişiye özel beslenme planı yerine geçmez. Kilo verme, kilo alma veya sağlık durumunuza uygun beslenme hedefi için doktor ya da diyetisyene danışmanız önerilir."
+    >
+      <CalorieCalculator />
 
-        <div className="mb-12 text-center">
-          <span className="inline-flex rounded-full bg-orange-100 px-4 py-2 text-sm font-semibold text-orange-700">
-            Sağlık Araçları
-          </span>
+      <section className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">
+          Örnek günlük kalori değerlendirmesi
+        </h2>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-            Günlük Kalori İhtiyacı Hesaplama
-          </h1>
+        <p className="mt-5 max-w-5xl leading-8 text-slate-600">
+          Bazal metabolizma hızı 1.600 kcal olarak hesaplanan orta düzey
+          aktif bir kişinin aktivite katsayısı 1,55 kabul edilirse günlük
+          tahmini kalori ihtiyacı 2.480 kcal olur.
+        </p>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Yaş, cinsiyet, boy, kilo ve aktivite seviyenize göre günlük
-            kalori ihtiyacınızı hesaplayın.
-          </p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Bazal metabolizma
+            </p>
 
-          <ShareButtons
-            title="Günlük Kalori İhtiyacı Hesaplama | HesapRehberi"
-            description="Günlük kalori ihtiyacınızı ücretsiz hesaplayın."
-          />
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              1.600 kcal
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <p className="text-sm font-medium text-slate-500">
+              Aktivite düzeyi
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-slate-900">
+              Orta aktif
+            </p>
+          </article>
+
+          <article className="rounded-2xl border border-orange-200 bg-orange-50 p-6">
+            <p className="text-sm font-medium text-orange-700">
+              Aktivite katsayısı
+            </p>
+
+            <p className="mt-2 text-xl font-bold text-orange-900">
+              1,55
+            </p>
+          </article>
+
+          <article className="rounded-2xl bg-orange-600 p-6 text-white">
+            <p className="text-sm font-medium text-orange-100">
+              Günlük ihtiyaç
+            </p>
+
+            <p className="mt-2 text-xl font-bold">
+              2.480 kcal
+            </p>
+          </article>
         </div>
 
-        <CalorieCalculator />
-
-        <section className="mt-16 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Günlük Kalori İhtiyacı Nasıl Hesaplanır?
-          </h2>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Hesaplama Mifflin-St Jeor formülünü temel alır. Önce bazal
-            metabolizma hızı (BMR) hesaplanır, ardından aktivite seviyesine
-            göre günlük enerji ihtiyacı tahmin edilir.
+        <div className="mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-6">
+          <p className="font-semibold leading-7 text-orange-900">
+            1.600 × 1,55 = 2.480 kcal
           </p>
-
-          <div className="mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-6">
-            <p className="font-semibold text-orange-900">
-              Günlük Kalori = BMR × Aktivite Katsayısı
-            </p>
-          </div>
-
-          <p className="mt-6 leading-8 text-slate-600">
-            Sonuçlar yaklaşık değerlerdir. Spor yoğunluğu, kas oranı,
-            metabolizma hızı ve sağlık durumu gerçek ihtiyacınızı
-            değiştirebilir.
-          </p>
-        </section>
-
-        <section className="mt-10 rounded-3xl bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-bold text-slate-900">
-            Sık Sorulan Sorular
-          </h2>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Kalori ihtiyacı her gün aynı mıdır?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Hayır. Günlük hareket miktarı ve egzersize göre değişebilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Kilo vermek için kaç kalori almalıyım?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Genellikle günlük ihtiyacın yaklaşık 500 kcal altında
-                beslenmek kontrollü kilo kaybı için tercih edilir.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-slate-900">
-                Bu sonuç kesin midir?
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                Hayır. Hesaplama tahmini sonuç üretir ve tıbbi tavsiye yerine
-                geçmez.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+        </div>
+      </section>
+    </CalculatorLayout>
   );
 }

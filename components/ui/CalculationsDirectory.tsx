@@ -1,217 +1,57 @@
 "use client";
 
-import {
-  Activity,
-  BadgePercent,
-  Banknote,
-  Briefcase,
-  CalendarDays,
-  CalendarRange,
-  ChartNoAxesColumn,
-  Droplets,
-  Flame,
-  Gauge,
-  HeartPulse,
-  House,
-  Landmark,
-  Percent,
-  PiggyBank,
-  Receipt,
-  Scale,
-  Search,
-  TrendingUp,
-  Wallet,
-} from "lucide-react";
+import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import CategoryCard from "@/components/ui/CategoryCard";
+import {
+  calculators,
+  type CalculatorCategory,
+} from "@/data/calculators";
 
-const calculations = [
-  {
-    title: "Kredi Hesaplama",
-    description:
-      "Aylık taksit, toplam faiz ve toplam geri ödeme tutarını hesaplayın.",
-    category: "Kredi",
-    icon: Wallet,
-    href: "/hesaplamalar/kredi-hesaplama",
-  },
-  {
-    title: "KDV Hesaplama",
-    description:
-      "KDV dahil, KDV hariç ve KDV tutarını kolayca hesaplayın.",
-    category: "Vergi",
-    icon: Receipt,
-    href: "/hesaplamalar/kdv-hesaplama",
-  },
-  {
-    title: "2026 Gelir Vergisi Hesaplama",
-    description:
-      "2026 vergi dilimlerine göre yaklaşık gelir vergisi tutarını hesaplayın.",
-    category: "Vergi",
-    icon: Landmark,
-    href: "/hesaplamalar/gelir-vergisi-hesaplama",
-  },
-  {
-    title: "Faiz Hesaplama",
-    description:
-      "Basit ve bileşik faiz getirisini saniyeler içinde hesaplayın.",
-    category: "Yatırım",
-    icon: TrendingUp,
-    href: "/hesaplamalar/faiz-hesaplama",
-  },
-  {
-    title: "Maaş Hesaplama",
-    description:
-      "Brüt maaştan yaklaşık net maaş ve kesintileri hesaplayın.",
-    category: "Maaş",
-    icon: Briefcase,
-    href: "/hesaplamalar/maas-hesaplama",
-  },
-  {
-    title: "Döviz Hesaplama",
-    description:
-      "Döviz ve Türk lirası arasında kur üzerinden çeviri yapın.",
-    category: "Döviz",
-    icon: Banknote,
-    href: "/hesaplamalar/doviz-hesaplama",
-  },
-  {
-    title: "Enflasyon Hesaplama",
-    description:
-      "Paranızın enflasyon sonrasındaki alım gücünü hesaplayın.",
-    category: "Finans",
-    icon: ChartNoAxesColumn,
-    href: "/hesaplamalar/enflasyon-hesaplama",
-  },
-  {
-    title: "Mevduat Faizi Hesaplama",
-    description:
-      "Ana para, faiz oranı, vade ve stopaja göre net mevduat getirisini hesaplayın.",
-    category: "Finans",
-    icon: PiggyBank,
-    href: "/hesaplamalar/mevduat-faizi-hesaplama",
-  },
-  {
-    title: "Yüzde Hesaplama",
-    description:
-      "Yüzde, artış, azalış ve iki değer arasındaki yüzde değişimini hesaplayın.",
-    category: "Matematik",
-    icon: Percent,
-    href: "/hesaplamalar/yuzde-hesaplama",
-  },
-  {
-    title: "İndirim Hesaplama",
-    description:
-      "İndirim tutarını, indirimli fiyatı ve toplam tasarrufu hesaplayın.",
-    category: "Alışveriş",
-    icon: BadgePercent,
-    href: "/hesaplamalar/indirim-hesaplama",
-  },
-  {
-    title: "Yaş Hesaplama",
-    description:
-      "Doğum tarihinize göre yaşınızı yıl, ay ve gün olarak hesaplayın.",
-    category: "Tarih",
-    icon: CalendarDays,
-    href: "/hesaplamalar/yas-hesaplama",
-  },
-  {
-    title: "Gün Hesaplama",
-    description:
-      "İki tarih arasındaki toplam gün, hafta ve kalan gün sayısını hesaplayın.",
-    category: "Tarih",
-    icon: CalendarRange,
-    href: "/hesaplamalar/gun-hesaplama",
-  },
-  {
-    title: "VKİ Hesaplama",
-    description:
-      "Boy ve kilo bilgilerinize göre vücut kitle indeksinizi hesaplayın.",
-    category: "Sağlık",
-    icon: Activity,
-    href: "/hesaplamalar/vki-hesaplama",
-  },
-  {
-    title: "İdeal Kilo Hesaplama",
-    description:
-      "Boyunuza ve cinsiyetinize göre tahmini ideal kilonuzu ve sağlıklı kilo aralığınızı hesaplayın.",
-    category: "Sağlık",
-    icon: Scale,
-    href: "/hesaplamalar/ideal-kilo-hesaplama",
-  },
-  {
-    title: "Vücut Yağ Oranı Hesaplama",
-    description:
-      "Boy, boyun, bel ve kalça ölçülerinize göre tahmini vücut yağ oranınızı hesaplayın.",
-    category: "Sağlık",
-    icon: HeartPulse,
-    href: "/hesaplamalar/vucut-yag-orani-hesaplama",
-  },
-  {
-    title: "Günlük Su İhtiyacı Hesaplama",
-    description:
-      "Kilonuz ve aktivite seviyenize göre günlük tahmini su ihtiyacınızı hesaplayın.",
-    category: "Sağlık",
-    icon: Droplets,
-    href: "/hesaplamalar/su-ihtiyaci-hesaplama",
-  },
-  {
-    title: "Günlük Kalori İhtiyacı Hesaplama",
-    description:
-      "Yaş, boy, kilo ve aktivite seviyenize göre günlük kalori ihtiyacınızı hesaplayın.",
-    category: "Sağlık",
-    icon: Flame,
-    href: "/hesaplamalar/kalori-ihtiyaci-hesaplama",
-  },
-  {
-    title: "Bazal Metabolizma Hızı Hesaplama",
-    description:
-      "Yaş, cinsiyet, boy ve kilonuza göre bazal metabolizma hızınızı hesaplayın.",
-    category: "Sağlık",
-    icon: Gauge,
-    href: "/hesaplamalar/bazal-metabolizma-hesaplama",
-  },
-  {
-    title: "Kira Artış Hesaplama",
-    description:
-      "Mevcut kira tutarına göre yeni kira bedelini ve artış miktarını hesaplayın.",
-    category: "Konut",
-    icon: House,
-    href: "/hesaplamalar/kira-artis-hesaplama",
-  },
-];
+type CategoryFilter = "Tümü" | CalculatorCategory;
 
-const categories = [
-  "Tümü",
-  "Kredi",
-  "Vergi",
-  "Yatırım",
-  "Maaş",
-  "Döviz",
-  "Finans",
-  "Matematik",
-  "Alışveriş",
-  "Tarih",
-  "Sağlık",
-  "Konut",
-];
+function getInitialQuery(): string {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  const searchParams = new URLSearchParams(window.location.search);
+
+  return searchParams.get("arama") ?? "";
+}
 
 export default function CalculationsDirectory() {
-  const [query, setQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Tümü");
+  const [query, setQuery] = useState(getInitialQuery);
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryFilter>("Tümü");
+
+  const categories = useMemo<CategoryFilter[]>(() => {
+    const availableCategories = Array.from(
+      new Set(calculators.map((calculator) => calculator.category)),
+    );
+
+    return ["Tümü", ...availableCategories];
+  }, []);
 
   const filteredCalculations = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
 
-    return calculations.filter((calculation) => {
+    return calculators.filter((calculator) => {
       const matchesCategory =
         selectedCategory === "Tümü" ||
-        calculation.category === selectedCategory;
+        calculator.category === selectedCategory;
 
-      const searchableText =
-        `${calculation.title} ${calculation.description} ${calculation.category}`.toLocaleLowerCase(
-          "tr-TR"
-        );
+      const searchableText = [
+        calculator.title,
+        calculator.shortTitle,
+        calculator.description,
+        calculator.category,
+        ...calculator.keywords,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLocaleLowerCase("tr-TR");
 
       const matchesQuery =
         normalizedQuery.length === 0 ||
@@ -221,11 +61,38 @@ export default function CalculationsDirectory() {
     });
   }, [query, selectedCategory]);
 
+  function removeSearchParameter() {
+    const currentUrl = new URL(window.location.href);
+
+    currentUrl.searchParams.delete("arama");
+
+    window.history.replaceState(
+      {},
+      "",
+      `${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`,
+    );
+  }
+
+  function clearQuery() {
+    setQuery("");
+    removeSearchParameter();
+  }
+
+  function clearFilters() {
+    setQuery("");
+    setSelectedCategory("Tümü");
+    removeSearchParameter();
+  }
+
   return (
     <>
       <div className="mx-auto mt-10 max-w-3xl">
         <div className="flex items-center rounded-2xl border border-slate-300 bg-white px-5 shadow-lg transition focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-100">
-          <Search className="shrink-0 text-slate-400" size={22} />
+          <Search
+            className="shrink-0 text-slate-400"
+            size={22}
+            aria-hidden="true"
+          />
 
           <input
             type="search"
@@ -235,6 +102,17 @@ export default function CalculationsDirectory() {
             aria-label="Hesaplama ara"
             className="w-full bg-transparent px-4 py-5 text-lg text-slate-900 outline-none placeholder:text-slate-400"
           />
+
+          {query.length > 0 && (
+            <button
+              type="button"
+              onClick={clearQuery}
+              className="shrink-0 rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+              aria-label="Aramayı temizle"
+            >
+              Temizle
+            </button>
+          )}
         </div>
       </div>
 
@@ -247,6 +125,7 @@ export default function CalculationsDirectory() {
               key={category}
               type="button"
               onClick={() => setSelectedCategory(category)}
+              aria-pressed={isActive}
               className={`rounded-xl px-5 py-3 font-semibold transition ${
                 isActive
                   ? "bg-blue-600 text-white shadow-md"
@@ -260,9 +139,24 @@ export default function CalculationsDirectory() {
       </div>
 
       <div className="mt-14">
-        <p className="mb-6 text-sm font-medium text-slate-500">
-          {filteredCalculations.length} hesaplama aracı bulundu
-        </p>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+          <p
+            className="text-sm font-medium text-slate-500"
+            aria-live="polite"
+          >
+            {filteredCalculations.length} hesaplama aracı bulundu
+          </p>
+
+          {(query.length > 0 || selectedCategory !== "Tümü") && (
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="text-sm font-semibold text-blue-600 transition hover:text-blue-800"
+            >
+              Tüm filtreleri temizle
+            </button>
+          )}
+        </div>
 
         {filteredCalculations.length > 0 ? (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -277,7 +171,11 @@ export default function CalculationsDirectory() {
           </div>
         ) : (
           <div className="rounded-3xl border border-slate-200 bg-white p-12 text-center shadow-sm">
-            <Search className="mx-auto text-slate-300" size={42} />
+            <Search
+              className="mx-auto text-slate-300"
+              size={42}
+              aria-hidden="true"
+            />
 
             <h2 className="mt-5 text-2xl font-bold text-slate-900">
               Sonuç bulunamadı
@@ -289,10 +187,7 @@ export default function CalculationsDirectory() {
 
             <button
               type="button"
-              onClick={() => {
-                setQuery("");
-                setSelectedCategory("Tümü");
-              }}
+              onClick={clearFilters}
               className="mt-6 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700"
             >
               Filtreleri Temizle
