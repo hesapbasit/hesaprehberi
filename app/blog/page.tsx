@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   ArrowRight,
   Banknote,
@@ -6,7 +7,6 @@ import {
   Landmark,
   ReceiptText,
 } from "lucide-react";
-import Link from "next/link";
 
 import Breadcrumb from "@/components/common/Breadcrumb";
 
@@ -88,9 +88,12 @@ export default function BlogPage() {
           </p>
         </section>
 
-        <section className="py-16">
+        <section className="py-16" aria-labelledby="latest-articles-title">
           <div className="mb-10">
-            <h2 className="text-3xl font-bold text-slate-900 md:text-4xl">
+            <h2
+              id="latest-articles-title"
+              className="text-3xl font-bold text-slate-900 md:text-4xl"
+            >
               Son Yazılar
             </h2>
 
@@ -105,20 +108,20 @@ export default function BlogPage() {
 
               return (
                 <article
-                  key={article.title}
+                  key={article.href}
                   className="group rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-blue-400 hover:shadow-xl"
                 >
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
-                    <Icon size={27} />
+                    <Icon size={27} aria-hidden="true" />
                   </div>
 
                   <span className="mt-6 inline-flex rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600">
                     {article.category}
                   </span>
 
-                  <h2 className="mt-5 text-2xl font-bold text-slate-900">
+                  <h3 className="mt-5 text-2xl font-bold text-slate-900">
                     {article.title}
-                  </h2>
+                  </h3>
 
                   <p className="mt-4 leading-7 text-slate-600">
                     {article.description}
@@ -127,11 +130,14 @@ export default function BlogPage() {
                   <Link
                     href={article.href}
                     className="mt-7 inline-flex items-center gap-2 font-semibold text-blue-600 transition hover:text-blue-700"
+                    aria-label={`${article.title} yazısını oku`}
                   >
                     Yazıyı Oku
+
                     <ArrowRight
                       size={18}
                       className="transition group-hover:translate-x-1"
+                      aria-hidden="true"
                     />
                   </Link>
                 </article>

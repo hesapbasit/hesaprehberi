@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/kullanim-sartlari",
   },
+  openGraph: {
+    title: "Kullanım Şartları | HesapRehberi",
+    description:
+      "HesapRehberi kullanım şartları ve hizmet kullanım koşullarını inceleyin.",
+    url: "/kullanim-sartlari",
+    type: "website",
+  },
 };
 
 export default function KullanimSartlariPage() {
@@ -24,80 +31,96 @@ export default function KullanimSartlariPage() {
         />
 
         <article className="rounded-3xl bg-white p-8 shadow-sm md:p-12">
-          <h1 className="text-4xl font-bold text-slate-900 md:text-5xl">
-            Kullanım Şartları
-          </h1>
+          <header>
+            <h1 className="text-4xl font-bold text-slate-900 md:text-5xl">
+              Kullanım Şartları
+            </h1>
 
-          <p className="mt-6 leading-8 text-slate-600">
-            HesapRehberi&apos;ni kullanarak aşağıdaki kullanım şartlarını kabul
-            etmiş olursunuz. Site üzerinde sunulan hesaplama araçları genel
-            bilgilendirme amacı taşır.
-          </p>
+            <p className="mt-6 leading-8 text-slate-600">
+              HesapRehberi&apos;ni kullanarak aşağıdaki kullanım şartlarını kabul
+              etmiş olursunuz. Site üzerinde sunulan hesaplama araçları genel
+              bilgilendirme amacı taşır.
+            </p>
+          </header>
 
-          <h2 className="mt-10 text-2xl font-bold text-slate-900">
-            Hesaplama Sonuçları
-          </h2>
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold text-slate-900">
+              Hesaplama Sonuçları
+            </h2>
 
-          <p className="mt-4 leading-8 text-slate-600">
-            Araçlar standart matematiksel formüller ve kullanıcının girdiği
-            bilgiler doğrultusunda yaklaşık sonuç üretir. Sonuçlar resmi belge,
-            finansal teklif, vergi danışmanlığı veya hukuki görüş niteliğinde
-            değildir.
-          </p>
+            <p className="mt-4 leading-8 text-slate-600">
+              Araçlar standart matematiksel formüller ve kullanıcının girdiği
+              bilgiler doğrultusunda yaklaşık sonuç üretir. Sonuçlar resmi belge,
+              finansal teklif, vergi danışmanlığı veya hukuki görüş niteliğinde
+              değildir.
+            </p>
+          </section>
 
-          <h2 className="mt-10 text-2xl font-bold text-slate-900">
-            Kullanıcı Sorumluluğu
-          </h2>
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold text-slate-900">
+              Kullanıcı Sorumluluğu
+            </h2>
 
-          <p className="mt-4 leading-8 text-slate-600">
-            Kullanıcılar girdikleri bilgilerin doğruluğundan ve hesaplama
-            sonuçlarını hangi amaçlarla kullandıklarından kendileri sorumludur.
-            Önemli kararlar verilmeden önce resmi kaynakların ve uzman görüşünün
-            dikkate alınması önerilir.
-          </p>
+            <p className="mt-4 leading-8 text-slate-600">
+              Kullanıcılar girdikleri bilgilerin doğruluğundan ve hesaplama
+              sonuçlarını hangi amaçlarla kullandıklarından kendileri
+              sorumludur. Önemli kararlar verilmeden önce resmi kaynakların ve
+              uzman görüşünün dikkate alınması önerilir.
+            </p>
+          </section>
 
-          <h2 className="mt-10 text-2xl font-bold text-slate-900">
-            İçerik Değişiklikleri
-          </h2>
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold text-slate-900">
+              İçerik Değişiklikleri
+            </h2>
 
-          <p className="mt-4 leading-8 text-slate-600">
-            HesapRehberi, hesaplama araçlarını, açıklamaları ve kullanım
-            şartlarını önceden bildirimde bulunmadan güncelleyebilir,
-            değiştirebilir veya kaldırabilir.
-          </p>
+            <p className="mt-4 leading-8 text-slate-600">
+              HesapRehberi, hesaplama araçlarını, açıklamaları ve kullanım
+              şartlarını önceden bildirimde bulunmadan güncelleyebilir,
+              değiştirebilir veya kaldırabilir.
+            </p>
+          </section>
 
-          <h2 className="mt-10 text-2xl font-bold text-slate-900">
-            Hizmetin Kesintiye Uğraması
-          </h2>
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold text-slate-900">
+              Hizmetin Kesintiye Uğraması
+            </h2>
 
-          <p className="mt-4 leading-8 text-slate-600">
-            Teknik bakım, altyapı sorunları veya üçüncü taraf hizmetlerinden
-            kaynaklanan nedenlerle siteye erişimde geçici kesintiler
-            yaşanabilir.
-          </p>
+            <p className="mt-4 leading-8 text-slate-600">
+              Teknik bakım, altyapı sorunları veya üçüncü taraf hizmetlerinden
+              kaynaklanan nedenlerle siteye erişimde geçici kesintiler
+              yaşanabilir.
+            </p>
+          </section>
 
-          <h2 className="mt-10 text-2xl font-bold text-slate-900">
-            Fikri Mülkiyet
-          </h2>
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold text-slate-900">
+              Fikri Mülkiyet
+            </h2>
 
-          <p className="mt-4 leading-8 text-slate-600">
-            Site tasarımı, marka adı, özgün metinler ve özel bileşenler ilgili
-            hak sahiplerine aittir. İzinsiz şekilde kopyalanamaz veya ticari
-            amaçla kullanılamaz.
-          </p>
+            <p className="mt-4 leading-8 text-slate-600">
+              Site tasarımı, marka adı, özgün metinler ve özel bileşenler ilgili
+              hak sahiplerine aittir. İzinsiz şekilde kopyalanamaz veya ticari
+              amaçla kullanılamaz.
+            </p>
+          </section>
 
-          <h2 className="mt-10 text-2xl font-bold text-slate-900">
-            İletişim
-          </h2>
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold text-slate-900">
+              İletişim
+            </h2>
 
-          <p className="mt-4 leading-8 text-slate-600">
-            Kullanım şartlarıyla ilgili sorularınız için iletişim sayfamız
-            üzerinden bize ulaşabilirsiniz.
-          </p>
+            <p className="mt-4 leading-8 text-slate-600">
+              Kullanım şartlarıyla ilgili sorularınız için iletişim sayfamız
+              üzerinden bize ulaşabilirsiniz.
+            </p>
+          </section>
 
-          <p className="mt-10 text-sm text-slate-500">
-            Son güncelleme: 14 Temmuz 2026
-          </p>
+          <footer className="mt-10 border-t border-slate-200 pt-6">
+            <p className="text-sm text-slate-500">
+              Son güncelleme: 14 Temmuz 2026
+            </p>
+          </footer>
         </article>
       </div>
     </main>
