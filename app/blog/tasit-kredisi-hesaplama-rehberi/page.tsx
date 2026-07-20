@@ -5,7 +5,7 @@ Calculator, CalendarClock, Car, Check, CheckCircle2, ChevronRight,
 CircleDollarSign, Clock3, FileCheck2, Gauge, HandCoins, Info, Landmark,
 ListChecks, Percent, ReceiptText, Scale, ShieldCheck, Sparkles,
 TrendingDown, TrendingUp, WalletCards, } from "lucide-react";
-import { createCalculatorMetadata } from "@/lib/createCalculatorMetada";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
 import CalculatorLayout from "@/components/calculators/CalculatorLayout";

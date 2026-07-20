@@ -4,7 +4,7 @@ import { ArrowRight, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { searchCalculators } from "@/data/calculators";
+import { searchCalculators } from "@/lib/calculators";
 
 export default function SearchBox() {
   const [query, setQuery] = useState("");

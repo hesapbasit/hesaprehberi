@@ -8,8 +8,8 @@ import BmiCalculator from "@/components/calculators/BmiCalculator";
 import {
   getCalculatorByHref,
   type CalculatorItem,
-} from "@/data/calculators";
-import { createCalculatorMetadata } from "@/lib/metadata";
+} from "@/lib/calculators";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const canonicalPath = "/hesaplamalar/vki-hesaplama";
 
@@ -28,7 +28,10 @@ function getRequiredCalculator(): CalculatorItem {
 const calculator = getRequiredCalculator();
 
 export const metadata: Metadata =
-  createCalculatorMetadata(calculator);
+  createCalculatorMetadata({
+    ...calculator,
+    path: canonicalPath,
+  });
 
 const contentSections: CalculatorContentSection[] = [
   {

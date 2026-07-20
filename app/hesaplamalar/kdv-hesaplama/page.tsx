@@ -7,8 +7,8 @@ import KdvCalculator from "@/components/calculators/KdvCalculator";
 import {
   getCalculatorByHref,
   type CalculatorItem,
-} from "@/data/calculators";
-import { createCalculatorMetadata } from "@/lib/metadata";
+} from "@/lib/calculators";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const canonicalPath = "/hesaplamalar/kdv-hesaplama";
 
@@ -27,7 +27,10 @@ function getRequiredCalculator(): CalculatorItem {
 const calculator = getRequiredCalculator();
 
 export const metadata: Metadata =
-  createCalculatorMetadata(calculator);
+  createCalculatorMetadata({
+    ...calculator,
+    path: canonicalPath,
+  });
 
 export default function KdvHesaplamaPage() {
   return (

@@ -9,8 +9,8 @@ import CalculatorLayout, {
 import {
   getCalculatorByHref,
   type CalculatorItem,
-} from "@/data/calculators";
-import { createCalculatorMetadata } from "@/lib/metadata";
+} from "@/lib/calculators";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const canonicalPath = "/hesaplamalar/faiz-hesaplama";
 
@@ -74,7 +74,10 @@ const faqItems: CalculatorFaqItem[] = [
 ];
 
 export const metadata: Metadata =
-  createCalculatorMetadata(calculator);
+  createCalculatorMetadata({
+    ...calculator,
+    path: canonicalPath,
+  });
 
 export default function FaizHesaplamaPage() {
   return (

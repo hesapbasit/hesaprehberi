@@ -25,7 +25,7 @@ import ShareButtons from "@/components/common/ShareButtons";
 import CalculatorContentSection from "@/components/calculators/CalculatorContentSection";
 import CalculatorFaqItem from "@/components/calculators/CalculatorFaqItem";
 import CalculatorLayout from "@/components/calculators/CalculatorLayout";
-import { createCalculatorMetadata } from "@/lib/createCalculatorMetada";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const PAGE_PATH = "/blog/indirim-hesaplama-rehberi";
 const PAGE_URL = `https://www.hesaprehberi.com${PAGE_PATH}`;

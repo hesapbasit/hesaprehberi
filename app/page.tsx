@@ -4,7 +4,7 @@ import Hero from "@/components/layout/Hero";
 import CategoryCard from "@/components/ui/CategoryCard";
 import HomeFaq from "@/components/ui/HomeFaq";
 import LatestArticles from "@/components/ui/LatestArticles";
-import { featuredCalculators } from "@/data/calculators";
+import { featuredCalculators } from "@/lib/calculators";
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import type { CalculatorItem } from "@/data/calculators";
+import type { CalculatorItem } from "@/lib/calculators";
 
 const baseUrl = "https://hesaprehberi.vercel.app";
 

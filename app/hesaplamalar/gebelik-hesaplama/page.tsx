@@ -16,8 +16,8 @@ import PregnancyCalculator from "@/components/calculators/PregnancyCalculator";
 import {
   getCalculatorByHref,
   type CalculatorItem,
-} from "@/data/calculators";
-import { createCalculatorMetadata } from "@/lib/metadata";
+} from "@/lib/calculators";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const canonicalPath = "/hesaplamalar/gebelik-hesaplama";
 
@@ -36,7 +36,10 @@ function getRequiredCalculator(): CalculatorItem {
 const calculator = getRequiredCalculator();
 
 export const metadata =
-  createCalculatorMetadata(calculator);
+  createCalculatorMetadata({
+    ...calculator,
+    path: canonicalPath,
+  });
 
 const faqItems: CalculatorFaqItem[] = [
   {

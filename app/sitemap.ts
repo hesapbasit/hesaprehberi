@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { calculators } from "@/data/calculators";
+import { calculators } from "@/lib/calculators";
 
 const baseUrl = "https://hesaprehberi.vercel.app";
 

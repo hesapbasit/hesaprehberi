@@ -1,0 +1,1063 @@
+
+> hesaprehberi@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 50 errors:
+./app/hesaplamalar/bazal-metabolizma-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m   [36mtype[0m [33mCalculatorFaqItem[0m,
+  [90m 7 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/doviz-hesaplama/page.tsx:9:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 7 |[0m [36mimport[0m [33mDovizCalculator[0m [36mfrom[0m [32m"@/components/calculators/DovizCalculator"[0m;
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/doviz-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/enflasyon-hesaplama/page.tsx:9:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 7 |[0m [36mimport[0m [33mEnflasyonCalculator[0m [36mfrom[0m [32m"@/components/calculators/EnflasyonCalculator"[0m;
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/enflasyon-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/faiz-hesaplama/page.tsx:9:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 7 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/faiz-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/gebelik-hesaplama/page.tsx:16:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m14 |[0m [36mimport[0m [33mPregnancyCalculator[0m [36mfrom[0m [32m"@/components/calculators/PregnancyCalculator"[0m;
+  [90m15 |[0m
+[31m[1m>[0m [90m16 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m20 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m21 |[0m
+  [90m22 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/gebelik-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/gelir-vergisi-hesaplama/page.tsx:7:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 5 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 6 |[0m [36mimport[0m [33mIncomeTaxCalculator[0m [36mfrom[0m [32m"@/components/calculators/IncomeTaxCalculator"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m12 |[0m
+  [90m13 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/gun-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mDayCalculator[0m [36mfrom[0m [32m"@/components/calculators/DayCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/gun-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/ideal-kilo-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mIdealWeightCalculator[0m [36mfrom[0m [32m"@/components/calculators/IdealWeightCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/indirim-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mDiscountCalculator[0m [36mfrom[0m [32m"@/components/calculators/DiscountCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/indirim-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kalori-ihtiyaci-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mCalorieCalculator[0m [36mfrom[0m [32m"@/components/calculators/CalorieCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kdv-hesaplama/page.tsx:7:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 5 |[0m [36mimport[0m [33mKdvCalculator[0m [36mfrom[0m [32m"@/components/calculators/KdvCalculator"[0m;
+  [90m 6 |[0m
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m12 |[0m
+  [90m13 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/kdv-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kira-artis-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mRentIncreaseCalculator[0m [36mfrom[0m [32m"@/components/calculators/RentIncreaseCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kredi-hesaplama/page.tsx:6:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 4 |[0m [36mimport[0m [33mBreadcrumb[0m [36mfrom[0m [32m"@/components/common/Breadcrumb"[0m;
+  [90m 5 |[0m [36mimport[0m [33mShareButtons[0m [36mfrom[0m [32m"@/components/common/ShareButtons"[0m;
+[31m[1m>[0m [90m 6 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m10 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m11 |[0m
+  [90m12 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/kredi-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/maas-hesaplama/page.tsx:9:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 7 |[0m [36mimport[0m [33mMaasCalculator[0m [36mfrom[0m [32m"@/components/calculators/MaasCalculator"[0m;
+  [90m 8 |[0m
+[31m[1m>[0m [90m 9 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/maas-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/mevduat-faizi-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mDepositInterestCalculator[0m [36mfrom[0m [32m"@/components/calculators/DepositInterestCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/su-ihtiyaci-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mWaterIntakeCalculator[0m [36mfrom[0m [32m"@/components/calculators/WaterIntakeCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/vki-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mBmiCalculator[0m [36mfrom[0m [32m"@/components/calculators/BmiCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/vki-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/vucut-yag-orani-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mBodyFatCalculator[0m [36mfrom[0m [32m"@/components/calculators/BodyFatCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/yas-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mAgeCalculator[0m [36mfrom[0m [32m"@/components/calculators/AgeCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/yas-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/yuzde-hesaplama/page.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m } [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+  [90m 7 |[0m [36mimport[0m [33mPercentageCalculator[0m [36mfrom[0m [32m"@/components/calculators/PercentageCalculator"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getCalculatorByHref,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/yuzde-hesaplama"[0m;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/page.tsx:7:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 5 |[0m [36mimport[0m [33mHomeFaq[0m [36mfrom[0m [32m"@/components/ui/HomeFaq"[0m;
+  [90m 6 |[0m [36mimport[0m [33mLatestArticles[0m [36mfrom[0m [32m"@/components/ui/LatestArticles"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { featuredCalculators } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m
+  [90m 9 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mHome[0m() {
+  [90m10 |[0m   [36mreturn[0m (
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/sitemap.ts:3:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m1 |[0m [36mimport[0m [36mtype[0m { [33mMetadataRoute[0m } [36mfrom[0m [32m"next"[0m;
+  [90m2 |[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { calculators } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mconst[0m baseUrl = [32m"https://hesaprehberi.vercel.app"[0m;
+  [90m6 |[0m
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+Import trace:
+  App Route:
+    ./app/sitemap.ts
+    ./app/sitemap--route-entry.js
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/calculators/CalculatorLayout.tsx:8:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 6 |[0m [36mimport[0m [33mRelatedCalculations[0m [36mfrom[0m [32m"@/components/ui/RelatedCalculations"[0m;
+  [90m 7 |[0m
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   getRelatedCalculators,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m
+  [90m13 |[0m [36mexport[0m [36mtype[0m [33mCalculatorFaqItem[0m = {
+  [90m14 |[0m   question: string;
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./components/calculators/CalculatorLayout.tsx
+    ./app/hesaplamalar/yuzde-hesaplama/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/ui/CalculationsDirectory.tsx:7:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 5 |[0m
+  [90m 6 |[0m [36mimport[0m [33mCategoryCard[0m [36mfrom[0m [32m"@/components/ui/CategoryCard"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   calculators,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   [36mtype[0m [33mCalculatorCategory[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m
+  [90m12 |[0m [36mtype[0m [33mCategoryFilter[0m = [32m"Tümü"[0m | [33mCalculatorCategory[0m;
+  [90m13 |[0m
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./components/ui/CalculationsDirectory.tsx
+    ./app/hesaplamalar/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./components/ui/SearchBox.tsx:7:1
+Module not found: Can't resolve '@/data/calculators'
+  [90m 5 |[0m [36mimport[0m { useMemo, useState } [36mfrom[0m [32m"react"[0m;
+  [90m 6 |[0m
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { searchCalculators } [36mfrom[0m [32m"@/data/calculators"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m
+  [90m 9 |[0m [36mexport[0m [36mdefault[0m [36mfunction[0m [33mSearchBox[0m() {
+  [90m10 |[0m   [36mconst[0m [query, setQuery] = useState([32m""[0m);
+
+Import map: aliased to relative './data/calculators' inside of [project]/
+
+
+Import trace:
+  Server Component:
+    ./components/ui/SearchBox.tsx
+    ./components/layout/Hero.tsx
+    ./app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/blog/gelir-vergisi-hesaplama-rehberi/page.tsx:32:1
+Module not found: Can't resolve '@/lib/createCalculatorMetada'
+  [90m30 |[0m [36mimport[0m [33mCalculatorFaqItem[0m [36mfrom[0m [32m"@/components/calculators/CalculatorFaqItem"[0m;
+  [90m31 |[0m [36mimport[0m [33mCalculatorLayout[0m [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+[31m[1m>[0m [90m32 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/createCalculatorMetada"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m33 |[0m
+  [90m34 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/gelir-vergisi-hesaplama-rehberi"[0m;
+  [90m35 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+
+Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/blog/indirim-hesaplama-rehberi/page.tsx:28:1
+Module not found: Can't resolve '@/lib/createCalculatorMetada'
+  [90m26 |[0m [36mimport[0m [33mCalculatorFaqItem[0m [36mfrom[0m [32m"@/components/calculators/CalculatorFaqItem"[0m;
+  [90m27 |[0m [36mimport[0m [33mCalculatorLayout[0m [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+[31m[1m>[0m [90m28 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/createCalculatorMetada"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m29 |[0m
+  [90m30 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/indirim-hesaplama-rehberi"[0m;
+  [90m31 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+
+Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/blog/kira-artis-hesaplama-rehberi/page.tsx:33:1
+Module not found: Can't resolve '@/lib/createCalculatorMetada'
+  [90m31 |[0m [36mimport[0m [33mCalculatorFaqItem[0m [36mfrom[0m [32m"@/components/calculators/CalculatorFaqItem"[0m;
+  [90m32 |[0m [36mimport[0m [33mCalculatorLayout[0m [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+[31m[1m>[0m [90m33 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/createCalculatorMetada"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m34 |[0m
+  [90m35 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/kira-artis-hesaplama-rehberi"[0m;
+  [90m36 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+
+Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/blog/tasit-kredisi-hesaplama-rehberi/page.tsx:8:1
+Module not found: Can't resolve '@/lib/createCalculatorMetada'
+  [90m 6 |[0m [33mListChecks[0m, [33mPercent[0m, [33mReceiptText[0m, [33mScale[0m, [33mShieldCheck[0m, [33mSparkles[0m,
+  [90m 7 |[0m [33mTrendingDown[0m, [33mTrendingUp[0m, [33mWalletCards[0m, } [36mfrom[0m [32m"lucide-react"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/createCalculatorMetada"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m [36mimport[0m [33mBreadcrumb[0m [36mfrom[0m [32m"@/components/common/Breadcrumb"[0m;
+  [90m10 |[0m [36mimport[0m [33mShareButtons[0m [36mfrom[0m [32m"@/components/common/ShareButtons"[0m;
+  [90m11 |[0m [36mimport[0m [33mCalculatorLayout[0m [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+
+Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/blog/yuzde-hesaplama-rehberi/page.tsx:30:1
+Module not found: Can't resolve '@/lib/createCalculatorMetada'
+  [90m28 |[0m [36mimport[0m [33mCalculatorFaqItem[0m [36mfrom[0m [32m"@/components/calculators/CalculatorFaqItem"[0m;
+  [90m29 |[0m [36mimport[0m [33mCalculatorLayout[0m [36mfrom[0m [32m"@/components/calculators/CalculatorLayout"[0m;
+[31m[1m>[0m [90m30 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/createCalculatorMetada"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m31 |[0m
+  [90m32 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/yuzde-hesaplama-rehberi"[0m;
+  [90m33 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+
+Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/bazal-metabolizma-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+  [90m15 |[0m   [32m"/hesaplamalar/bazal-metabolizma-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/doviz-hesaplama/page.tsx:13:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/doviz-hesaplama"[0m;
+  [90m16 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/enflasyon-hesaplama/page.tsx:13:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/enflasyon-hesaplama"[0m;
+  [90m16 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/faiz-hesaplama/page.tsx:13:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/faiz-hesaplama"[0m;
+  [90m16 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/gebelik-hesaplama/page.tsx:20:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m18 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m19 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m20 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m21 |[0m
+  [90m22 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/gebelik-hesaplama"[0m;
+  [90m23 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/gelir-vergisi-hesaplama/page.tsx:11:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m 9 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m10 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m11 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m
+  [90m13 |[0m [36mconst[0m canonicalPath =
+  [90m14 |[0m   [32m"/hesaplamalar/gelir-vergisi-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/gun-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/gun-hesaplama"[0m;
+  [90m15 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/ideal-kilo-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+  [90m15 |[0m   [32m"/hesaplamalar/ideal-kilo-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/indirim-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/indirim-hesaplama"[0m;
+  [90m15 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kalori-ihtiyaci-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+  [90m15 |[0m   [32m"/hesaplamalar/kalori-ihtiyaci-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kdv-hesaplama/page.tsx:11:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m 9 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m10 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m11 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m12 |[0m
+  [90m13 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/kdv-hesaplama"[0m;
+  [90m14 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kira-artis-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+  [90m15 |[0m   [32m"/hesaplamalar/kira-artis-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/kredi-hesaplama/page.tsx:10:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m 8 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m 9 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m10 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m11 |[0m
+  [90m12 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/kredi-hesaplama"[0m;
+  [90m13 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/maas-hesaplama/page.tsx:13:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m11 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m12 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m13 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m14 |[0m
+  [90m15 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/maas-hesaplama"[0m;
+  [90m16 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/mevduat-faizi-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+  [90m15 |[0m   [32m"/hesaplamalar/mevduat-faizi-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/su-ihtiyaci-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+  [90m15 |[0m   [32m"/hesaplamalar/su-ihtiyaci-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/vki-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/vki-hesaplama"[0m;
+  [90m15 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/vucut-yag-orani-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath =
+  [90m15 |[0m   [32m"/hesaplamalar/vucut-yag-orani-hesaplama"[0m;
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/yas-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/yas-hesaplama"[0m;
+  [90m15 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./app/hesaplamalar/yuzde-hesaplama/page.tsx:12:1
+Module not found: Can't resolve '@/lib/metadata'
+  [90m10 |[0m   [36mtype[0m [33mCalculatorItem[0m,
+  [90m11 |[0m } [36mfrom[0m [32m"@/data/calculators"[0m;
+[31m[1m>[0m [90m12 |[0m [36mimport[0m { createCalculatorMetadata } [36mfrom[0m [32m"@/lib/metadata"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m13 |[0m
+  [90m14 |[0m [36mconst[0m canonicalPath = [32m"/hesaplamalar/yuzde-hesaplama"[0m;
+  [90m15 |[0m
+
+Import map: aliased to relative './lib/metadata' inside of [project]/
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (./app/hesaplamalar/bazal-metabolizma-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/doviz-hesaplama/page.tsx:9:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/enflasyon-hesaplama/page.tsx:9:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/faiz-hesaplama/page.tsx:9:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/gebelik-hesaplama/page.tsx:16:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/gelir-vergisi-hesaplama/page.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/gun-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/ideal-kilo-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/indirim-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kalori-ihtiyaci-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kdv-hesaplama/page.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kira-artis-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kredi-hesaplama/page.tsx:6:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/maas-hesaplama/page.tsx:9:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/mevduat-faizi-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/su-ihtiyaci-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/vki-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/vucut-yag-orani-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/yas-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/yuzde-hesaplama/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/page.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/sitemap.ts:3:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/calculators/CalculatorLayout.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/ui/CalculationsDirectory.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./components/ui/SearchBox.tsx:7:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/blog/gelir-vergisi-hesaplama-rehberi/page.tsx:32:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/blog/indirim-hesaplama-rehberi/page.tsx:28:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/blog/kira-artis-hesaplama-rehberi/page.tsx:33:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/blog/tasit-kredisi-hesaplama-rehberi/page.tsx:8:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/blog/yuzde-hesaplama-rehberi/page.tsx:30:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/bazal-metabolizma-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/doviz-hesaplama/page.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/enflasyon-hesaplama/page.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/faiz-hesaplama/page.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/gebelik-hesaplama/page.tsx:20:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/gelir-vergisi-hesaplama/page.tsx:11:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/gun-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/ideal-kilo-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/indirim-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kalori-ihtiyaci-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kdv-hesaplama/page.tsx:11:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kira-artis-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/kredi-hesaplama/page.tsx:10:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/maas-hesaplama/page.tsx:13:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/mevduat-faizi-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/su-ihtiyaci-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/vki-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/vucut-yag-orani-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/yas-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (./app/hesaplamalar/yuzde-hesaplama/page.tsx:12:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)

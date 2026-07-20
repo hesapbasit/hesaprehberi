@@ -7,8 +7,8 @@ import IncomeTaxCalculator from "@/components/calculators/IncomeTaxCalculator";
 import {
   getCalculatorByHref,
   type CalculatorItem,
-} from "@/data/calculators";
-import { createCalculatorMetadata } from "@/lib/metadata";
+} from "@/lib/calculators";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const canonicalPath =
   "/hesaplamalar/gelir-vergisi-hesaplama";
@@ -29,7 +29,10 @@ function getRequiredCalculator(): CalculatorItem {
 const calculator = getRequiredCalculator();
 
 export const metadata: Metadata =
-  createCalculatorMetadata(calculator);
+  createCalculatorMetadata({
+    ...calculator,
+    path: canonicalPath,
+  });
 
 const faqItems: CalculatorFaqItem[] = [
   {

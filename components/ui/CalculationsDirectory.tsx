@@ -7,7 +7,7 @@ import CategoryCard from "@/components/ui/CategoryCard";
 import {
   calculators,
   type CalculatorCategory,
-} from "@/data/calculators";
+} from "@/lib/calculators";
 
 type CategoryFilter = "Tümü" | CalculatorCategory;
 

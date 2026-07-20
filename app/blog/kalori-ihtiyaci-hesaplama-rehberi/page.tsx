@@ -39,7 +39,7 @@ const canonicalPath =
 
 function getRequiredCalculator() {
   const foundCalculator = getCalculatorByHref(
-    "/hesaplamalar/kalori-hesaplama",
+    "/hesaplamalar/kalori-ihtiyaci-hesaplama",
   );
 
   if (!foundCalculator) {
@@ -482,7 +482,7 @@ export default function KaloriIhtiyaciHesaplamaRehberiPage() {
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
-                  href="/hesaplamalar/kalori-hesaplama"
+                  href="/hesaplamalar/kalori-ihtiyaci-hesaplama"
                   className="inline-flex items-center gap-2 rounded-2xl bg-orange-600 px-6 py-3.5 font-black text-white transition hover:bg-orange-500"
                 >
                   Kalori ihtiyacını hesapla
@@ -1540,7 +1540,7 @@ export default function KaloriIhtiyaciHesaplamaRehberiPage() {
                 </p>
 
                 <Link
-                  href="/hesaplamalar/kalori-hesaplama"
+                  href="/hesaplamalar/kalori-ihtiyaci-hesaplama"
                   className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 font-black text-orange-700 transition hover:bg-orange-50"
                 >
                   Kalori hesaplama aracına git
@@ -1595,7 +1595,7 @@ export default function KaloriIhtiyaciHesaplamaRehberiPage() {
                 </div>
 
                 <Link
-                  href="/hesaplamalar/kalori-hesaplama"
+                  href="/hesaplamalar/kalori-ihtiyaci-hesaplama"
                   className="inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-600 px-7 py-4 font-black text-white transition hover:bg-orange-500"
                 >
                   Hesaplama aracını aç

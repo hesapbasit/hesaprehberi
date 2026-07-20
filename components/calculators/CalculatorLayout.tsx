@@ -8,7 +8,7 @@ import RelatedCalculations from "@/components/ui/RelatedCalculations";
 import {
   getRelatedCalculators,
   type CalculatorItem,
-} from "@/data/calculators";
+} from "@/lib/calculators";
 
 export type CalculatorFaqItem = {
   question: string;
