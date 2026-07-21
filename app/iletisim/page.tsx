@@ -12,7 +12,7 @@ import {
 
 import Breadcrumb from "@/components/common/Breadcrumb";
 
-const contactEmail = "dusunurumm@gmail.com";
+const contactEmail = "1hesaprehberi@gmail.com";
 
 export const metadata: Metadata = {
   title: "İletişim",
