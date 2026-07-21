@@ -6,17 +6,23 @@ import { useState } from "react";
 type ShareButtonsProps = {
   title: string;
   description: string;
+  url?: string;
 };
 
 export default function ShareButtons({
   title,
   description,
+  url,
 }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
 
+  const shareUrl =
+    url ||
+    (typeof window !== "undefined" ? window.location.href : "");
+
   const copyPageLink = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
 
       window.setTimeout(() => {
@@ -31,7 +37,7 @@ export default function ShareButtons({
     const shareData = {
       title,
       text: description,
-      url: window.location.href,
+      url: shareUrl,
     };
 
     if (navigator.share) {
@@ -39,7 +45,7 @@ export default function ShareButtons({
         await navigator.share(shareData);
         return;
       } catch {
-        return;
+        // Kullanıcı paylaşımı iptal ettiyse sessizce devam et.
       }
     }
 

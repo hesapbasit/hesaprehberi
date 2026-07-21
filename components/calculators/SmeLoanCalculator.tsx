@@ -1,0 +1,719 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+type PaymentRow = {
+  month: number;
+  payment: number;
+  principal: number;
+  interest: number;
+  tax: number;
+  remaining: number;
+  phase: "grace" | "repayment";
+};
+
+const currencyFormatter = new Intl.NumberFormat("tr-TR", {
+  style: "currency",
+  currency: "TRY",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const numberFormatter = new Intl.NumberFormat("tr-TR", {
+  maximumFractionDigits: 2,
+});
+
+function parseNumericInput(value: string): number {
+  const normalized = value
+    .replace(/\s/g, "")
+    .replace(/\./g, "")
+    .replace(",", ".")
+    .replace(/[^\d.-]/g, "");
+
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function formatInputNumber(value: number): string {
+  if (!Number.isFinite(value) || value <= 0) return "";
+
+  return new Intl.NumberFormat("tr-TR", {
+    maximumFractionDigits: 2,
+  }).format(value);
+}
+
+function calculateInstallment(
+  principal: number,
+  monthlyRatePercent: number,
+  repaymentMonths: number,
+): number {
+  if (principal <= 0 || repaymentMonths <= 0) return 0;
+
+  const rate = monthlyRatePercent / 100;
+
+  if (rate === 0) return principal / repaymentMonths;
+
+  const factor = Math.pow(1 + rate, repaymentMonths);
+  return principal * ((rate * factor) / (factor - 1));
+}
+
+function createPaymentPlan(
+  principal: number,
+  monthlyRatePercent: number,
+  term: number,
+  gracePeriod: number,
+  taxRatePercent: number,
+): PaymentRow[] {
+  if (
+    principal <= 0 ||
+    term <= 0 ||
+    gracePeriod < 0 ||
+    gracePeriod >= term ||
+    monthlyRatePercent < 0 ||
+    taxRatePercent < 0
+  ) {
+    return [];
+  }
+
+  const rate = monthlyRatePercent / 100;
+  const taxRate = taxRatePercent / 100;
+  const repaymentMonths = term - gracePeriod;
+  const rows: PaymentRow[] = [];
+  let remaining = principal;
+
+  for (let month = 1; month <= gracePeriod; month += 1) {
+    const interest = remaining * rate;
+    const tax = interest * taxRate;
+    const payment = interest + tax;
+
+    rows.push({
+      month,
+      payment,
+      principal: 0,
+      interest,
+      tax,
+      remaining,
+      phase: "grace",
+    });
+  }
+
+  const baseInstallment = calculateInstallment(
+    remaining,
+    monthlyRatePercent,
+    repaymentMonths,
+  );
+
+  for (let month = gracePeriod + 1; month <= term; month += 1) {
+    const interest = remaining * rate;
+    const tax = interest * taxRate;
+    let principalPayment = baseInstallment - interest;
+    let payment = baseInstallment + tax;
+
+    if (month === term || principalPayment > remaining) {
+      principalPayment = remaining;
+      payment = principalPayment + interest + tax;
+    }
+
+    remaining = Math.max(0, remaining - principalPayment);
+
+    rows.push({
+      month,
+      payment,
+      principal: principalPayment,
+      interest,
+      tax,
+      remaining,
+      phase: "repayment",
+    });
+  }
+
+  return rows;
+}
+
+export default function SmeLoanCalculator() {
+  const [investmentAmount, setInvestmentAmount] = useState("1.500.000");
+  const [equityAmount, setEquityAmount] = useState("300.000");
+  const [monthlyRate, setMonthlyRate] = useState("3,10");
+  const [term, setTerm] = useState("48");
+  const [gracePeriod, setGracePeriod] = useState("6");
+  const [commissionRate, setCommissionRate] = useState("1");
+  const [fixedCosts, setFixedCosts] = useState("7.500");
+  const [insuranceCost, setInsuranceCost] = useState("4.000");
+  const [interestTaxRate, setInterestTaxRate] = useState("0");
+  const [showFullPlan, setShowFullPlan] = useState(false);
+
+  const calculation = useMemo(() => {
+    const investment = parseNumericInput(investmentAmount);
+    const equity = Math.max(0, parseNumericInput(equityAmount));
+    const principal = Math.max(0, investment - equity);
+    const rate = parseNumericInput(monthlyRate);
+    const termValue = Math.max(0, Math.floor(parseNumericInput(term)));
+    const grace = Math.max(0, Math.floor(parseNumericInput(gracePeriod)));
+    const commission = Math.max(0, parseNumericInput(commissionRate));
+    const costs = Math.max(0, parseNumericInput(fixedCosts));
+    const insurance = Math.max(0, parseNumericInput(insuranceCost));
+    const taxRate = Math.max(0, parseNumericInput(interestTaxRate));
+
+    const paymentPlan = createPaymentPlan(
+      principal,
+      rate,
+      termValue,
+      grace,
+      taxRate,
+    );
+
+    const installmentTotal = paymentPlan.reduce(
+      (sum, row) => sum + row.payment,
+      0,
+    );
+    const totalInterest = paymentPlan.reduce(
+      (sum, row) => sum + row.interest,
+      0,
+    );
+    const totalTax = paymentPlan.reduce((sum, row) => sum + row.tax, 0);
+    const commissionAmount = principal * (commission / 100);
+    const totalPayment =
+      installmentTotal + commissionAmount + costs + insurance;
+    const totalFinancingCost = Math.max(0, totalPayment - principal);
+    const gracePayment =
+      paymentPlan.find((row) => row.phase === "grace")?.payment ?? 0;
+    const regularPayment =
+      paymentPlan.find((row) => row.phase === "repayment")?.payment ?? 0;
+    const equityRatio = investment > 0 ? (equity / investment) * 100 : 0;
+    const financingRatio =
+      investment > 0 ? (principal / investment) * 100 : 0;
+    const costRatio =
+      principal > 0 ? (totalFinancingCost / principal) * 100 : 0;
+
+    return {
+      investment,
+      equity,
+      principal,
+      rate,
+      termValue,
+      grace,
+      commission,
+      costs,
+      insurance,
+      taxRate,
+      paymentPlan,
+      installmentTotal,
+      totalInterest,
+      totalTax,
+      commissionAmount,
+      totalPayment,
+      totalFinancingCost,
+      gracePayment,
+      regularPayment,
+      equityRatio,
+      financingRatio,
+      costRatio,
+      repaymentMonths: Math.max(0, termValue - grace),
+      isValid:
+        investment > 0 &&
+        equity >= 0 &&
+        equity < investment &&
+        principal > 0 &&
+        rate >= 0 &&
+        termValue > 0 &&
+        grace >= 0 &&
+        grace < termValue,
+    };
+  }, [
+    investmentAmount,
+    equityAmount,
+    monthlyRate,
+    term,
+    gracePeriod,
+    commissionRate,
+    fixedCosts,
+    insuranceCost,
+    interestTaxRate,
+  ]);
+
+  const visibleRows = showFullPlan
+    ? calculation.paymentPlan
+    : calculation.paymentPlan.slice(0, 12);
+
+  function resetCalculator() {
+    setInvestmentAmount("1.500.000");
+    setEquityAmount("300.000");
+    setMonthlyRate("3,10");
+    setTerm("48");
+    setGracePeriod("6");
+    setCommissionRate("1");
+    setFixedCosts("7.500");
+    setInsuranceCost("4.000");
+    setInterestTaxRate("0");
+    setShowFullPlan(false);
+  }
+
+  return (
+    <section
+      id="hesaplama-araci"
+      className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"
+    >
+      <div className="border-b border-slate-200 bg-gradient-to-r from-emerald-700 to-teal-800 px-6 py-8 text-white md:px-10">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-100">
+          KOBİ finansmanı
+        </p>
+
+        <h2 className="mt-3 text-3xl font-bold md:text-4xl">
+          KOBİ Kredisi Hesaplama Aracı
+        </h2>
+
+        <p className="mt-4 max-w-3xl leading-7 text-emerald-100">
+          Yatırım, öz kaynak, geri ödemesiz dönem, faiz ve masraf bilgilerine
+          göre tahmini ödeme planını ve toplam maliyeti hesaplayın.
+        </p>
+      </div>
+
+      <div className="grid lg:grid-cols-[1.08fr_0.92fr]">
+        <div className="p-6 md:p-10">
+          <div className="grid gap-6 sm:grid-cols-2">
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Toplam yatırım / ihtiyaç tutarı
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  inputMode="decimal"
+                  value={investmentAmount}
+                  onChange={(event) => setInvestmentAmount(event.target.value)}
+                  onBlur={() =>
+                    setInvestmentAmount(
+                      formatInputNumber(parseNumericInput(investmentAmount)),
+                    )
+                  }
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Toplam yatırım veya ihtiyaç tutarı"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  TL
+                </span>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Öz kaynak
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  inputMode="decimal"
+                  value={equityAmount}
+                  onChange={(event) => setEquityAmount(event.target.value)}
+                  onBlur={() =>
+                    setEquityAmount(
+                      formatInputNumber(parseNumericInput(equityAmount)) || "0",
+                    )
+                  }
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Öz kaynak"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  TL
+                </span>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Aylık faiz oranı
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  inputMode="decimal"
+                  value={monthlyRate}
+                  onChange={(event) => setMonthlyRate(event.target.value)}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Aylık faiz oranı"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  %
+                </span>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Toplam vade
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  type="number"
+                  min="1"
+                  max="360"
+                  value={term}
+                  onChange={(event) => setTerm(event.target.value)}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Toplam vade"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  Ay
+                </span>
+              </div>
+            </label>
+
+            <label className="block sm:col-span-2">
+              <span className="text-sm font-semibold text-slate-800">
+                Geri ödemesiz dönem
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  type="number"
+                  min="0"
+                  max="24"
+                  value={gracePeriod}
+                  onChange={(event) => setGracePeriod(event.target.value)}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Geri ödemesiz dönem"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  Ay
+                </span>
+              </div>
+
+              <p className="mt-2 text-xs leading-5 text-slate-500">
+                Bu modelde geri ödemesiz dönemde yalnızca faiz ve varsa faiz
+                kaynaklı ek vergi ödenir.
+              </p>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Komisyon oranı
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  inputMode="decimal"
+                  value={commissionRate}
+                  onChange={(event) => setCommissionRate(event.target.value)}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Komisyon oranı"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  %
+                </span>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Dosya ve işlem masrafı
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  inputMode="decimal"
+                  value={fixedCosts}
+                  onChange={(event) => setFixedCosts(event.target.value)}
+                  onBlur={() =>
+                    setFixedCosts(
+                      formatInputNumber(parseNumericInput(fixedCosts)) || "0",
+                    )
+                  }
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Dosya ve işlem masrafı"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  TL
+                </span>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Sigorta gideri
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  inputMode="decimal"
+                  value={insuranceCost}
+                  onChange={(event) => setInsuranceCost(event.target.value)}
+                  onBlur={() =>
+                    setInsuranceCost(
+                      formatInputNumber(parseNumericInput(insuranceCost)) || "0",
+                    )
+                  }
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Sigorta gideri"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  TL
+                </span>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-800">
+                Faiz üzerinden ek vergi / fon
+              </span>
+
+              <div className="relative mt-2">
+                <input
+                  inputMode="decimal"
+                  value={interestTaxRate}
+                  onChange={(event) => setInterestTaxRate(event.target.value)}
+                  className="w-full rounded-2xl border border-slate-300 px-4 py-4 pr-12 text-lg font-semibold text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+                  aria-label="Faiz üzerinden ek vergi veya fon oranı"
+                />
+
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+                  %
+                </span>
+              </div>
+            </label>
+          </div>
+
+          {!calculation.isValid && (
+            <div
+              role="alert"
+              className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900"
+            >
+              Yatırım tutarı sıfırdan büyük, öz kaynak yatırım tutarından düşük
+              ve geri ödemesiz dönem toplam vadeden kısa olmalıdır.
+            </div>
+          )}
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-sm font-medium text-slate-500">
+                Kullanılacak kredi
+              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">
+                {currencyFormatter.format(calculation.principal)}
+              </p>
+            </article>
+
+            <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-sm font-medium text-slate-500">
+                Öz kaynak oranı
+              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">
+                %{numberFormatter.format(calculation.equityRatio)}
+              </p>
+            </article>
+
+            <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-sm font-medium text-slate-500">
+                Geri ödeme süresi
+              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">
+                {calculation.repaymentMonths} ay
+              </p>
+            </article>
+          </div>
+
+          <button
+            type="button"
+            onClick={resetCalculator}
+            className="mt-6 rounded-2xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            Varsayılan değerleri getir
+          </button>
+        </div>
+
+        <div className="border-t border-slate-200 bg-slate-50 p-6 md:p-10 lg:border-l lg:border-t-0">
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
+            Finansman sonucu
+          </p>
+
+          <div className="mt-5 rounded-3xl bg-slate-900 p-6 text-white shadow-lg">
+            <span className="text-sm text-slate-300">
+              Geri ödeme dönemi tahmini taksit
+            </span>
+
+            <strong className="mt-2 block text-3xl font-bold md:text-4xl">
+              {currencyFormatter.format(
+                calculation.isValid ? calculation.regularPayment : 0,
+              )}
+            </strong>
+
+            {calculation.grace > 0 && (
+              <p className="mt-3 text-sm text-slate-300">
+                Geri ödemesiz dönemde aylık yaklaşık{" "}
+                {currencyFormatter.format(calculation.gracePayment)}
+              </p>
+            )}
+          </div>
+
+          <dl className="mt-6 space-y-4">
+            <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+              <dt className="text-sm text-slate-600">Toplam faiz</dt>
+              <dd className="font-bold text-slate-900">
+                {currencyFormatter.format(
+                  calculation.isValid ? calculation.totalInterest : 0,
+                )}
+              </dd>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+              <dt className="text-sm text-slate-600">Faiz kaynaklı ek vergi</dt>
+              <dd className="font-bold text-slate-900">
+                {currencyFormatter.format(
+                  calculation.isValid ? calculation.totalTax : 0,
+                )}
+              </dd>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+              <dt className="text-sm text-slate-600">Komisyon</dt>
+              <dd className="font-bold text-slate-900">
+                {currencyFormatter.format(
+                  calculation.isValid ? calculation.commissionAmount : 0,
+                )}
+              </dd>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+              <dt className="text-sm text-slate-600">
+                Toplam finansman maliyeti
+              </dt>
+              <dd className="font-bold text-slate-900">
+                {currencyFormatter.format(
+                  calculation.isValid
+                    ? calculation.totalFinancingCost
+                    : 0,
+                )}
+              </dd>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+              <dt className="text-sm font-semibold text-emerald-800">
+                Toplam geri ödeme
+              </dt>
+              <dd className="font-bold text-emerald-900">
+                {currencyFormatter.format(
+                  calculation.isValid ? calculation.totalPayment : 0,
+                )}
+              </dd>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+              <dt className="text-sm text-slate-600">Finansman oranı</dt>
+              <dd className="font-bold text-slate-900">
+                %{numberFormatter.format(calculation.financingRatio)}
+              </dd>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-2xl bg-white p-4">
+              <dt className="text-sm text-slate-600">Maliyet oranı</dt>
+              <dd className="font-bold text-slate-900">
+                %{numberFormatter.format(calculation.costRatio)}
+              </dd>
+            </div>
+          </dl>
+
+          <p className="mt-6 text-sm leading-6 text-slate-500">
+            Sonuçlar tahminidir. Banka teklifi, destek programı, teminat,
+            sigorta, vergi ve ödeme planı gerçek sonucu değiştirebilir.
+          </p>
+        </div>
+      </div>
+
+      {calculation.isValid && calculation.paymentPlan.length > 0 && (
+        <div className="border-t border-slate-200 p-6 md:p-10">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
+                Ödeme planı
+              </p>
+
+              <h3 className="mt-2 text-2xl font-bold text-slate-900">
+                KOBİ kredisi aylık ödeme dağılımı
+              </h3>
+            </div>
+
+            {calculation.paymentPlan.length > 12 && (
+              <button
+                type="button"
+                onClick={() => setShowFullPlan((current) => !current)}
+                className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100"
+              >
+                {showFullPlan
+                  ? "İlk 12 ayı göster"
+                  : `Tüm ${calculation.termValue} ayı göster`}
+              </button>
+            )}
+          </div>
+
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200">
+            <table className="min-w-full divide-y divide-slate-200 text-sm">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-4 text-left font-semibold text-slate-700">
+                    Ay
+                  </th>
+                  <th className="px-4 py-4 text-left font-semibold text-slate-700">
+                    Dönem
+                  </th>
+                  <th className="px-4 py-4 text-right font-semibold text-slate-700">
+                    Ödeme
+                  </th>
+                  <th className="px-4 py-4 text-right font-semibold text-slate-700">
+                    Anapara
+                  </th>
+                  <th className="px-4 py-4 text-right font-semibold text-slate-700">
+                    Faiz
+                  </th>
+                  <th className="px-4 py-4 text-right font-semibold text-slate-700">
+                    Ek vergi
+                  </th>
+                  <th className="px-4 py-4 text-right font-semibold text-slate-700">
+                    Kalan borç
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-slate-100 bg-white">
+                {visibleRows.map((row) => (
+                  <tr key={row.month} className="hover:bg-slate-50">
+                    <td className="whitespace-nowrap px-4 py-4 font-medium text-slate-900">
+                      {row.month}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4 text-slate-700">
+                      {row.phase === "grace"
+                        ? "Geri ödemesiz"
+                        : "Geri ödeme"}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4 text-right text-slate-700">
+                      {currencyFormatter.format(row.payment)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4 text-right text-slate-700">
+                      {currencyFormatter.format(row.principal)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4 text-right text-slate-700">
+                      {currencyFormatter.format(row.interest)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4 text-right text-slate-700">
+                      {currencyFormatter.format(row.tax)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-4 text-right font-medium text-slate-900">
+                      {currencyFormatter.format(row.remaining)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
