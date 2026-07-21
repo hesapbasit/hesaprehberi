@@ -1,177 +1,720 @@
 "use client";
 
-import { ArrowLeftRight } from "lucide-react";
+import {
+  ArrowDownUp,
+  ArrowLeftRight,
+  BadgeDollarSign,
+  Banknote,
+  Check,
+  ChevronDown,
+  CircleDollarSign,
+  Clipboard,
+  Info,
+  Landmark,
+  RefreshCcw,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  WalletCards,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 
-type Currency = "USD" | "EUR" | "GBP";
+type Currency = "USD" | "EUR" | "GBP" | "CHF";
 
-const currencyNames: Record<Currency, string> = {
-  USD: "Amerikan Doları",
-  EUR: "Euro",
-  GBP: "İngiliz Sterlini",
+type ConversionDirection = "foreign-to-try" | "try-to-foreign";
+
+type CurrencyInfo = {
+  code: Currency;
+  name: string;
+  symbol: string;
+  defaultRate: string;
 };
+
+const currencies: CurrencyInfo[] = [
+  {
+    code: "USD",
+    name: "Amerikan Doları",
+    symbol: "$",
+    defaultRate: "40",
+  },
+  {
+    code: "EUR",
+    name: "Euro",
+    symbol: "€",
+    defaultRate: "43",
+  },
+  {
+    code: "GBP",
+    name: "İngiliz Sterlini",
+    symbol: "£",
+    defaultRate: "51",
+  },
+  {
+    code: "CHF",
+    name: "İsviçre Frangı",
+    symbol: "CHF",
+    defaultRate: "45",
+  },
+];
+
+const quickAmounts = [100, 500, 1000, 5000];
+
+const numberFormatter = new Intl.NumberFormat("tr-TR", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+const compactNumberFormatter = new Intl.NumberFormat("tr-TR", {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 4,
+});
+
+function parseNumber(value: string): number {
+  const normalizedValue = value
+    .trim()
+    .replace(/\s/g, "")
+    .replace(/[₺$€£]/g, "")
+    .replace(/[a-zA-Z]/g, "")
+    .replace(/\./g, "")
+    .replace(",", ".")
+    .replace(/[^\d.-]/g, "");
+
+  const parsedValue = Number(normalizedValue);
+
+  return Number.isFinite(parsedValue) ? parsedValue : 0;
+}
+
+function formatInputValue(
+  value: string,
+  maximumFractionDigits = 2,
+): string {
+  const cleanedValue = value.replace(/[^\d,]/g, "");
+  const firstCommaIndex = cleanedValue.indexOf(",");
+
+  const integerPart =
+    firstCommaIndex === -1
+      ? cleanedValue
+      : cleanedValue.slice(0, firstCommaIndex);
+
+  const decimalPart =
+    firstCommaIndex === -1
+      ? ""
+      : cleanedValue
+          .slice(firstCommaIndex + 1)
+          .replace(/,/g, "")
+          .slice(0, maximumFractionDigits);
+
+  const normalizedInteger = integerPart.replace(/^0+(?=\d)/, "");
+
+  const formattedInteger = normalizedInteger
+    ? Number(normalizedInteger).toLocaleString("tr-TR")
+    : "";
+
+  if (firstCommaIndex !== -1) {
+    return `${formattedInteger},${decimalPart}`;
+  }
+
+  return formattedInteger;
+}
+
+function getCurrencyInfo(currency: Currency): CurrencyInfo {
+  return (
+    currencies.find((item) => item.code === currency) ??
+    currencies[0]
+  );
+}
 
 export default function DovizCalculator() {
   const [amount, setAmount] = useState("100");
   const [exchangeRate, setExchangeRate] = useState("40");
   const [currency, setCurrency] = useState<Currency>("USD");
-  const [direction, setDirection] = useState<"foreign-to-try" | "try-to-foreign">(
-    "foreign-to-try"
-  );
+  const [direction, setDirection] =
+    useState<ConversionDirection>("foreign-to-try");
+  const [copied, setCopied] = useState(false);
 
-  const result = useMemo(() => {
-    const amountValue = Number(amount);
-    const rateValue = Number(exchangeRate);
+  const selectedCurrency = getCurrencyInfo(currency);
 
-    if (
-      !Number.isFinite(amountValue) ||
-      !Number.isFinite(rateValue) ||
-      amountValue < 0 ||
-      rateValue <= 0
-    ) {
-      return 0;
-    }
+  const calculation = useMemo(() => {
+    const amountValue = Math.max(parseNumber(amount), 0);
+    const rateValue = Math.max(parseNumber(exchangeRate), 0);
 
-    if (direction === "foreign-to-try") {
-      return amountValue * rateValue;
-    }
+    const isValid = amountValue > 0 && rateValue > 0;
 
-    return amountValue / rateValue;
-  }, [amount, exchangeRate, direction]);
+    const result = !isValid
+      ? 0
+      : direction === "foreign-to-try"
+        ? amountValue * rateValue
+        : amountValue / rateValue;
 
-  const switchDirection = () => {
-    setDirection((current) =>
-      current === "foreign-to-try" ? "try-to-foreign" : "foreign-to-try"
+    const tenUnitValue =
+      direction === "foreign-to-try"
+        ? 10 * rateValue
+        : rateValue > 0
+          ? 10 / rateValue
+          : 0;
+
+    const hundredUnitValue =
+      direction === "foreign-to-try"
+        ? 100 * rateValue
+        : rateValue > 0
+          ? 100 / rateValue
+          : 0;
+
+    return {
+      amountValue,
+      rateValue,
+      result,
+      isValid,
+      tenUnitValue,
+      hundredUnitValue,
+    };
+  }, [amount, direction, exchangeRate]);
+
+  const inputUnit =
+    direction === "foreign-to-try" ? currency : "TRY";
+
+  const resultUnit =
+    direction === "foreign-to-try" ? "TRY" : currency;
+
+  const inputSymbol =
+    direction === "foreign-to-try"
+      ? selectedCurrency.symbol
+      : "₺";
+
+  const resultSymbol =
+    direction === "foreign-to-try"
+      ? "₺"
+      : selectedCurrency.symbol;
+
+  function handleCurrencyChange(nextCurrency: Currency) {
+    const nextCurrencyInfo = getCurrencyInfo(nextCurrency);
+
+    setCurrency(nextCurrency);
+    setExchangeRate(nextCurrencyInfo.defaultRate);
+    setCopied(false);
+  }
+
+  function switchDirection() {
+    setDirection((currentDirection) =>
+      currentDirection === "foreign-to-try"
+        ? "try-to-foreign"
+        : "foreign-to-try",
     );
-  };
 
-  const formatNumber = (value: number) =>
-    value.toLocaleString("tr-TR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+    setCopied(false);
+  }
 
-  const inputUnit = direction === "foreign-to-try" ? currency : "TRY";
-  const resultUnit = direction === "foreign-to-try" ? "TRY" : currency;
+  function handleQuickAmount(value: number) {
+    setAmount(value.toLocaleString("tr-TR"));
+    setCopied(false);
+  }
+
+  function handleReset() {
+    setAmount("100");
+    setExchangeRate("40");
+    setCurrency("USD");
+    setDirection("foreign-to-try");
+    setCopied(false);
+  }
+
+  async function handleCopy() {
+    if (!calculation.isValid) {
+      return;
+    }
+
+    const inputText = `${numberFormatter.format(
+      calculation.amountValue,
+    )} ${inputUnit}`;
+
+    const resultText = `${numberFormatter.format(
+      calculation.result,
+    )} ${resultUnit}`;
+
+    const copyText = [
+      "HesapRehberi Döviz Hesaplama Sonucu",
+      `Döviz türü: ${selectedCurrency.name} (${currency})`,
+      `Çevrilen tutar: ${inputText}`,
+      `Kullanılan kur: 1 ${currency} = ${numberFormatter.format(
+        calculation.rateValue,
+      )} TL`,
+      `Sonuç: ${resultText}`,
+      "Not: Sonuç, kullanıcı tarafından girilen kura göre hesaplanmıştır.",
+    ].join("\n");
+
+    try {
+      await navigator.clipboard.writeText(copyText);
+      setCopied(true);
+
+      window.setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch {
+      setCopied(false);
+    }
+  }
 
   return (
-    <div className="rounded-3xl bg-white p-8 shadow-xl md:p-10">
-      <div className="grid gap-10 lg:grid-cols-2">
-        <div>
-          <label className="block font-semibold text-slate-800">
-            Döviz Türü
-          </label>
+    <section
+      id="hesaplama-araci"
+      aria-labelledby="currency-calculator-title"
+      className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/60"
+    >
+      <header className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-r from-slate-950 via-blue-950 to-blue-900 px-6 py-7 text-white md:px-9 md:py-8">
+        <div
+          aria-hidden="true"
+          className="absolute -right-16 -top-20 h-56 w-56 rounded-full bg-blue-400/20 blur-3xl"
+        />
 
-          <select
-            value={currency}
-            onChange={(event) => setCurrency(event.target.value as Currency)}
-            className="mt-3 w-full rounded-xl border border-slate-300 bg-white px-5 py-4 text-lg text-slate-900 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
-          >
-            <option value="USD">USD — Amerikan Doları</option>
-            <option value="EUR">EUR — Euro</option>
-            <option value="GBP">GBP — İngiliz Sterlini</option>
-          </select>
+        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/20">
+              <ArrowLeftRight className="h-6 w-6" aria-hidden="true" />
+            </div>
 
-          <div className="mt-8 flex items-end gap-3">
-            <div className="flex-1">
-              <label className="block font-semibold text-slate-800">
-                Çevrilecek Tutar
+            <div>
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-blue-100">
+                <Sparkles className="h-4 w-4" aria-hidden="true" />
+                Manuel kur ile anlık hesaplama
+              </div>
+
+              <h2
+                id="currency-calculator-title"
+                className="text-2xl font-bold tracking-tight md:text-3xl"
+              >
+                Döviz Hesaplama Aracı
+              </h2>
+
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-blue-100/90 md:text-base">
+                Döviz tutarını Türk lirasına veya Türk lirasını
+                seçtiğiniz para birimine kolayca çevirin.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 self-start rounded-full bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-200 ring-1 ring-emerald-300/20">
+            <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+            Ücretsiz kullanım
+          </div>
+        </div>
+      </header>
+
+      <div className="grid lg:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)]">
+        <div className="border-b border-slate-200 bg-slate-50/70 p-6 md:p-9 lg:border-b-0 lg:border-r">
+          <div>
+            <label
+              htmlFor="currency-type"
+              className="flex items-center gap-2 text-sm font-bold text-slate-900"
+            >
+              <CircleDollarSign
+                className="h-4 w-4 text-blue-700"
+                aria-hidden="true"
+              />
+              Döviz türü
+            </label>
+
+            <div className="relative mt-3">
+              <select
+                id="currency-type"
+                value={currency}
+                onChange={(event) =>
+                  handleCurrencyChange(
+                    event.target.value as Currency,
+                  )
+                }
+                className="h-16 w-full appearance-none rounded-2xl border border-slate-300 bg-white px-5 pr-14 text-base font-bold text-slate-950 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+              >
+                {currencies.map((item) => (
+                  <option key={item.code} value={item.code}>
+                    {item.code} — {item.name}
+                  </option>
+                ))}
+              </select>
+
+              <ChevronDown
+                className="pointer-events-none absolute right-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500"
+                aria-hidden="true"
+              />
+            </div>
+
+            <div className="mt-3 grid grid-cols-4 gap-2">
+              {currencies.map((item) => {
+                const isSelected = item.code === currency;
+
+                return (
+                  <button
+                    key={item.code}
+                    type="button"
+                    onClick={() =>
+                      handleCurrencyChange(item.code)
+                    }
+                    className={`rounded-xl border px-2 py-2.5 text-sm font-bold transition ${
+                      isSelected
+                        ? "border-blue-700 bg-blue-700 text-white shadow-sm"
+                        : "border-slate-200 bg-white text-slate-600 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-800"
+                    }`}
+                  >
+                    {item.code}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-7">
+            <div className="mb-3 flex items-center justify-between gap-4">
+              <label
+                htmlFor="currency-amount"
+                className="flex items-center gap-2 text-sm font-bold text-slate-900"
+              >
+                <WalletCards
+                  className="h-4 w-4 text-blue-700"
+                  aria-hidden="true"
+                />
+                Çevrilecek tutar
               </label>
 
-              <div className="relative mt-3">
-                <input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value={amount}
-                  onChange={(event) => setAmount(event.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-5 py-4 pr-20 text-lg text-slate-900 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
-                  placeholder="100"
-                />
-
-                <span className="absolute right-5 top-1/2 -translate-y-1/2 font-semibold text-slate-500">
-                  {inputUnit}
-                </span>
-              </div>
+              <span className="text-xs font-medium text-slate-500">
+                {direction === "foreign-to-try"
+                  ? `${currency} → TRY`
+                  : `TRY → ${currency}`}
+              </span>
             </div>
+
+            <div className="relative">
+              <input
+                id="currency-amount"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                value={amount}
+                onChange={(event) => {
+                  setAmount(
+                    formatInputValue(event.target.value, 2),
+                  );
+                  setCopied(false);
+                }}
+                placeholder="Örneğin 100"
+                className="h-16 w-full rounded-2xl border border-slate-300 bg-white px-5 pr-20 text-xl font-bold text-slate-950 outline-none transition placeholder:text-base placeholder:font-normal placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+              />
+
+              <span className="pointer-events-none absolute inset-y-0 right-5 flex items-center font-bold text-slate-500">
+                {inputUnit}
+              </span>
+            </div>
+
+            <div className="mt-3 grid grid-cols-4 gap-2">
+              {quickAmounts.map((quickAmount) => {
+                const isSelected =
+                  calculation.amountValue === quickAmount;
+
+                return (
+                  <button
+                    key={quickAmount}
+                    type="button"
+                    onClick={() =>
+                      handleQuickAmount(quickAmount)
+                    }
+                    className={`rounded-xl border px-2 py-2.5 text-xs font-bold transition ${
+                      isSelected
+                        ? "border-blue-700 bg-blue-700 text-white"
+                        : "border-slate-200 bg-white text-slate-600 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-800"
+                    }`}
+                  >
+                    {quickAmount.toLocaleString("tr-TR")}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="relative my-7 flex items-center">
+            <div className="h-px flex-1 bg-slate-200" />
 
             <button
               type="button"
               onClick={switchDirection}
               aria-label="Çeviri yönünü değiştir"
-              className="flex h-[58px] w-[58px] shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white transition hover:bg-blue-700"
+              className="mx-4 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-700 text-white shadow-lg shadow-blue-700/20 transition hover:rotate-180 hover:bg-blue-800"
             >
-              <ArrowLeftRight size={22} />
+              <ArrowDownUp className="h-5 w-5" aria-hidden="true" />
             </button>
+
+            <div className="h-px flex-1 bg-slate-200" />
           </div>
 
-          <label className="mt-8 block font-semibold text-slate-800">
-            1 {currency} Kaç TL?
-          </label>
+          <div>
+            <div className="mb-3 flex items-center justify-between gap-4">
+              <label
+                htmlFor="exchange-rate"
+                className="flex items-center gap-2 text-sm font-bold text-slate-900"
+              >
+                <TrendingUp
+                  className="h-4 w-4 text-blue-700"
+                  aria-hidden="true"
+                />
+                1 {currency} kaç TL?
+              </label>
 
-          <div className="relative mt-3">
-            <input
-              type="number"
-              min="0.0001"
-              step="0.0001"
-              value={exchangeRate}
-              onChange={(event) => setExchangeRate(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-white px-5 py-4 pr-16 text-lg text-slate-900 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
-              placeholder="40"
+              <span className="text-xs font-medium text-slate-500">
+                Manuel kur
+              </span>
+            </div>
+
+            <div className="relative">
+              <input
+                id="exchange-rate"
+                type="text"
+                inputMode="decimal"
+                autoComplete="off"
+                value={exchangeRate}
+                onChange={(event) => {
+                  setExchangeRate(
+                    formatInputValue(event.target.value, 4),
+                  );
+                  setCopied(false);
+                }}
+                placeholder="Örneğin 40"
+                className="h-16 w-full rounded-2xl border border-slate-300 bg-white px-5 pr-16 text-xl font-bold text-slate-950 outline-none transition placeholder:text-base placeholder:font-normal placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
+              />
+
+              <span className="pointer-events-none absolute inset-y-0 right-5 flex items-center font-bold text-slate-500">
+                TL
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-5 flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <Info
+              className="mt-0.5 h-5 w-5 shrink-0 text-amber-700"
+              aria-hidden="true"
             />
 
-            <span className="absolute right-5 top-1/2 -translate-y-1/2 font-semibold text-slate-500">
-              TL
-            </span>
-          </div>
-
-          <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5">
-            <p className="text-sm leading-6 text-amber-800">
-              Bu sürüm canlı kur kullanmaz. Güncel alış veya satış kurunu
-              kontrol ederek kur alanına kendiniz girmelisiniz.
+            <p className="text-sm leading-6 text-amber-950">
+              Bu araç canlı döviz kuru kullanmaz. Bankanızın veya
+              döviz büronuzun güncel alış ya da satış kurunu kur
+              alanına yazmalısınız.
             </p>
           </div>
+
+          <button
+            type="button"
+            onClick={handleReset}
+            className="mt-7 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-bold text-slate-700 transition hover:border-slate-400 hover:bg-slate-100"
+          >
+            <RefreshCcw className="h-4 w-4" aria-hidden="true" />
+            Hesaplamayı sıfırla
+          </button>
         </div>
 
-        <div className="rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white">
-          <p className="text-sm font-semibold uppercase tracking-wider text-blue-100">
-            Çeviri Sonucu
-          </p>
+        <div
+          aria-live="polite"
+          className="relative overflow-hidden bg-white p-6 md:p-9"
+        >
+          <div
+            aria-hidden="true"
+            className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-blue-100/70 blur-3xl"
+          />
 
-          <div className="mt-8">
-            <p className="text-blue-100">
-              {direction === "foreign-to-try"
-                ? `${formatNumber(Number(amount) || 0)} ${currency}`
-                : `${formatNumber(Number(amount) || 0)} TL`}
-            </p>
+          <div className="relative">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-blue-700">
+                  Döviz çeviri sonucu
+                </p>
 
-            <h2 className="mt-3 break-words text-4xl font-bold">
-              {formatNumber(result)} {resultUnit}
-            </h2>
+                <h3 className="mt-2 text-2xl font-bold text-slate-950">
+                  {currency} ve Türk lirası karşılığı
+                </h3>
+              </div>
+
+              <span className="self-start rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
+                Manuel kur
+              </span>
+            </div>
+
+            <div className="mt-7 rounded-3xl bg-gradient-to-br from-slate-950 via-blue-950 to-blue-800 p-6 text-white shadow-xl shadow-blue-950/20 md:p-8">
+              <div className="flex items-center gap-2 text-sm font-semibold text-blue-100">
+                <Banknote className="h-4 w-4" aria-hidden="true" />
+                Hesaplanan karşılık
+              </div>
+
+              <div className="mt-5">
+                <p className="text-sm font-medium text-blue-100">
+                  {numberFormatter.format(
+                    calculation.amountValue,
+                  )}{" "}
+                  {inputUnit}
+                </p>
+
+                <p className="mt-3 break-words text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
+                  {resultSymbol !== "CHF" && (
+                    <span className="mr-1">{resultSymbol}</span>
+                  )}
+
+                  {numberFormatter.format(calculation.result)}
+
+                  <span className="ml-2 text-xl font-bold text-blue-100 md:text-2xl">
+                    {resultUnit}
+                  </span>
+                </p>
+              </div>
+
+              <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5 text-sm text-blue-100">
+                <Check
+                  className="h-4 w-4 text-emerald-300"
+                  aria-hidden="true"
+                />
+                Sonuç, yazdığınız kur üzerinden otomatik
+                hesaplanmıştır.
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <article className="rounded-2xl border border-blue-200 bg-blue-50 p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-semibold text-blue-800">
+                    Kullanılan kur
+                  </span>
+
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+                    <BadgeDollarSign
+                      className="h-4 w-4"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </div>
+
+                <p className="mt-4 text-lg font-extrabold text-blue-950 md:text-xl">
+                  1 {currency} ={" "}
+                  {compactNumberFormatter.format(
+                    calculation.rateValue,
+                  )}{" "}
+                  TL
+                </p>
+              </article>
+
+              <article className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-semibold text-slate-600">
+                    Döviz türü
+                  </span>
+
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-200 text-slate-700">
+                    <Landmark
+                      className="h-4 w-4"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </div>
+
+                <p className="mt-4 text-lg font-extrabold text-slate-950 md:text-xl">
+                  {selectedCurrency.name}
+                </p>
+              </article>
+            </div>
+
+            <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200">
+              <div className="border-b border-slate-200 bg-slate-50 px-5 py-4">
+                <h4 className="font-bold text-slate-900">
+                  Hesaplama özeti
+                </h4>
+              </div>
+
+              <dl className="divide-y divide-slate-100">
+                <div className="flex items-center justify-between gap-4 px-5 py-4">
+                  <dt className="text-sm text-slate-500">
+                    Çeviri yönü
+                  </dt>
+
+                  <dd className="text-right font-bold text-slate-900">
+                    {direction === "foreign-to-try"
+                      ? `${currency} → TRY`
+                      : `TRY → ${currency}`}
+                  </dd>
+                </div>
+
+                <div className="flex items-center justify-between gap-4 px-5 py-4">
+                  <dt className="text-sm text-slate-500">
+                    Girilen tutar
+                  </dt>
+
+                  <dd className="text-right font-bold text-slate-900">
+                    {inputSymbol !== "CHF" && (
+                      <span className="mr-1">{inputSymbol}</span>
+                    )}
+
+                    {numberFormatter.format(
+                      calculation.amountValue,
+                    )}{" "}
+                    {inputUnit}
+                  </dd>
+                </div>
+
+                <div className="flex items-center justify-between gap-4 px-5 py-4">
+                  <dt className="text-sm text-slate-500">
+                    10 birim karşılığı
+                  </dt>
+
+                  <dd className="text-right font-bold text-slate-900">
+                    {numberFormatter.format(
+                      calculation.tenUnitValue,
+                    )}{" "}
+                    {resultUnit}
+                  </dd>
+                </div>
+
+                <div className="flex items-center justify-between gap-4 px-5 py-4">
+                  <dt className="text-sm text-slate-500">
+                    100 birim karşılığı
+                  </dt>
+
+                  <dd className="text-right font-bold text-slate-900">
+                    {numberFormatter.format(
+                      calculation.hundredUnitValue,
+                    )}{" "}
+                    {resultUnit}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            <button
+              type="button"
+              disabled={!calculation.isValid}
+              onClick={handleCopy}
+              className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-5 text-sm font-bold text-white shadow-lg shadow-blue-700/20 transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
+            >
+              {copied ? (
+                <>
+                  <Check className="h-4 w-4" aria-hidden="true" />
+                  Sonuç kopyalandı
+                </>
+              ) : (
+                <>
+                  <Clipboard
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  />
+                  Sonucu kopyala
+                </>
+              )}
+            </button>
+
+            <div className="mt-5 flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <Info
+                className="mt-0.5 h-5 w-5 shrink-0 text-slate-500"
+                aria-hidden="true"
+              />
+
+              <p className="text-xs leading-5 text-slate-500">
+                Bankaların ve döviz bürolarının alış-satış
+                fiyatları farklı olabilir. Komisyonlar ve işlem
+                ücretleri bu sonuca dahil değildir.
+              </p>
+            </div>
           </div>
-
-          <div className="mt-10 rounded-2xl bg-white/10 p-6">
-            <p className="text-sm text-blue-100">Kullanılan Kur</p>
-
-            <p className="mt-2 text-2xl font-bold">
-              1 {currency} = {formatNumber(Number(exchangeRate) || 0)} TL
-            </p>
-          </div>
-
-          <div className="mt-6 rounded-2xl bg-white/10 p-6">
-            <p className="text-sm text-blue-100">Döviz Türü</p>
-
-            <p className="mt-2 text-xl font-bold">
-              {currencyNames[currency]}
-            </p>
-          </div>
-
-          <p className="mt-8 text-sm leading-6 text-blue-100">
-            Bankaların ve döviz bürolarının alış-satış fiyatları farklı
-            olabilir. Sonuç yalnızca girdiğiniz kura göre hesaplanır.
-          </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
