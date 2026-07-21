@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import Navbar from "@/components/layout/Navbar";
 
 import "./globals.css";
 
 const baseUrl = "https://hesaprehberi.vercel.app";
+const googleAnalyticsId = "G-PT7R31KETF";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -188,6 +190,8 @@ export default function RootLayout({
 
         {children}
       </body>
+
+      <GoogleAnalytics gaId={googleAnalyticsId} />
     </html>
   );
 }
