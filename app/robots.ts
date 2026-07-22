@@ -1,16 +1,12 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://hesaprehberi.vercel.app";
-
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+    },
+    host: "https://hesaprehberionline.com",
+    sitemap: "https://hesaprehberionline.com/sitemap.xml",
   };
 }

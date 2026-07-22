@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const SITE_URL = "https://www.hesaprehberi.com";
+const SITE_URL = "https://www.https://hesaprehberionline.com";
 const SITE_NAME = "HesapRehberi";
 
 type CreateCalculatorMetadataOptions = {

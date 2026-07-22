@@ -12,7 +12,7 @@ import CalculatorLayout from "@/components/calculators/CalculatorLayout";
 import CalculatorContentSection from "@/components/calculators/CalculatorContentSection";
 import CalculatorFaqItem from "@/components/calculators/CalculatorFaqItem";
 const PAGE_URL =
-"https://www.hesaprehberi.com/blog/tasit-kredisi-hesaplama-rehberi";
+"https://www.https://hesaprehberionline.com/blog/tasit-kredisi-hesaplama-rehberi";
 const PAGE_TITLE =
 "Taşıt Kredisi Hesaplama Rehberi 2026: Faiz, Taksit ve Toplam Maliyet";
 const PAGE_DESCRIPTION =
@@ -225,13 +225,13 @@ const schemaData = { "@context": "https://schema.org", "@graph": [ {
 inLanguage: "tr-TR", mainEntityOfPage: PAGE_URL, author: {
 "@type": "Organization", name: "HesapRehberi", }, publisher: {
 "@type": "Organization", name: "HesapRehberi", logo: {
-"@type": "ImageObject", url: "https://www.hesaprehberi.com/logo.jpg", }, },
+"@type": "ImageObject", url: "https://www.https://hesaprehberionline.com/logo.jpg", }, },
 datePublished: "2026-07-18", dateModified: "2026-07-18", image:
-"https://www.hesaprehberi.com/og/tasit-kredisi-hesaplama-rehberi.jpg", }, {
+"https://www.https://hesaprehberionline.com/og/tasit-kredisi-hesaplama-rehberi.jpg", }, {
 "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem",
-position: 1, name: "Ana Sayfa", item: "https://www.hesaprehberi.com", }, {
+position: 1, name: "Ana Sayfa", item: "https://www.https://hesaprehberionline.com", }, {
 "@type": "ListItem", position: 2, name: "Blog",
-item: "https://www.hesaprehberi.com/blog", }, { "@type": "ListItem",
+item: "https://www.https://hesaprehberionline.com/blog", }, { "@type": "ListItem",
 position: 3, name: "Taşıt Kredisi Hesaplama Rehberi", item: PAGE_URL, }, ],
 }, { "@type": "FAQPage", mainEntity: faqItems.map((item) => ({
 "@type": "Question", name: item.question, acceptedAnswer: {

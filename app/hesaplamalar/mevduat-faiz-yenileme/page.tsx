@@ -3,6 +3,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   AlertTriangle,
+  ChevronRight,
+  Info,
+  Lightbulb,
+  ListChecks,
   ArrowRight,
   Banknote,
   Calculator,
@@ -24,60 +28,96 @@ import {
 import DepositRenewalCalculator from "@/components/calculators/DepositRenewalCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import {
+  getCalculatorByHref,
+  getRelatedCalculators,
+  type CalculatorItem,
+} from "@/lib/calculators";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
+
+const canonicalPath = "/hesaplamalar/mevduat-faiz-yenileme";
+
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `Mevduat faiz yenileme aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
 
 const pageTitle = "Mevduat Faiz Yenileme Hesaplama";
-
 const pageDescription =
   "Vadeli mevduatınızı vade sonunda faiz kazancıyla birlikte yeniden bağlamanız halinde oluşacak toplam kazancı, bileşik faiz avantajını ve dönemsel yenileme tablosunu hesaplayın.";
+const canonicalUrl = `https://https://hesaprehberionline.com${canonicalPath}`;
 
-const canonicalUrl =
-  "https://hesaprehberi.com/hesaplamalar/mevduat-faiz-yenileme";
-
-export const metadata: Metadata = {
-  title: `${pageTitle} | HesapRehberi`,
+export const metadata: Metadata = createCalculatorMetadata({
+  ...calculator,
+  title: "Mevduat Faiz Yenileme Hesaplama | Bileşik Getiri",
   description: pageDescription,
-  keywords: [
-    "mevduat faiz yenileme hesaplama",
-    "vadeli mevduat yenileme",
-    "mevduat bileşik faiz hesaplama",
-    "faizi ana paraya ekleme",
-    "vadeli hesap tekrar bağlama",
-    "mevduat vade yenileme",
-    "mevduat toplam kazanç",
-    "bileşik mevduat getirisi",
-    "dönemsel faiz hesaplama",
-    "faiz yenileme tablosu",
-    "mevduat efektif getiri",
-    "stopajlı bileşik faiz",
-  ],
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  path: canonicalPath,
   openGraph: {
+    title: "Mevduat Faiz Yenileme | Bileşik Kazanç Hesaplama",
+    description:
+      "Faizi ana paraya ekleyerek mevduatınızı yenilediğinizde oluşacak toplam bakiyeyi, dönemsel kazancı ve efektif getiriyi hesaplayın.",
+    url: canonicalPath,
     type: "website",
-    locale: "tr_TR",
-    url: canonicalUrl,
-    siteName: "HesapRehberi",
-    title: `${pageTitle} | HesapRehberi`,
-    description: pageDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${pageTitle} | HesapRehberi`,
-    description: pageDescription,
+    title: "Mevduat Faiz Yenileme Hesaplama",
+    description:
+      "Vadeli mevduat yenilemelerinde bileşik büyümeyi ve toplam net kazancı ücretsiz hesaplayın.",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-};
+});
+
+const tableOfContents = [
+  { id: "hesaplama-araci", label: "Faiz yenileme hesaplama aracı" },
+  { id: "kullanim-rehberi", label: "Hesaplama nasıl kullanılır?" },
+  { id: "yenileme-nedir", label: "Mevduat faiz yenileme nedir?" },
+  { id: "hesaplama-formulu", label: "Yenileme hesaplama formülü" },
+  { id: "bilesik-faiz", label: "Bileşik faiz avantajı" },
+  { id: "basit-bilesik", label: "Basit ve bileşik faiz farkı" },
+  { id: "stopaj-etkisi", label: "Stopajın etkisi" },
+  { id: "degisken-faiz", label: "Değişken faizle yenileme" },
+  { id: "vade-etkisi", label: "Vade süresinin etkisi" },
+  { id: "efektif-getiri", label: "Efektif yıllık net getiri" },
+  { id: "donem-tablosu", label: "Dönemsel yenileme tablosu" },
+  { id: "faiz-senaryolari", label: "Faiz oranı senaryoları" },
+  { id: "gun-esasi", label: "360 ve 365 gün esası" },
+  { id: "reel-getiri", label: "Reel getiri ve enflasyon" },
+  { id: "dikkat-edilecekler", label: "Dikkat edilmesi gerekenler" },
+  { id: "ornek-senaryo", label: "Örnek yenileme senaryosu" },
+  { id: "sik-hatalar", label: "Sık yapılan hatalar" },
+  { id: "ilgili-hesaplamalar", label: "İlgili hesaplamalar" },
+  { id: "sss", label: "Sık sorulan sorular" },
+];
+
+const renewalRows = [
+  { period: "1. dönem", opening: "250.000 TL", rate: "%45", gross: "9.863 TL", withholding: "1.479 TL", net: "8.384 TL", closing: "258.384 TL" },
+  { period: "2. dönem", opening: "258.384 TL", rate: "%45", gross: "10.194 TL", withholding: "1.529 TL", net: "8.665 TL", closing: "267.049 TL" },
+  { period: "3. dönem", opening: "267.049 TL", rate: "%45", gross: "10.536 TL", withholding: "1.580 TL", net: "8.956 TL", closing: "276.005 TL" },
+  { period: "4. dönem", opening: "276.005 TL", rate: "%45", gross: "10.889 TL", withholding: "1.633 TL", net: "9.256 TL", closing: "285.261 TL" },
+  { period: "5. dönem", opening: "285.261 TL", rate: "%45", gross: "11.254 TL", withholding: "1.688 TL", net: "9.566 TL", closing: "294.827 TL" },
+  { period: "6. dönem", opening: "294.827 TL", rate: "%45", gross: "11.631 TL", withholding: "1.745 TL", net: "9.886 TL", closing: "304.713 TL" },
+];
+
+const rateScenarioRows = [
+  { scenario: "Faiz düşüyor", rates: "%45 → %42 → %39 → %36", finalBalance: "286.940 TL", comment: "Bileşik büyüme yavaşlar" },
+  { scenario: "Faiz sabit", rates: "%45 → %45 → %45 → %45", finalBalance: "287.949 TL", comment: "Dengeli bileşik büyüme" },
+  { scenario: "Faiz yükseliyor", rates: "%45 → %48 → %51 → %54", finalBalance: "289.004 TL", comment: "Son dönem katkısı artar" },
+  { scenario: "Dalgalı faiz", rates: "%45 → %40 → %50 → %43", finalBalance: "287.772 TL", comment: "Dönem sırası sonucu etkiler" },
+];
+
+const dayBasisRows = [
+  { basis: "360 gün", gross: "10.000 TL", withholding: "1.500 TL", net: "8.500 TL", closing: "258.500 TL" },
+  { basis: "365 gün", gross: "9.863 TL", withholding: "1.479 TL", net: "8.384 TL", closing: "258.384 TL" },
+];
 
 const faqItems = [
   {
@@ -175,6 +215,31 @@ const faqItems = [
     answer:
       "Hayır. Hesaplama yalnızca bilgilendirme ve farklı mevduat senaryolarını karşılaştırma amacıyla hazırlanmıştır.",
   },
+  {
+    question: "Yenileme dönemlerinin sırası toplam kazancı etkiler mi?",
+    answer:
+      "Evet. Özellikle faiz oranlarının dönemden döneme değiştiği senaryolarda yüksek oranların erken veya geç uygulanması nihai bakiyeyi değiştirebilir.",
+  },
+  {
+    question: "Bileşik mevduat getirisi enflasyondan arındırılabilir mi?",
+    answer:
+      "Evet. Nihai net bakiye, aynı toplam süreye uyarlanmış enflasyon oranına bölünerek yaklaşık reel değer ve satın alma gücü değişimi hesaplanabilir.",
+  },
+  {
+    question: "Yenileme sırasında ana paraya ek para yatırılabilir mi?",
+    answer:
+      "Bazı bankalar vade sonunda ekleme yapılmasına izin verir. Ancak hesaplama aracı standart senaryoda yalnızca net faiz kazancının ana paraya eklendiğini varsayar.",
+  },
+  {
+    question: "Kısmi faiz çekimi bileşik getiriyi nasıl etkiler?",
+    answer:
+      "Net faizin bir bölümü çekilirse yalnızca kalan bölüm ana paraya eklenir. Bu nedenle tam yeniden yatırım senaryosuna göre bileşik büyüme daha düşük olur.",
+  },
+  {
+    question: "Yenileme işlemi için aynı bankada kalmak zorunlu mudur?",
+    answer:
+      "Hayır. Vade sonunda farklı banka veya ürün seçilebilir. Karşılaştırmada net faiz, stopaj, valör, kampanya şartları ve hesap açılış koşulları birlikte değerlendirilmelidir.",
+  },
 ];
 
 const faqStructuredData = {
@@ -207,9 +272,47 @@ const webApplicationStructuredData = {
   publisher: {
     "@type": "Organization",
     name: "HesapRehberi",
-    url: "https://hesaprehberi.com",
+    url: "https://https://hesaprehberionline.com",
   },
 };
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://https://hesaprehberionline.com" },
+    { "@type": "ListItem", position: 2, name: "Hesaplamalar", item: "https://https://hesaprehberionline.com/hesaplamalar" },
+    { "@type": "ListItem", position: 3, name: "Mevduat Faiz Yenileme", item: canonicalUrl },
+  ],
+};
+
+const articleStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: pageTitle,
+  description: pageDescription,
+  mainEntityOfPage: canonicalUrl,
+  inLanguage: "tr-TR",
+  author: { "@type": "Organization", name: "HesapRehberi" },
+  publisher: { "@type": "Organization", name: "HesapRehberi", url: "https://https://hesaprehberionline.com" },
+};
+
+const howToStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Mevduat faiz yenileme nasıl hesaplanır?",
+  description:
+    "Vadeli mevduatın net faiz kazancıyla birlikte yeniden bağlanması halinde oluşacak bileşik getiriyi hesaplama adımları.",
+  totalTime: "PT2M",
+  step: [
+    { "@type": "HowToStep", position: 1, name: "Ana parayı girin", text: "İlk vade döneminde değerlendireceğiniz başlangıç tutarını yazın." },
+    { "@type": "HowToStep", position: 2, name: "Vade ve yenileme sayısını seçin", text: "Her vadenin gün sayısını ve toplam dönem sayısını belirleyin." },
+    { "@type": "HowToStep", position: 3, name: "Faiz ve stopajı girin", text: "Sabit veya dönemsel faiz oranlarıyla stopaj oranını tanımlayın." },
+    { "@type": "HowToStep", position: 4, name: "Bileşik sonucu inceleyin", text: "Dönemsel net faizleri, nihai bakiyeyi ve bileşik faiz avantajını değerlendirin." },
+  ],
+};
+
+const relatedCalculators = getRelatedCalculators(canonicalPath, 4);
 
 export default function DepositRenewalPage() {
   return (
@@ -226,6 +329,21 @@ export default function DepositRenewalPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationStructuredData),
         }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToStructuredData) }}
       />
 
       <main className="min-h-screen bg-slate-50">
@@ -307,7 +425,7 @@ export default function DepositRenewalPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <section id="hesaplama-araci" className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
           <DepositRenewalCalculator />
 
           <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
@@ -324,11 +442,12 @@ export default function DepositRenewalPage() {
             <ShareButtons
               title={pageTitle}
               description={pageDescription}
+              url={canonicalUrl}
             />
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-white">
+        <section id="kullanim-rehberi" className="scroll-mt-28 border-y border-slate-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
             <div className="max-w-3xl">
               <span className="text-sm font-bold uppercase tracking-[0.18em] text-violet-600">
@@ -381,7 +500,7 @@ export default function DepositRenewalPage() {
         <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
             <article className="space-y-10">
-              <ContentSection
+              <ContentSection id="yenileme-nedir"
                 icon={<RefreshCw className="h-6 w-6" />}
                 title="Mevduat faiz yenileme nedir?"
               >
@@ -400,7 +519,7 @@ export default function DepositRenewalPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="hesaplama-formulu"
                 icon={<Calculator className="h-6 w-6" />}
                 title="Mevduat yenileme hesaplama formülü"
               >
@@ -434,7 +553,7 @@ export default function DepositRenewalPage() {
                 </FormulaBox>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="bilesik-faiz"
                 icon={<TrendingUp className="h-6 w-6" />}
                 title="Bileşik faiz avantajı nasıl oluşur?"
               >
@@ -451,7 +570,7 @@ export default function DepositRenewalPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="basit-bilesik"
                 icon={<Banknote className="h-6 w-6" />}
                 title="Basit faiz ile yenilenen mevduat farkı"
               >
@@ -515,7 +634,7 @@ export default function DepositRenewalPage() {
                 </div>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="stopaj-etkisi"
                 icon={<Scale className="h-6 w-6" />}
                 title="Stopaj yenileme kazancını nasıl etkiler?"
               >
@@ -531,7 +650,7 @@ export default function DepositRenewalPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="degisken-faiz"
                 icon={<Percent className="h-6 w-6" />}
                 title="Değişken faiz oranıyla yenileme"
               >
@@ -548,7 +667,7 @@ export default function DepositRenewalPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="vade-etkisi"
                 icon={<Clock3 className="h-6 w-6" />}
                 title="Vade süresi sonucu nasıl değiştirir?"
               >
@@ -565,7 +684,7 @@ export default function DepositRenewalPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="efektif-getiri"
                 icon={<ChartNoAxesCombined className="h-6 w-6" />}
                 title="Efektif yıllık net getiri nedir?"
               >
@@ -581,7 +700,7 @@ export default function DepositRenewalPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="dikkat-edilecekler"
                 icon={<WalletCards className="h-6 w-6" />}
                 title="Mevduat yenilenirken nelere dikkat edilmelidir?"
               >
@@ -597,7 +716,7 @@ export default function DepositRenewalPage() {
                 </div>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="ornek-senaryo"
                 icon={<CircleDollarSign className="h-6 w-6" />}
                 title="Örnek mevduat yenileme senaryosu"
               >
@@ -615,9 +734,201 @@ export default function DepositRenewalPage() {
                   veya azalabilir.
                 </p>
               </ContentSection>
+
+              <ContentSection
+                id="donem-tablosu"
+                icon={<RefreshCw className="h-6 w-6" />}
+                title="Altı dönemlik mevduat yenileme tablosu"
+              >
+                <p>
+                  Aşağıdaki örnek 250.000 TL ana para, 32 günlük vade,
+                  yıllık %45 brüt faiz, %15 stopaj ve 365 gün esasıyla
+                  hazırlanmıştır. Her dönem sonunda net faiz tamamen ana
+                  paraya eklenmiştir.
+                </p>
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[980px] text-left text-sm">
+                      <thead className="bg-slate-950 text-white">
+                        <tr>
+                          <th className="px-5 py-4 font-semibold">Dönem</th>
+                          <th className="px-5 py-4 font-semibold">Açılış bakiyesi</th>
+                          <th className="px-5 py-4 font-semibold">Faiz</th>
+                          <th className="px-5 py-4 font-semibold">Brüt kazanç</th>
+                          <th className="px-5 py-4 font-semibold">Stopaj</th>
+                          <th className="px-5 py-4 font-semibold">Net kazanç</th>
+                          <th className="px-5 py-4 font-semibold">Kapanış bakiyesi</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 bg-white">
+                        {renewalRows.map((row) => (
+                          <tr key={row.period} className="transition hover:bg-violet-50/40">
+                            <td className="px-5 py-4 font-black text-slate-950">{row.period}</td>
+                            <td className="px-5 py-4 font-semibold text-slate-700">{row.opening}</td>
+                            <td className="px-5 py-4 font-semibold text-violet-700">{row.rate}</td>
+                            <td className="px-5 py-4 text-slate-700">{row.gross}</td>
+                            <td className="px-5 py-4 font-semibold text-rose-700">{row.withholding}</td>
+                            <td className="px-5 py-4 font-black text-emerald-700">{row.net}</td>
+                            <td className="px-5 py-4 font-black text-blue-800">{row.closing}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <InfoBox title="Tablo neyi gösterir?">
+                  <p>
+                    Her dönemin kapanış bakiyesi sonraki dönemin açılış
+                    bakiyesidir. Bu nedenle dönemsel net kazanç zaman içinde
+                    kademeli olarak yükselir.
+                  </p>
+                </InfoBox>
+              </ContentSection>
+
+              <ContentSection
+                id="faiz-senaryolari"
+                icon={<Percent className="h-6 w-6" />}
+                title="Sabit ve değişken faiz senaryoları"
+              >
+                <p>
+                  Mevduat yenileme kararında yalnızca ilk faiz oranına bakmak
+                  yeterli değildir. Sonraki dönemlerde uygulanacak oranların
+                  yönü nihai bakiyeyi belirgin biçimde değiştirebilir.
+                </p>
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[820px] text-left text-sm">
+                      <thead className="bg-violet-950 text-white">
+                        <tr>
+                          <th className="px-5 py-4 font-semibold">Senaryo</th>
+                          <th className="px-5 py-4 font-semibold">Dönemsel oranlar</th>
+                          <th className="px-5 py-4 font-semibold">Tahmini nihai bakiye</th>
+                          <th className="px-5 py-4 font-semibold">Yorum</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 bg-white">
+                        {rateScenarioRows.map((row) => (
+                          <tr key={row.scenario}>
+                            <td className="px-5 py-4 font-black text-slate-950">{row.scenario}</td>
+                            <td className="px-5 py-4 font-semibold text-violet-700">{row.rates}</td>
+                            <td className="px-5 py-4 font-black text-blue-800">{row.finalBalance}</td>
+                            <td className="px-5 py-4 text-slate-600">{row.comment}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ContentSection>
+
+              <ContentSection
+                id="gun-esasi"
+                icon={<CalendarDays className="h-6 w-6" />}
+                title="360 ve 365 gün esasının yenileme sonucuna etkisi"
+              >
+                <p>
+                  Aynı ana para, yıllık faiz ve vade için 360 gün esası,
+                  dönemsel faiz katsayısını 365 gün esasına göre biraz daha
+                  yüksek hesaplayabilir. Bu fark her yenilemede yeni bakiyeye
+                  taşındığı için dönem sayısı arttıkça büyüyebilir.
+                </p>
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[760px] text-left text-sm">
+                      <thead className="bg-slate-950 text-white">
+                        <tr>
+                          <th className="px-5 py-4 font-semibold">Gün esası</th>
+                          <th className="px-5 py-4 font-semibold">Brüt faiz</th>
+                          <th className="px-5 py-4 font-semibold">Stopaj</th>
+                          <th className="px-5 py-4 font-semibold">Net faiz</th>
+                          <th className="px-5 py-4 font-semibold">Dönem sonu</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 bg-white">
+                        {dayBasisRows.map((row) => (
+                          <tr key={row.basis}>
+                            <td className="px-5 py-4 font-black text-slate-950">{row.basis}</td>
+                            <td className="px-5 py-4 font-semibold text-blue-700">{row.gross}</td>
+                            <td className="px-5 py-4 font-semibold text-rose-700">{row.withholding}</td>
+                            <td className="px-5 py-4 font-black text-emerald-700">{row.net}</td>
+                            <td className="px-5 py-4 font-black text-violet-800">{row.closing}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ContentSection>
+
+              <ContentSection
+                id="reel-getiri"
+                icon={<ShieldCheck className="h-6 w-6" />}
+                title="Yenilenen mevduatta reel getiri ve enflasyon"
+              >
+                <p>
+                  Bileşik yenileme nominal bakiyeyi büyütür ancak gerçek
+                  kazanç, aynı toplam süredeki enflasyonla karşılaştırıldığında
+                  anlaşılır. Nihai bakiyenin artması satın alma gücünün de aynı
+                  oranda arttığı anlamına gelmez.
+                </p>
+
+                <p>
+                  Toplam yenileme süresine uyarlanmış enflasyon oranı, stopaj
+                  sonrası efektif getiriyle karşılaştırılmalıdır. Efektif net
+                  getiri enflasyonun üzerindeyse pozitif, altındaysa negatif
+                  reel sonuç oluşabilir.
+                </p>
+
+                <WarningBox title="Nominal ve reel sonucu ayırın">
+                  <p>
+                    Yenileme tablosundaki kapanış bakiyesi nominal sonuçtur.
+                    Yatırımın gerçek performansını görmek için aynı dönemin
+                    enflasyon etkisini ayrıca hesaplayın.
+                  </p>
+                </WarningBox>
+              </ContentSection>
+
+              <ContentSection
+                id="sik-hatalar"
+                icon={<AlertTriangle className="h-6 w-6" />}
+                title="Mevduat yenilemede sık yapılan hatalar"
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <MistakeCard title="İlk faiz oranını sabit sanmak" description="Bankanın yenileme oranı ilk dönem kampanya faizinden daha düşük olabilir." />
+                  <MistakeCard title="Brüt faizi ana paraya eklemek" description="Gerçekte ana paraya eklenen tutar stopaj sonrası net faizdir." />
+                  <MistakeCard title="Faizi çekip bileşik sonuç beklemek" description="Faiz hesaptan çekildiğinde sonraki dönem daha yüksek bakiye üzerinden başlamaz." />
+                  <MistakeCard title="Gün esasını göz ardı etmek" description="360 ve 365 gün uygulamaları dönemsel ve toplam kazancı değiştirebilir." />
+                  <MistakeCard title="Valör tarihini unutmak" description="Paranın faiz kazanmaya başladığı tarih toplam gün ve kazanç hesabını etkiler." />
+                  <MistakeCard title="Enflasyonu hesaba katmamak" description="Nominal bakiye artsa bile satın alma gücü azalabilir." />
+                </div>
+              </ContentSection>
             </article>
 
             <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+              <nav aria-label="Sayfa içindekiler" className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white">
+                    <ListChecks className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-violet-600">Sayfa rehberi</p>
+                    <h2 className="text-lg font-black text-slate-950">İçindekiler</h2>
+                  </div>
+                </div>
+                <div className="mt-5 max-h-[420px] space-y-1 overflow-y-auto pr-1">
+                  {tableOfContents.map((item) => (
+                    <a key={item.id} href={`#${item.id}`} className="group flex items-start gap-2 rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-slate-600 transition hover:bg-violet-50 hover:text-violet-800">
+                      <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 transition group-hover:text-violet-600" />
+                      <span>{item.label}</span>
+                    </a>
+                  ))}
+                </div>
+              </nav>
+
               <div className="rounded-3xl border border-violet-200 bg-gradient-to-br from-violet-50 to-indigo-50 p-6">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-600 text-white">
                   <RefreshCw className="h-6 w-6" />
@@ -636,36 +947,15 @@ export default function DepositRenewalPage() {
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div id="ilgili-hesaplamalar" className="scroll-mt-28 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h2 className="text-lg font-black text-slate-950">
                   İlgili hesaplamalar
                 </h2>
 
                 <div className="mt-5 space-y-3">
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-hesaplama"
-                    title="Mevduat Hesaplama"
-                  />
-
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-faiz-orani-karsilastirma"
-                    title="Mevduat Faiz Karşılaştırma"
-                  />
-
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-reel-getiri"
-                    title="Mevduat Reel Getiri"
-                  />
-
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-getiri-hedefi"
-                    title="Mevduat Getiri Hedefi"
-                  />
-
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-erken-bozma-kaybi"
-                    title="Mevduat Erken Bozma Kaybı"
-                  />
+                  {relatedCalculators.map((item) => (
+                    <RelatedLink key={item.href} href={item.href} title={item.title} />
+                  ))}
                 </div>
               </div>
 
@@ -693,7 +983,7 @@ export default function DepositRenewalPage() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-white">
+        <section id="sss" className="scroll-mt-28 border-y border-slate-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
             <div className="mx-auto max-w-3xl text-center">
               <span className="text-sm font-bold uppercase tracking-[0.18em] text-violet-600">
@@ -852,18 +1142,23 @@ function GuideCard({
 }
 
 type ContentSectionProps = {
+  id?: string;
   icon: ReactNode;
   title: string;
   children: ReactNode;
 };
 
 function ContentSection({
+  id,
   icon,
   title,
   children,
 }: ContentSectionProps) {
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <section
+      id={id}
+      className="scroll-mt-28 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+    >
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-violet-700">
           {icon}
@@ -934,6 +1229,63 @@ function ComparisonRow({
         {compound}
       </td>
     </tr>
+  );
+}
+
+type InfoBoxProps = {
+  title: string;
+  children: ReactNode;
+};
+
+function InfoBox({ title, children }: InfoBoxProps) {
+  return (
+    <div className="rounded-2xl border border-blue-200 bg-blue-50 p-5">
+      <div className="flex gap-3">
+        <Info className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+        <div>
+          <h3 className="font-black text-blue-950">{title}</h3>
+          <div className="mt-2 text-sm leading-7 text-blue-900">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type WarningBoxProps = {
+  title: string;
+  children: ReactNode;
+};
+
+function WarningBox({ title, children }: WarningBoxProps) {
+  return (
+    <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+      <div className="flex gap-3">
+        <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+        <div>
+          <h3 className="font-black text-amber-950">{title}</h3>
+          <div className="mt-2 text-sm leading-7 text-amber-900">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type MistakeCardProps = {
+  title: string;
+  description: string;
+};
+
+function MistakeCard({ title, description }: MistakeCardProps) {
+  return (
+    <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5">
+      <div className="flex gap-3">
+        <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-rose-600" />
+        <div>
+          <h3 className="font-black text-rose-950">{title}</h3>
+          <p className="mt-2 text-sm leading-7 text-rose-900">{description}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

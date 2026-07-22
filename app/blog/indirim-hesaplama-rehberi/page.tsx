@@ -28,7 +28,7 @@ import CalculatorLayout from "@/components/calculators/CalculatorLayout";
 import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const PAGE_PATH = "/blog/indirim-hesaplama-rehberi";
-const PAGE_URL = `https://www.hesaprehberi.com${PAGE_PATH}`;
+const PAGE_URL = `https://www.https://hesaprehberionline.com${PAGE_PATH}`;
 const PAGE_TITLE =
   "İndirim Hesaplama Rehberi: Yüzde İndirim, İndirimli Fiyat ve Örnekler";
 const PAGE_DESCRIPTION =
@@ -244,11 +244,11 @@ const articleSchema = {
         name: "HesapRehberi",
         logo: {
           "@type": "ImageObject",
-          url: "https://www.hesaprehberi.com/logo.jpg",
+          url: "https://www.https://hesaprehberionline.com/logo.jpg",
         },
       },
       image:
-        "https://www.hesaprehberi.com/og/indirim-hesaplama-rehberi.jpg",
+        "https://www.https://hesaprehberionline.com/og/indirim-hesaplama-rehberi.jpg",
     },
     {
       "@type": "FAQPage",

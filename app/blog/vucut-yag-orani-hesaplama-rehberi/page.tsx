@@ -322,7 +322,7 @@ const articleSchema = {
       description: pageDescription,
       inLanguage: "tr-TR",
       mainEntityOfPage:
-        `https://www.hesaprehberi.com${canonicalPath}`,
+        `https://www.https://hesaprehberionline.com${canonicalPath}`,
       datePublished: "2026-07-20",
       dateModified: "2026-07-20",
       author: {
@@ -334,11 +334,11 @@ const articleSchema = {
         name: "HesapRehberi",
         logo: {
           "@type": "ImageObject",
-          url: "https://www.hesaprehberi.com/logo.jpg",
+          url: "https://www.https://hesaprehberionline.com/logo.jpg",
         },
       },
       image:
-        "https://www.hesaprehberi.com/og/vucut-yag-orani-hesaplama-rehberi.jpg",
+        "https://www.https://hesaprehberionline.com/og/vucut-yag-orani-hesaplama-rehberi.jpg",
     },
     {
       "@type": "FAQPage",

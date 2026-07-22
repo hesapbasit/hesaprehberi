@@ -30,7 +30,7 @@ import CalculatorLayout from "@/components/calculators/CalculatorLayout";
 import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const PAGE_PATH = "/blog/yuzde-hesaplama-rehberi";
-const PAGE_URL = `https://www.hesaprehberi.com${PAGE_PATH}`;
+const PAGE_URL = `https://www.https://hesaprehberionline.com${PAGE_PATH}`;
 const PAGE_TITLE =
   "Yüzde Hesaplama Rehberi: Artış, Azalış, Oran ve Fark Hesabı";
 const PAGE_DESCRIPTION =
@@ -275,7 +275,7 @@ const articleSchema = {
     name: "HesapRehberi",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.hesaprehberi.com/logo.jpg",
+      url: "https://www.https://hesaprehberionline.com/logo.jpg",
     },
   },
 };

@@ -81,7 +81,7 @@ type CalculatorLayoutProps =
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://hesaprehberi.com";
+  "https://https://hesaprehberionline.com";
 
 function createJsonLd(data: object) {
   return JSON.stringify(data).replace(/</g, "\\u003c");

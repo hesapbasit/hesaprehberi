@@ -32,7 +32,7 @@ import CalculatorLayout from "@/components/calculators/CalculatorLayout";
 import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const PAGE_PATH = "/blog/gelir-vergisi-hesaplama-rehberi";
-const PAGE_URL = `https://www.hesaprehberi.com${PAGE_PATH}`;
+const PAGE_URL = `https://www.https://hesaprehberionline.com${PAGE_PATH}`;
 const PAGE_TITLE =
   "Gelir Vergisi Hesaplama Rehberi 2026: Dilimler, Matrah ve Örnekler";
 const PAGE_DESCRIPTION =
@@ -233,11 +233,11 @@ const articleSchema = {
         name: "HesapRehberi",
         logo: {
           "@type": "ImageObject",
-          url: "https://www.hesaprehberi.com/logo.jpg",
+          url: "https://www.https://hesaprehberionline.com/logo.jpg",
         },
       },
       image:
-        "https://www.hesaprehberi.com/og/gelir-vergisi-hesaplama-rehberi.jpg",
+        "https://www.https://hesaprehberionline.com/og/gelir-vergisi-hesaplama-rehberi.jpg",
     },
     {
       "@type": "BreadcrumbList",
@@ -246,13 +246,13 @@ const articleSchema = {
           "@type": "ListItem",
           position: 1,
           name: "Ana Sayfa",
-          item: "https://www.hesaprehberi.com",
+          item: "https://www.https://hesaprehberionline.com",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Blog",
-          item: "https://www.hesaprehberi.com/blog",
+          item: "https://www.https://hesaprehberionline.com/blog",
         },
         {
           "@type": "ListItem",

@@ -34,7 +34,7 @@ const pageTitle = "Mevduat Faiz Yenileme Rehberi";
 const pageDescription =
   "Vadeli mevduat yenileme nasıl yapılır? Otomatik yenileme, yeni faiz oranı, ana para ve faiz yenileme seçenekleri ile net getiriyi ayrıntılı örneklerle öğrenin.";
 const canonicalPath = "/blog/mevduat-faiz-yenileme-rehberi";
-const canonicalUrl = `https://hesaprehberi.com${canonicalPath}`;
+const canonicalUrl = `https://https://hesaprehberionline.com${canonicalPath}`;
 
 export const metadata: Metadata = {
   title: `${pageTitle} | HesapRehberi`,
@@ -205,12 +205,12 @@ const articleStructuredData = {
   author: {
     "@type": "Organization",
     name: "HesapRehberi",
-    url: "https://hesaprehberi.com",
+    url: "https://https://hesaprehberionline.com",
   },
   publisher: {
     "@type": "Organization",
     name: "HesapRehberi",
-    url: "https://hesaprehberi.com",
+    url: "https://https://hesaprehberionline.com",
   },
 };
 
@@ -235,13 +235,13 @@ const breadcrumbStructuredData = {
       "@type": "ListItem",
       position: 1,
       name: "Ana Sayfa",
-      item: "https://hesaprehberi.com",
+      item: "https://https://hesaprehberionline.com",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Blog",
-      item: "https://hesaprehberi.com/blog",
+      item: "https://https://hesaprehberionline.com/blog",
     },
     {
       "@type": "ListItem",

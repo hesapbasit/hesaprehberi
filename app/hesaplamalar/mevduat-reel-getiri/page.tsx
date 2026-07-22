@@ -3,6 +3,11 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import {
   AlertTriangle,
+  ChevronRight,
+  Clock3,
+  Info,
+  Lightbulb,
+  ListChecks,
   ArrowRight,
   Banknote,
   Calculator,
@@ -24,60 +29,155 @@ import {
 import DepositRealReturnCalculator from "@/components/calculators/DepositRealReturnCalculator";
 import Breadcrumb from "@/components/common/Breadcrumb";
 import ShareButtons from "@/components/common/ShareButtons";
+import {
+  getCalculatorByHref,
+  getRelatedCalculators,
+  type CalculatorItem,
+} from "@/lib/calculators";
+import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
+
+const canonicalPath = "/hesaplamalar/mevduat-reel-getiri";
+
+function getRequiredCalculator(): CalculatorItem {
+  const foundCalculator = getCalculatorByHref(canonicalPath);
+
+  if (!foundCalculator) {
+    throw new Error(
+      `Mevduat reel getiri aracı calculators.ts içinde bulunamadı: ${canonicalPath}`,
+    );
+  }
+
+  return foundCalculator;
+}
+
+const calculator = getRequiredCalculator();
 
 const pageTitle = "Mevduat Enflasyon Sonrası Reel Getiri Hesaplama";
-
 const pageDescription =
   "Mevduat faiz kazancınızın enflasyon karşısındaki gerçek değerini hesaplayın; nominal getiri, reel getiri, satın alma gücü ve enflasyonu aşmak için gereken faiz oranını görün.";
+const canonicalUrl = `https://https://hesaprehberionline.com${canonicalPath}`;
 
-const canonicalUrl =
-  "https://hesaprehberi.com/hesaplamalar/mevduat-reel-getiri";
-
-export const metadata: Metadata = {
-  title: `${pageTitle} | HesapRehberi`,
+export const metadata: Metadata = createCalculatorMetadata({
+  ...calculator,
+  title: "Mevduat Reel Getiri Hesaplama | Enflasyon Sonrası Kazanç",
   description: pageDescription,
-  keywords: [
-    "mevduat reel getiri hesaplama",
-    "enflasyon sonrası mevduat getirisi",
-    "reel faiz hesaplama",
-    "mevduat enflasyon karşılaştırma",
-    "satın alma gücü hesaplama",
-    "nominal reel getiri farkı",
-    "enflasyondan arındırılmış faiz",
-    "mevduat gerçek kazanç",
-    "reel kazanç hesaplama",
-    "enflasyonu aşan faiz",
-    "stopaj sonrası reel getiri",
-    "vadeli mevduat reel faiz",
-  ],
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  path: canonicalPath,
   openGraph: {
+    title: "Mevduat Reel Getiri | Satın Alma Gücü Analizi",
+    description:
+      "Stopaj sonrası mevduat kazancınızı enflasyonla karşılaştırın; gerçek kazancı, satın alma gücü değişimini ve başa baş faiz oranını görün.",
+    url: canonicalPath,
     type: "website",
-    locale: "tr_TR",
-    url: canonicalUrl,
-    siteName: "HesapRehberi",
-    title: `${pageTitle} | HesapRehberi`,
-    description: pageDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${pageTitle} | HesapRehberi`,
-    description: pageDescription,
+    title: "Mevduat Reel Getiri Hesaplama",
+    description:
+      "Nominal faiz kazancının enflasyon sonrası gerçek değerini ücretsiz hesaplayın.",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
+});
+
+const tableOfContents = [
+  { id: "hesaplama-araci", label: "Reel getiri hesaplama aracı" },
+  { id: "kullanim-rehberi", label: "Hesaplama nasıl kullanılır?" },
+  { id: "reel-getiri-nedir", label: "Mevduat reel getiri nedir?" },
+  { id: "hesaplama-formulu", label: "Reel getiri formülleri" },
+  { id: "nominal-getiri", label: "Nominal getiri nedir?" },
+  { id: "negatif-reel-getiri", label: "Negatif reel getiri" },
+  { id: "stopaj-etkisi", label: "Stopajın reel getiriye etkisi" },
+  { id: "basa-bas-faiz", label: "Enflasyonu aşan minimum faiz" },
+  { id: "enflasyon-senaryolari", label: "Enflasyon senaryoları" },
+  { id: "satinalma-gucu", label: "Satın alma gücü analizi" },
+  { id: "gun-esasi", label: "360 ve 365 gün esası" },
+  { id: "vade-etkisi", label: "Vade süresinin etkisi" },
+  { id: "dikkat-edilecekler", label: "Dikkat edilmesi gerekenler" },
+  { id: "ornek-karsilastirma", label: "Nominal ve reel örnek" },
+  { id: "ana-para-etkisi", label: "Ana paranın etkisi" },
+  { id: "sik-hatalar", label: "Sık yapılan hatalar" },
+  { id: "ilgili-hesaplamalar", label: "İlgili hesaplamalar" },
+  { id: "sss", label: "Sık sorulan sorular" },
+];
+
+const inflationScenarioRows = [
+  {
+    inflation: "%20",
+    netAnnualReturn: "%38,25",
+    approximateRealReturn: "%15,21",
+    status: "Pozitif reel getiri",
   },
-};
+  {
+    inflation: "%30",
+    netAnnualReturn: "%38,25",
+    approximateRealReturn: "%6,35",
+    status: "Pozitif reel getiri",
+  },
+  {
+    inflation: "%40",
+    netAnnualReturn: "%38,25",
+    approximateRealReturn: "-%1,25",
+    status: "Sınırlı reel kayıp",
+  },
+  {
+    inflation: "%50",
+    netAnnualReturn: "%38,25",
+    approximateRealReturn: "-%7,83",
+    status: "Negatif reel getiri",
+  },
+  {
+    inflation: "%60",
+    netAnnualReturn: "%38,25",
+    approximateRealReturn: "-%13,59",
+    status: "Yüksek reel kayıp",
+  },
+];
+
+const purchasingPowerRows = [
+  {
+    principal: "100.000 TL",
+    nominalEnd: "138.250 TL",
+    inflation: "%30",
+    realValue: "106.346 TL",
+    realChange: "+6.346 TL",
+  },
+  {
+    principal: "250.000 TL",
+    nominalEnd: "345.625 TL",
+    inflation: "%40",
+    realValue: "246.875 TL",
+    realChange: "-3.125 TL",
+  },
+  {
+    principal: "500.000 TL",
+    nominalEnd: "691.250 TL",
+    inflation: "%50",
+    realValue: "460.833 TL",
+    realChange: "-39.167 TL",
+  },
+  {
+    principal: "1.000.000 TL",
+    nominalEnd: "1.382.500 TL",
+    inflation: "%30",
+    realValue: "1.063.462 TL",
+    realChange: "+63.462 TL",
+  },
+];
+
+const dayBasisRows = [
+  {
+    basis: "360 gün",
+    grossInterest: "40.000 TL",
+    withholding: "6.000 TL",
+    netInterest: "34.000 TL",
+    note: "Faiz katsayısı daha yüksek olabilir",
+  },
+  {
+    basis: "365 gün",
+    grossInterest: "39.452 TL",
+    withholding: "5.918 TL",
+    netInterest: "33.534 TL",
+    note: "Takvim yılı esasına daha yakındır",
+  },
+];
 
 const faqItems = [
   {
@@ -170,6 +270,36 @@ const faqItems = [
     answer:
       "Hayır. Araç yalnızca bilgilendirme ve finansal farkındalık amacıyla hazırlanmıştır.",
   },
+  {
+    question: "Reel faiz oranı hangi formülle hesaplanır?",
+    answer:
+      "Yaklaşık yöntem net faiz oranından enflasyon oranını çıkarmaktır. Daha doğru Fisher yaklaşımında reel oran, (1 + net getiri) ÷ (1 + enflasyon) − 1 formülüyle bulunur.",
+  },
+  {
+    question: "Enflasyon oranı ile mevduat vadesi aynı döneme mi çevrilmelidir?",
+    answer:
+      "Evet. Sağlıklı karşılaştırma için faiz getirisi ve enflasyon aynı zaman aralığına uyarlanmalıdır. Yıllık enflasyon ile 32 günlük faiz getirisi doğrudan karşılaştırılmamalıdır.",
+  },
+  {
+    question: "Beklenen enflasyon mu geçmiş enflasyon mu kullanılmalıdır?",
+    answer:
+      "Geleceğe yönelik karar analizinde beklenen enflasyon senaryosu, gerçekleşmiş dönemin performans analizinde ise aynı döneme ait gerçekleşen enflasyon kullanılabilir.",
+  },
+  {
+    question: "Pozitif reel getiri satın alma gücünün kesin arttığı anlamına gelir mi?",
+    answer:
+      "Genel fiyat düzeyi açısından evet; ancak kişisel harcama sepetiniz resmi veya varsayımsal enflasyon oranından farklı yükselmiş olabilir. Bu nedenle kişisel satın alma gücü sonucu değişebilir.",
+  },
+  {
+    question: "Reel getiri hesabında bileşik enflasyon neden kullanılır?",
+    answer:
+      "Fiyat seviyesindeki değişim zaman içinde bileşik olarak oluştuğu için dönem enflasyonunu yıllık orandan türetirken bileşik dönüşüm daha tutarlı sonuç verir.",
+  },
+  {
+    question: "Mevduat reel getirisi döviz veya altın getirisiyle karşılaştırılabilir mi?",
+    answer:
+      "Karşılaştırılabilir; ancak tüm seçeneklerin aynı dönem, aynı vergi ve masraf koşullarıyla değerlendirilmesi gerekir. Risk, likidite ve fiyat oynaklığı da ayrıca dikkate alınmalıdır.",
+  },
 ];
 
 const faqStructuredData = {
@@ -202,10 +332,89 @@ const webApplicationStructuredData = {
   publisher: {
     "@type": "Organization",
     name: "HesapRehberi",
-    url: "https://hesaprehberi.com",
+    url: "https://https://hesaprehberionline.com",
   },
 };
 
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Ana Sayfa",
+      item: "https://https://hesaprehberionline.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Hesaplamalar",
+      item: "https://https://hesaprehberionline.com/hesaplamalar",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Mevduat Reel Getiri",
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const articleStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: pageTitle,
+  description: pageDescription,
+  mainEntityOfPage: canonicalUrl,
+  inLanguage: "tr-TR",
+  author: {
+    "@type": "Organization",
+    name: "HesapRehberi",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "HesapRehberi",
+    url: "https://https://hesaprehberionline.com",
+  },
+};
+
+const howToStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Mevduat reel getiri nasıl hesaplanır?",
+  description:
+    "Mevduat faizini stopaj ve enflasyon etkisiyle birlikte değerlendirerek gerçek satın alma gücü değişimini hesaplama adımları.",
+  totalTime: "PT2M",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Ana parayı girin",
+      text: "Mevduatta değerlendireceğiniz başlangıç tutarını yazın.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Faiz ve enflasyon oranlarını belirleyin",
+      text: "Yıllık brüt faiz, yıllık enflasyon ve stopaj oranlarını girin.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Vade ve gün esasını seçin",
+      text: "Mevduat vadesini ve bankanın kullandığı 360 veya 365 gün esasını belirleyin.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Reel sonucu değerlendirin",
+      text: "Nominal kazanç, dönem enflasyonu, reel kazanç ve satın alma gücü değişimini inceleyin.",
+    },
+  ],
+};
+
+const relatedCalculators = getRelatedCalculators(canonicalPath, 4);
 export default function DepositRealReturnPage() {
   return (
     <>
@@ -220,6 +429,27 @@ export default function DepositRealReturnPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webApplicationStructuredData),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToStructuredData),
         }}
       />
 
@@ -302,7 +532,7 @@ export default function DepositRealReturnPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <section id="hesaplama-araci" className="scroll-mt-28 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
           <DepositRealReturnCalculator />
 
           <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
@@ -319,11 +549,12 @@ export default function DepositRealReturnPage() {
             <ShareButtons
               title={pageTitle}
               description={pageDescription}
+              url={canonicalUrl}
             />
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-white">
+        <section id="kullanim-rehberi" className="scroll-mt-28 border-y border-slate-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
             <div className="max-w-3xl">
               <span className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-600">
@@ -376,7 +607,7 @@ export default function DepositRealReturnPage() {
         <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px]">
             <article className="space-y-10">
-              <ContentSection
+              <ContentSection id="reel-getiri-nedir"
                 icon={<ChartNoAxesCombined className="h-6 w-6" />}
                 title="Mevduat reel getiri neden önemlidir?"
               >
@@ -394,7 +625,7 @@ export default function DepositRealReturnPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="hesaplama-formulu"
                 icon={<Calculator className="h-6 w-6" />}
                 title="Mevduat reel getiri hesaplama formülü"
               >
@@ -434,7 +665,7 @@ export default function DepositRealReturnPage() {
                 </FormulaBox>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="nominal-getiri"
                 icon={<TrendingUp className="h-6 w-6" />}
                 title="Nominal getiri nedir?"
               >
@@ -451,7 +682,7 @@ export default function DepositRealReturnPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="negatif-reel-getiri"
                 icon={<TrendingDown className="h-6 w-6" />}
                 title="Reel getiri negatif olabilir mi?"
               >
@@ -470,7 +701,7 @@ export default function DepositRealReturnPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="stopaj-etkisi"
                 icon={<Scale className="h-6 w-6" />}
                 title="Stopaj reel getiriyi nasıl değiştirir?"
               >
@@ -487,7 +718,7 @@ export default function DepositRealReturnPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="basa-bas-faiz"
                 icon={<Gauge className="h-6 w-6" />}
                 title="Enflasyonu aşmak için gereken minimum faiz"
               >
@@ -504,7 +735,7 @@ export default function DepositRealReturnPage() {
                 </p>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="dikkat-edilecekler"
                 icon={<WalletCards className="h-6 w-6" />}
                 title="Reel getiri hesaplanırken nelere dikkat edilmelidir?"
               >
@@ -520,7 +751,7 @@ export default function DepositRealReturnPage() {
                 </div>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="ornek-karsilastirma"
                 icon={<Banknote className="h-6 w-6" />}
                 title="Nominal ve reel getiri karşılaştırma örneği"
               >
@@ -576,7 +807,7 @@ export default function DepositRealReturnPage() {
                 </div>
               </ContentSection>
 
-              <ContentSection
+              <ContentSection id="ana-para-etkisi"
                 icon={<CircleDollarSign className="h-6 w-6" />}
                 title="Ana para reel sonucu nasıl etkiler?"
               >
@@ -592,9 +823,247 @@ export default function DepositRealReturnPage() {
                   sonuçları farklı olur.
                 </p>
               </ContentSection>
+
+              <ContentSection
+                id="enflasyon-senaryolari"
+                icon={<ChartNoAxesCombined className="h-6 w-6" />}
+                title="Farklı enflasyon senaryolarında reel getiri"
+              >
+                <p>
+                  Mevduatın gerçek performansı yalnızca faiz oranına bağlı
+                  değildir. Aynı net yıllık getiri, farklı enflasyon
+                  varsayımlarında pozitif veya negatif reel sonuç üretebilir.
+                  Bu nedenle tek bir enflasyon tahminine bağlı kalmak yerine
+                  iyimser, temel ve kötümser senaryoları birlikte incelemek
+                  daha sağlıklı bir yaklaşım sağlar.
+                </p>
+
+                <p>
+                  Aşağıdaki örnekte yıllık brüt faiz oranının %45, stopajın
+                  %15 ve stopaj sonrası yaklaşık yıllık net getirinin %38,25
+                  olduğu varsayılmıştır. Reel getiri, Fisher yaklaşımıyla
+                  yaklaşık olarak hesaplanmıştır.
+                </p>
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[760px] text-left text-sm">
+                      <thead className="bg-slate-950 text-white">
+                        <tr>
+                          <th className="px-5 py-4 font-semibold">Yıllık enflasyon</th>
+                          <th className="px-5 py-4 font-semibold">Net yıllık getiri</th>
+                          <th className="px-5 py-4 font-semibold">Yaklaşık reel getiri</th>
+                          <th className="px-5 py-4 font-semibold">Değerlendirme</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 bg-white">
+                        {inflationScenarioRows.map((row) => (
+                          <tr key={row.inflation} className="transition hover:bg-slate-50">
+                            <td className="px-5 py-4 font-black text-slate-950">{row.inflation}</td>
+                            <td className="px-5 py-4 font-semibold text-blue-700">{row.netAnnualReturn}</td>
+                            <td className="px-5 py-4 font-black text-emerald-700">{row.approximateRealReturn}</td>
+                            <td className="px-5 py-4 text-slate-600">{row.status}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <InfoBox title="Senaryo sonuçlarını nasıl yorumlamalısınız?">
+                  <p>
+                    Reel getiri sıfıra yakınsa mevduat satın alma gücünü
+                    yaklaşık olarak koruyor demektir. Pozitif değer gerçek
+                    artışı, negatif değer ise fiyat artışlarına karşı satın
+                    alma gücü kaybını ifade eder.
+                  </p>
+                </InfoBox>
+              </ContentSection>
+
+              <ContentSection
+                id="satinalma-gucu"
+                icon={<CircleDollarSign className="h-6 w-6" />}
+                title="Satın alma gücü değişimi nasıl ölçülür?"
+              >
+                <p>
+                  Nominal vade sonu bakiyesi, hesapta görünen TL tutarıdır.
+                  Reel değer ise bu bakiyenin dönem enflasyonu dikkate
+                  alındığında başlangıç gününün fiyatlarıyla ne kadar satın
+                  alma gücüne karşılık geldiğini gösterir.
+                </p>
+
+                <p>
+                  Aşağıdaki senaryolar yıllık bazda örneklenmiştir. Net getiri
+                  yaklaşık %38,25 kabul edilmiştir. Tablodaki tutarlar öğretici
+                  örneklerdir ve banka teklifi niteliği taşımaz.
+                </p>
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[820px] text-left text-sm">
+                      <thead className="bg-emerald-950 text-white">
+                        <tr>
+                          <th className="px-5 py-4 font-semibold">Başlangıç ana parası</th>
+                          <th className="px-5 py-4 font-semibold">Nominal dönem sonu</th>
+                          <th className="px-5 py-4 font-semibold">Enflasyon</th>
+                          <th className="px-5 py-4 font-semibold">Bugünkü reel değer</th>
+                          <th className="px-5 py-4 font-semibold">Reel değişim</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 bg-white">
+                        {purchasingPowerRows.map((row) => (
+                          <tr key={`${row.principal}-${row.inflation}`} className="transition hover:bg-emerald-50/40">
+                            <td className="px-5 py-4 font-black text-slate-950">{row.principal}</td>
+                            <td className="px-5 py-4 font-semibold text-blue-700">{row.nominalEnd}</td>
+                            <td className="px-5 py-4 font-semibold text-rose-700">{row.inflation}</td>
+                            <td className="px-5 py-4 font-black text-emerald-700">{row.realValue}</td>
+                            <td className="px-5 py-4 font-bold text-slate-700">{row.realChange}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ContentSection>
+
+              <ContentSection
+                id="gun-esasi"
+                icon={<CalendarDays className="h-6 w-6" />}
+                title="360 ve 365 gün esasının reel getiriye etkisi"
+              >
+                <p>
+                  Bankanın faiz hesabında kullandığı gün esası, aynı ana para,
+                  oran ve vade için brüt faiz tutarını değiştirebilir. Gün
+                  esasındaki fark küçük görünse de yüksek ana paralarda veya
+                  tekrarlanan vadelerde toplam sonuç belirginleşebilir.
+                </p>
+
+                <p>
+                  Aşağıdaki örnek 400.000 TL ana para, yıllık %45 faiz, 80 gün
+                  vade ve %15 stopaj varsayımıyla hazırlanmıştır.
+                </p>
+
+                <div className="overflow-hidden rounded-2xl border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="w-full min-w-[760px] text-left text-sm">
+                      <thead className="bg-slate-950 text-white">
+                        <tr>
+                          <th className="px-5 py-4 font-semibold">Gün esası</th>
+                          <th className="px-5 py-4 font-semibold">Brüt faiz</th>
+                          <th className="px-5 py-4 font-semibold">Stopaj</th>
+                          <th className="px-5 py-4 font-semibold">Net faiz</th>
+                          <th className="px-5 py-4 font-semibold">Not</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200 bg-white">
+                        {dayBasisRows.map((row) => (
+                          <tr key={row.basis}>
+                            <td className="px-5 py-4 font-black text-slate-950">{row.basis}</td>
+                            <td className="px-5 py-4 font-semibold text-blue-700">{row.grossInterest}</td>
+                            <td className="px-5 py-4 font-semibold text-rose-700">{row.withholding}</td>
+                            <td className="px-5 py-4 font-black text-emerald-700">{row.netInterest}</td>
+                            <td className="px-5 py-4 text-slate-600">{row.note}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ContentSection>
+
+              <ContentSection
+                id="vade-etkisi"
+                icon={<Clock3 className="h-6 w-6" />}
+                title="Vade süresi reel sonucu nasıl etkiler?"
+              >
+                <p>
+                  Vade uzadıkça hem faiz geliri hem de aynı döneme düşen
+                  enflasyon etkisi büyür. Bu nedenle yalnızca daha uzun
+                  vadenin daha yüksek nominal faiz üretmesine bakmak,
+                  yatırımın gerçek performansını anlamak için yeterli değildir.
+                </p>
+
+                <p>
+                  Kısa vadede oranların sık yenilenmesi faiz değişimlerine daha
+                  hızlı uyum sağlayabilir; uzun vadede ise mevcut oran daha
+                  uzun süre korunabilir. Hangi seçeneğin daha iyi olduğu,
+                  faizlerin ve enflasyonun gelecekteki yönüne bağlıdır.
+                </p>
+
+                <WarningBox title="Aynı dönemi karşılaştırın">
+                  <p>
+                    32 günlük net faiz oranını doğrudan yıllık enflasyonla
+                    kıyaslamak hatalı yorumlara yol açabilir. Her iki oranı da
+                    aynı vade dönemine veya yıllık eşdeğere dönüştürün.
+                  </p>
+                </WarningBox>
+              </ContentSection>
+
+              <ContentSection
+                id="sik-hatalar"
+                icon={<AlertTriangle className="h-6 w-6" />}
+                title="Reel getiri hesabında sık yapılan hatalar"
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <MistakeCard
+                    title="Brüt faizi kullanmak"
+                    description="Stopajı hesaba katmadan yapılan karşılaştırma gerçek net getiriyi olduğundan yüksek gösterir."
+                  />
+                  <MistakeCard
+                    title="Farklı dönemleri kıyaslamak"
+                    description="Kısa vadeli faiz getirisi ile yıllık enflasyonu doğrudan karşılaştırmak sağlıklı değildir."
+                  />
+                  <MistakeCard
+                    title="Basit çıkarma ile yetinmek"
+                    description="Yüksek oranlarda net faizden enflasyonu çıkarmak yerine bileşik reel getiri formülü kullanılmalıdır."
+                  />
+                  <MistakeCard
+                    title="Kişisel enflasyonu göz ardı etmek"
+                    description="Harcamalarınızın dağılımı genel enflasyondan farklıysa kişisel satın alma gücü sonucu da farklı olabilir."
+                  />
+                  <MistakeCard
+                    title="Gün esasını kontrol etmemek"
+                    description="360 ve 365 gün uygulaması faiz tutarını ve dolaylı olarak reel sonucu değiştirebilir."
+                  />
+                  <MistakeCard
+                    title="Vade bozma riskini unutmak"
+                    description="Erken çekim halinde faiz kaybı oluşursa hesaplanan reel getiri gerçekleşmeyebilir."
+                  />
+                </div>
+              </ContentSection>
             </article>
 
             <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+              <nav
+                aria-label="Sayfa içindekiler"
+                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-white">
+                    <ListChecks className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-600">
+                      Sayfa rehberi
+                    </p>
+                    <h2 className="text-lg font-black text-slate-950">İçindekiler</h2>
+                  </div>
+                </div>
+
+                <div className="mt-5 max-h-[420px] space-y-1 overflow-y-auto pr-1">
+                  {tableOfContents.map((item) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="group flex items-start gap-2 rounded-xl px-3 py-2 text-sm font-semibold leading-6 text-slate-600 transition hover:bg-emerald-50 hover:text-emerald-800"
+                    >
+                      <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-slate-400 transition group-hover:text-emerald-600" />
+                      <span>{item.label}</span>
+                    </a>
+                  ))}
+                </div>
+              </nav>
+
               <div className="rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-teal-50 p-6">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white">
                   <ShieldCheck className="h-6 w-6" />
@@ -613,31 +1082,19 @@ export default function DepositRealReturnPage() {
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div id="ilgili-hesaplamalar" className="scroll-mt-28 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                 <h2 className="text-lg font-black text-slate-950">
                   İlgili hesaplamalar
                 </h2>
 
                 <div className="mt-5 space-y-3">
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-hesaplama"
-                    title="Mevduat Hesaplama"
-                  />
-
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-faiz-orani-karsilastirma"
-                    title="Mevduat Faiz Karşılaştırma"
-                  />
-
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-getiri-hedefi"
-                    title="Mevduat Getiri Hedefi"
-                  />
-
-                  <RelatedLink
-                    href="/hesaplamalar/mevduat-erken-bozma-kaybi"
-                    title="Mevduat Erken Bozma Kaybı"
-                  />
+                  {relatedCalculators.map((item) => (
+                    <RelatedLink
+                      key={item.href}
+                      href={item.href}
+                      title={item.title}
+                    />
+                  ))}
                 </div>
               </div>
 
@@ -665,7 +1122,7 @@ export default function DepositRealReturnPage() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-white">
+        <section id="sss" className="scroll-mt-28 border-y border-slate-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
             <div className="mx-auto max-w-3xl text-center">
               <span className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-600">
@@ -823,18 +1280,23 @@ function GuideCard({
 }
 
 type ContentSectionProps = {
+  id?: string;
   icon: ReactNode;
   title: string;
   children: ReactNode;
 };
 
 function ContentSection({
+  id,
   icon,
   title,
   children,
 }: ContentSectionProps) {
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <section
+      id={id}
+      className="scroll-mt-28 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+    >
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
           {icon}
@@ -905,6 +1367,63 @@ function ExampleTableRow({
         {effect}
       </td>
     </tr>
+  );
+}
+
+type InfoBoxProps = {
+  title: string;
+  children: ReactNode;
+};
+
+function InfoBox({ title, children }: InfoBoxProps) {
+  return (
+    <div className="rounded-2xl border border-blue-200 bg-blue-50 p-5">
+      <div className="flex gap-3">
+        <Info className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+        <div>
+          <h3 className="font-black text-blue-950">{title}</h3>
+          <div className="mt-2 text-sm leading-7 text-blue-900">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type WarningBoxProps = {
+  title: string;
+  children: ReactNode;
+};
+
+function WarningBox({ title, children }: WarningBoxProps) {
+  return (
+    <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+      <div className="flex gap-3">
+        <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+        <div>
+          <h3 className="font-black text-amber-950">{title}</h3>
+          <div className="mt-2 text-sm leading-7 text-amber-900">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type MistakeCardProps = {
+  title: string;
+  description: string;
+};
+
+function MistakeCard({ title, description }: MistakeCardProps) {
+  return (
+    <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5">
+      <div className="flex gap-3">
+        <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-rose-600" />
+        <div>
+          <h3 className="font-black text-rose-950">{title}</h3>
+          <p className="mt-2 text-sm leading-7 text-rose-900">{description}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 

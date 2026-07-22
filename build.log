@@ -569,7 +569,7 @@ Module not found: Can't resolve '@/lib/createCalculatorMetada'
   [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
   [90m33 |[0m
   [90m34 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/gelir-vergisi-hesaplama-rehberi"[0m;
-  [90m35 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+  [90m35 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.https://hesaprehberionline.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
 
 Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
 
@@ -585,7 +585,7 @@ Module not found: Can't resolve '@/lib/createCalculatorMetada'
   [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
   [90m29 |[0m
   [90m30 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/indirim-hesaplama-rehberi"[0m;
-  [90m31 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+  [90m31 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.https://hesaprehberionline.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
 
 Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
 
@@ -601,7 +601,7 @@ Module not found: Can't resolve '@/lib/createCalculatorMetada'
   [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
   [90m34 |[0m
   [90m35 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/kira-artis-hesaplama-rehberi"[0m;
-  [90m36 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+  [90m36 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.https://hesaprehberionline.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
 
 Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
 
@@ -633,7 +633,7 @@ Module not found: Can't resolve '@/lib/createCalculatorMetada'
   [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
   [90m31 |[0m
   [90m32 |[0m [36mconst[0m [33mPAGE_PATH[0m = [32m"/blog/yuzde-hesaplama-rehberi"[0m;
-  [90m33 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.hesaprehberi.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
+  [90m33 |[0m [36mconst[0m [33mPAGE_URL[0m = [32m`https://www.https://hesaprehberionline.com[0m${[33mPAGE_PATH[0m[32m}`[0m;
 
 Import map: aliased to relative './lib/createCalculatorMetada' inside of [project]/
 

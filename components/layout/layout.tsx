@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hesaprehberi.com"),
+  metadataBase: new URL("https://https://hesaprehberionline.com"),
 
   title: {
     default: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",

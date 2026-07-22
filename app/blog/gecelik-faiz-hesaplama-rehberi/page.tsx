@@ -34,7 +34,7 @@ const pageTitle = "Gecelik Günlük Faiz Hesaplama Rehberi";
 const pageDescription =
   "Gecelik faiz nasıl hesaplanır? Gecelik mevduat getirisi, yıllık oranın günlük karşılığı, valör, stopaj ve net kazancı örneklerle öğrenin.";
 const canonicalPath = "/blog/gecelik-faiz-hesaplama-rehberi";
-const canonicalUrl = `https://hesaprehberi.com${canonicalPath}`;
+const canonicalUrl = `https://https://hesaprehberionline.com${canonicalPath}`;
 
 export const metadata: Metadata = {
   title: `${pageTitle} | HesapRehberi`,
@@ -206,12 +206,12 @@ const articleStructuredData = {
   author: {
     "@type": "Organization",
     name: "HesapRehberi",
-    url: "https://hesaprehberi.com",
+    url: "https://https://hesaprehberionline.com",
   },
   publisher: {
     "@type": "Organization",
     name: "HesapRehberi",
-    url: "https://hesaprehberi.com",
+    url: "https://https://hesaprehberionline.com",
   },
 };
 
@@ -236,13 +236,13 @@ const breadcrumbStructuredData = {
       "@type": "ListItem",
       position: 1,
       name: "Ana Sayfa",
-      item: "https://hesaprehberi.com",
+      item: "https://https://hesaprehberionline.com",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Blog",
-      item: "https://hesaprehberi.com/blog",
+      item: "https://https://hesaprehberionline.com/blog",
     },
     {
       "@type": "ListItem",
