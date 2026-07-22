@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 
 import "./globals.css";
 
-const baseUrl = "https://hesaprehberi.vercel.app";
+const baseUrl = "https://hesaprehberionline.com";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

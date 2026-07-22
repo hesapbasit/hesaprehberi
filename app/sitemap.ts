@@ -2,7 +2,55 @@ import type { MetadataRoute } from "next";
 
 import { calculators } from "@/lib/calculators";
 
-const baseUrl = "https://hesaprehberi.vercel.app";
+const baseUrl = "https://hesaprehberionline.com";
+
+const blogSlugs = [
+  "gecelik-faiz-hesaplama-rehberi",
+  "basit-faiz-bilesik-faiz-farki",
+  "mevduat-faizi-hesaplama-rehberi",
+  "tasit-kredisi-hesaplama-rehberi",
+  "tarim-kredisi-rehberi",
+  "kredi-karsilastirma-rehberi",
+  "mevduat-getiri-hedefi-rehberi",
+  "kira-artis-hesaplama-rehberi",
+  "doviz-cevirme-nasil-yapilir",
+  "kredi-taksiti-nasil-hesaplanir",
+  "kredi-faizi-nasil-hesaplanir",
+  "vadeli-mevduat-hesaplama-rehberi",
+  "mevduat-faiz-yenileme-rehberi",
+  "kdv-nasil-hesaplanir",
+  "su-ihtiyaci-hesaplama-rehberi",
+  "mevduat-erken-bozma-kaybi-rehberi",
+  "esnaf-kredisi-rehberi",
+  "ihtiyac-kredisi-hesaplama-rehberi",
+  "ticari-kredi-rehberi",
+  "mevduat-reel-getiri-hesaplama",
+  "ideal-kilo-hesaplama-rehberi",
+  "stopaj-hesaplama-rehberi",
+  "yuzde-hesaplama-rehberi",
+  "vadeli-mevduat-faizi-nasil-hesaplanir",
+  "gun-hesaplama-rehberi",
+  "yas-hesaplama-rehberi",
+  "mevduat-vade-karsilastirma-rehberi",
+  "indirim-hesaplama-rehberi",
+  "kdv-dahil-ve-haric-hesaplama-nasil-yapilir",
+  "gelir-vergisi-hesaplama-rehberi",
+  "bilesik-faiz-hesaplama-rehberi",
+  "kobi-kredisi-rehberi",
+  "vucut-yag-orani-hesaplama-rehberi",
+  "konut-kredisi-hesaplama-rehberi",
+  "enflasyon-hesaplamasi-nasil-yapilir",
+  "faiz-hesaplama-rehberi",
+  "kredi-erken-kapama-rehberi",
+  "bazal-metabolizma-hesaplama-rehberi",
+  "kredi-yapilandirma-rehberi",
+  "gebelik-hesaplama-rehberi",
+  "kalori-ihtiyaci-hesaplama-rehberi",
+  "mevduat-faiz-orani-karsilastirma-rehberi",
+  "gunluk-faiz-hesaplama-rehberi",
+  "maas-hesaplama-nasil-yapilir",
+  "bsmv-nedir-nasil-hesaplanir",
+] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -24,7 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/blog`,
       lastModified,
       changeFrequency: "weekly",
-      priority: 0.7,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/hakkimizda`,
@@ -67,36 +115,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  const blogPages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/blog/kdv-nasil-hesaplanir`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/blog/kredi-taksiti-nasil-hesaplanir`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/blog/basit-faiz-bilesik-faiz-farki`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/blog/doviz-cevirme-nasil-yapilir`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-  ];
+  const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
+    url: `${baseUrl}/blog/${slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
 
-  return [
-    ...staticPages,
-    ...calculatorPages,
-    ...blogPages,
-  ];
+  return [...staticPages, ...calculatorPages, ...blogPages];
 }
