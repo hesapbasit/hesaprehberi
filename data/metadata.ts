@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import type { CalculatorItem } from "@/lib/calculators";
 
-const baseUrl = "https://hesaprehberi.vercel.app";
+const baseUrl = "https://https://hesaprehberionline.com";
 
 type CreatePageMetadataOptions = {
   title: string;

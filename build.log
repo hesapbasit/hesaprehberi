@@ -471,7 +471,7 @@ Module not found: Can't resolve '@/data/calculators'
 [31m[1m>[0m [90m3 |[0m [36mimport[0m { calculators } [36mfrom[0m [32m"@/data/calculators"[0m;
   [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
   [90m4 |[0m
-  [90m5 |[0m [36mconst[0m baseUrl = [32m"https://hesaprehberi.vercel.app"[0m;
+  [90m5 |[0m [36mconst[0m baseUrl = [32m"https://https://hesaprehberionline.com"[0m;
   [90m6 |[0m
 
 Import map: aliased to relative './data/calculators' inside of [project]/

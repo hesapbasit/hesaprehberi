@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -20,6 +21,127 @@ import CategoryCard from "@/components/ui/CategoryCard";
 import HomeFaq from "@/components/ui/HomeFaq";
 import LatestArticles from "@/components/ui/LatestArticles";
 import { featuredCalculators } from "@/lib/calculators";
+
+const baseUrl = "https://hesaprehberionline.com";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
+  },
+  description:
+    "Kredi, KDV, faiz, maaş, döviz, vergi, kira, mevduat, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
+  keywords: [
+    "hesaplama",
+    "hesaplama araçları",
+    "online hesaplama",
+    "kredi hesaplama",
+    "faiz hesaplama",
+    "KDV hesaplama",
+    "maaş hesaplama",
+    "döviz hesaplama",
+    "mevduat hesaplama",
+    "enflasyon hesaplama",
+    "vergi hesaplama",
+    "kira artış hesaplama",
+    "yaş hesaplama",
+    "gün hesaplama",
+    "sağlık hesaplama",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  referrer: "origin-when-cross-origin",
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: baseUrl,
+    siteName: "HesapRehberi",
+    title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
+    description:
+      "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
+    images: [
+      {
+        url: "/logo.jpg",
+        width: 1200,
+        height: 630,
+        alt: "HesapRehberi hesaplama platformu",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
+    description:
+      "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
+    images: ["/logo.jpg"],
+  },
+};
+
+const homeStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${baseUrl}/#webpage`,
+      url: `${baseUrl}/`,
+      name: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
+      headline: "Tüm Hesaplamalar Tek Yerde",
+      description:
+        "Kredi, KDV, faiz, maaş, döviz, vergi, kira, mevduat, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
+      inLanguage: "tr-TR",
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        "@id": `${baseUrl}/#primaryimage`,
+        url: `${baseUrl}/logo.jpg`,
+        contentUrl: `${baseUrl}/logo.jpg`,
+        caption: "HesapRehberi hesaplama platformu",
+      },
+      mainEntity: {
+        "@id": `${baseUrl}/#featured-calculators`,
+      },
+      breadcrumb: {
+        "@id": `${baseUrl}/#breadcrumb`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${baseUrl}/#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Ana Sayfa",
+          item: `${baseUrl}/`,
+        },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${baseUrl}/#featured-calculators`,
+      name: "Popüler Hesaplama Araçları",
+      description:
+        "HesapRehberi ana sayfasında öne çıkan ve sık kullanılan hesaplama araçları.",
+      numberOfItems: featuredCalculators.length,
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      itemListElement: featuredCalculators.map((calculator, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: calculator.title,
+        url: `${baseUrl}${calculator.href}`,
+      })),
+    },
+  ],
+};
 
 const platformFeatures = [
   {
@@ -98,6 +220,13 @@ const steps = [
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homeStructuredData).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <Hero />
 
       <main className="overflow-hidden bg-slate-50">

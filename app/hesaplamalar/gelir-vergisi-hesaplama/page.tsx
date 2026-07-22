@@ -35,7 +35,7 @@ import {
 import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 
 const canonicalPath = "/hesaplamalar/gelir-vergisi-hesaplama";
-const canonicalUrl = `https://hesaprehberi.vercel.app${canonicalPath}`;
+const canonicalUrl = `https://https://hesaprehberionline.com${canonicalPath}`;
 
 function getRequiredCalculator(): CalculatorItem {
   const foundCalculator = getCalculatorByHref(canonicalPath);
@@ -445,13 +445,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Ana Sayfa",
-      item: "https://hesaprehberi.vercel.app",
+      item: "https://https://hesaprehberionline.com",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Hesaplamalar",
-      item: "https://hesaprehberi.vercel.app/hesaplamalar",
+      item: "https://https://hesaprehberionline.com/hesaplamalar",
     },
     {
       "@type": "ListItem",
