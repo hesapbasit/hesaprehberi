@@ -53,54 +53,44 @@ const blogSlugs = [
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${baseUrl}/hesaplamalar`,
-      lastModified,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/hakkimizda`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/iletisim`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/gizlilik-politikasi`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/kullanim-sartlari`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/cerez-politikasi`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.3,
     },
@@ -109,7 +99,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const calculatorPages: MetadataRoute.Sitemap = calculators.map(
     (calculator) => ({
       url: `${baseUrl}${calculator.href}`,
-      lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     }),
@@ -117,7 +106,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
     url: `${baseUrl}/blog/${slug}`,
-    lastModified,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
