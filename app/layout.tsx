@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import CookieConsent from "@/components/common/CookieConsent";
@@ -20,6 +20,13 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#2563eb",
+  colorScheme: "light",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
 
@@ -35,6 +42,7 @@ export const metadata: Metadata = {
     "hesaplama",
     "hesaplama araçları",
     "online hesaplama",
+    "ücretsiz hesaplama",
     "kredi hesaplama",
     "KDV hesaplama",
     "faiz hesaplama",
@@ -49,6 +57,7 @@ export const metadata: Metadata = {
     "VKİ hesaplama",
     "kalori hesaplama",
     "ideal kilo hesaplama",
+    "HesapRehberi",
   ],
 
   applicationName: "HesapRehberi",
@@ -72,6 +81,44 @@ export const metadata: Metadata = {
     "google-adsense-account": "ca-pub-4344370636536440",
   },
 
+  alternates: {
+    canonical: "/",
+  },
+
+  manifest: "/manifest.webmanifest",
+
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+      },
+      {
+        url: "/logo-192.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+      {
+        url: "/logo-512.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
+
+    shortcut: [
+      {
+        url: "/favicon.ico",
+      },
+    ],
+
+    apple: [
+      {
+        url: "/logo-512.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
+  },
+
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -80,10 +127,14 @@ export const metadata: Metadata = {
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
     description:
       "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
+
     images: [
       {
-        url: "/logo.jpg",
-        alt: "HesapRehberi hesaplama platformu",
+        url: "/logo-512.png",
+        width: 512,
+        height: 512,
+        alt: "HesapRehberi hesaplama platformu logosu",
+        type: "image/png",
       },
     ],
   },
@@ -93,7 +144,7 @@ export const metadata: Metadata = {
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
     description:
       "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
-    images: ["/logo.jpg"],
+    images: ["/logo-512.png"],
   },
 
   robots: {
@@ -122,20 +173,32 @@ export const metadata: Metadata = {
 
 const structuredData = {
   "@context": "https://schema.org",
+
   "@graph": [
     {
       "@type": "Organization",
       "@id": `${baseUrl}/#organization`,
+
       name: "HesapRehberi",
       alternateName: "Hesap Rehberi",
+
       url: baseUrl,
 
       logo: {
         "@type": "ImageObject",
         "@id": `${baseUrl}/#logo`,
-        url: `${baseUrl}/logo.jpg`,
-        contentUrl: `${baseUrl}/logo.jpg`,
+
+        url: `${baseUrl}/logo-512.png`,
+        contentUrl: `${baseUrl}/logo-512.png`,
+
+        width: 512,
+        height: 512,
+
         caption: "HesapRehberi",
+      },
+
+      image: {
+        "@id": `${baseUrl}/#logo`,
       },
 
       description:
@@ -145,9 +208,11 @@ const structuredData = {
     {
       "@type": "WebSite",
       "@id": `${baseUrl}/#website`,
+
       url: baseUrl,
+
       name: "HesapRehberi",
-      alternateName: "Hesap Rehberi",
+      alternateName: ["Hesap Rehberi", "HesapRehberi Online"],
 
       description:
         "Kredi, KDV, faiz, maaş, döviz, vergi, kira, mevduat, tarih ve sağlık hesaplamalarını ücretsiz yapın.",
@@ -157,16 +222,31 @@ const structuredData = {
       publisher: {
         "@id": `${baseUrl}/#organization`,
       },
+    },
 
-      potentialAction: {
-        "@type": "SearchAction",
+    {
+      "@type": "WebPage",
+      "@id": `${baseUrl}/#webpage`,
 
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate: `${baseUrl}/hesaplamalar?arama={search_term_string}`,
-        },
+      url: baseUrl,
 
-        "query-input": "required name=search_term_string",
+      name: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
+
+      description:
+        "Kredi, KDV, faiz, maaş, döviz, vergi, kira, mevduat, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
+
+      inLanguage: "tr-TR",
+
+      isPartOf: {
+        "@id": `${baseUrl}/#website`,
+      },
+
+      about: {
+        "@id": `${baseUrl}/#organization`,
+      },
+
+      primaryImageOfPage: {
+        "@id": `${baseUrl}/#logo`,
       },
     },
   ],
