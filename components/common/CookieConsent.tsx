@@ -48,23 +48,35 @@ export default function CookieConsent() {
     useState<ConsentPreference>(null);
 
   useEffect(() => {
-    try {
-      const savedPreference = window.localStorage.getItem(STORAGE_KEY);
+    const timer = window.setTimeout(() => {
+      let savedPreference: ConsentPreference = null;
 
-      if (
-        savedPreference === "accepted" ||
-        savedPreference === "rejected"
-      ) {
-        setPreference(savedPreference);
+      try {
+        const storedValue =
+          window.localStorage.getItem(STORAGE_KEY);
+
+        if (
+          storedValue === "accepted" ||
+          storedValue === "rejected"
+        ) {
+          savedPreference = storedValue;
+        }
+      } catch {
+        savedPreference = null;
       }
-    } catch {
-      setPreference(null);
-    } finally {
+
+      setPreference(savedPreference);
       setIsMounted(true);
-    }
+    }, 0);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
   }, []);
 
-  function savePreference(value: Exclude<ConsentPreference, null>) {
+  function savePreference(
+    value: Exclude<ConsentPreference, null>,
+  ) {
     try {
       window.localStorage.setItem(STORAGE_KEY, value);
     } catch {
@@ -136,10 +148,12 @@ export default function CookieConsent() {
                     id="cookie-consent-description"
                     className="mt-3 max-w-3xl leading-7 text-slate-600"
                   >
-                    HesapRehberi&apos;nin kullanımını analiz etmek ve
-                    hizmetlerimizi geliştirmek için Google Analytics
-                    çerezlerinden yararlanıyoruz. Zorunlu olmayan analiz
-                    çerezleri yalnızca onay vermeniz durumunda etkinleşir.
+                    HesapRehberi&apos;nin kullanımını analiz
+                    etmek ve hizmetlerimizi geliştirmek için
+                    Google Analytics çerezlerinden
+                    yararlanıyoruz. Zorunlu olmayan analiz
+                    çerezleri yalnızca onay vermeniz durumunda
+                    etkinleşir.
                   </p>
                 </div>
 
