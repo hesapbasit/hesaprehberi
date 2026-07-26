@@ -758,6 +758,60 @@ export const calculators: CalculatorItem[] = [
     ],
   },
   {
+  title: "Hisse Ortalama Maliyet Hesaplama",
+  description:
+    "Farklı fiyatlardan yaptığınız hisse alımlarının ortalama maliyetini, toplam yatırım tutarını, kâr/zararı ve başa baş fiyatını hesaplayın.",
+  category: "Yatırım",
+  icon: ChartNoAxesCombined,
+  href: "/hesaplamalar/hisse-ortalama-maliyet-hesaplama",
+  keywords: [
+    "hisse ortalama maliyet",
+    "hisse maliyet hesaplama",
+    "borsa ortalama maliyet",
+    "hisse senedi ortalama",
+    "hisse kâr zarar",
+    "hisse başa baş fiyatı",
+    "ortalama alış fiyatı",
+    "borsa yatırım hesaplama",
+  ],
+  },
+  {
+  title: "Kripto Ortalama Maliyet Hesaplama",
+  description:
+    "Farklı fiyatlardan yaptığınız kripto para alımlarının ortalama maliyetini, toplam yatırım tutarını, kâr/zararı ve başa baş fiyatını hesaplayın.",
+  category: "Yatırım",
+  icon: TrendingUp,
+  href: "/hesaplamalar/kripto-ortalama-maliyet-hesaplama",
+  keywords: [
+    "kripto ortalama maliyet",
+    "bitcoin ortalama maliyet",
+    "ethereum ortalama maliyet",
+    "kripto maliyet hesaplama",
+    "coin ortalama alış fiyatı",
+    "kripto kâr zarar",
+    "kripto başa baş fiyatı",
+    "kripto yatırım hesaplama",
+  ],
+  },
+  {
+  title: "Altın Ortalama Maliyet Hesaplama",
+  description:
+    "Gram, çeyrek, yarım, tam ve diğer altın alımlarınız için ortalama maliyetinizi, kâr/zararınızı ve başa baş fiyatınızı hesaplayın.",
+  category: "Yatırım",
+  icon: TrendingUp,
+  href: "/hesaplamalar/altin-ortalama-maliyet-hesaplama",
+  keywords: [
+    "altın ortalama maliyet",
+    "gram altın maliyet",
+    "çeyrek altın maliyet",
+    "altın maliyet hesaplama",
+    "altın ortalama",
+    "altın yatırım",
+    "altın kâr zarar",
+    "altın başa baş",
+  ],
+  },
+  {
   title: "Kredi Erken Kapama Hesaplama",
   description:
     "Kalan anapara, faiz oranı, vade ve erken ödeme ücretine göre tahmini kapama tutarı ile olası tasarrufu hesaplayın.",
