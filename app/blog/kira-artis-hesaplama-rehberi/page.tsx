@@ -9,7 +9,6 @@ import {
   CalendarDays,
   CheckCircle2,
   ChevronRight,
-  CircleDollarSign,
   FileText,
   Gavel,
   Home,
@@ -17,12 +16,10 @@ import {
   Landmark,
   ListChecks,
   Percent,
-  ReceiptText,
   Scale,
   ShieldCheck,
   Sparkles,
   TrendingUp,
-  WalletCards,
 } from "lucide-react";
 
 import Breadcrumb from "@/components/common/Breadcrumb";

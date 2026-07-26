@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import {
-  Activity,
   ArrowRight,
   Banknote,
   Calculator,
@@ -10,12 +9,10 @@ import {
   CircleDollarSign,
   Coins,
   CreditCard,
-  HeartPulse,
   Home,
   Landmark,
   Percent,
   ReceiptText,
-  Scale,
   TrendingUp,
   WalletCards,
 } from "lucide-react";

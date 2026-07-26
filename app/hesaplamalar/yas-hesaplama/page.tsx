@@ -20,7 +20,6 @@ import {
   Hourglass,
   Info,
   Landmark,
-  Lightbulb,
   ListChecks,
   Milestone,
   Scale,
@@ -29,7 +28,6 @@ import {
   Timer,
   TriangleAlert,
   UserRound,
-  Users,
 } from "lucide-react";
 
 import AgeCalculator from "@/components/calculators/AgeCalculator";

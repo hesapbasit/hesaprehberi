@@ -9,7 +9,6 @@ import {
   Calculator,
   CheckCircle2,
   ChevronRight,
-  CircleHelp,
   Dumbbell,
   Flame,
   Gauge,
@@ -20,7 +19,6 @@ import {
   Scale,
   Sparkles,
   TimerReset,
-  Utensils,
   Weight,
 } from "lucide-react";
 

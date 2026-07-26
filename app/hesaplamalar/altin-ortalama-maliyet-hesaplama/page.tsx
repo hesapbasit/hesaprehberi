@@ -18,7 +18,6 @@ import {
   ListChecks,
   Percent,
   PieChart,
-  RefreshCw,
   Scale,
   ShieldCheck,
   Sparkles,

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  BadgeInfo,
   Banknote,
   BookOpen,
   Building2,
@@ -12,15 +11,12 @@ import {
   ChevronRight,
   CircleAlert,
   CirclePercent,
-  FileCheck2,
   FileText,
   Home,
   Info,
-  Landmark,
   Lightbulb,
   ListChecks,
   Percent,
-  ReceiptText,
   Scale,
   ShieldCheck,
   Sparkles,

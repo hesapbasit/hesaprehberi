@@ -20,7 +20,6 @@ import {
   Sparkles,
   Target,
   UserRound,
-  Weight,
 } from "lucide-react";
 
 import CalculatorContentSection from "@/components/calculators/CalculatorContentSection";

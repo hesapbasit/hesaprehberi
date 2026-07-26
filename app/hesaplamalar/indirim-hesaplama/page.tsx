@@ -21,7 +21,6 @@ import {
   ShoppingCart,
   Sparkles,
   Tag,
-  Tags,
   TriangleAlert,
   WalletCards,
 } from "lucide-react";

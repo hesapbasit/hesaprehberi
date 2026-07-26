@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Activity,
   AlertCircle,
   BarChart3,
   Calculator,

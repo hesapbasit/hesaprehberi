@@ -5,7 +5,6 @@ import {
   ArrowDown,
   ArrowUp,
   Award,
-  Banknote,
   CalendarDays,
   ChartNoAxesCombined,
   CircleDollarSign,

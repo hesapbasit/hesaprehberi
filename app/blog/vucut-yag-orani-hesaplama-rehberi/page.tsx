@@ -9,7 +9,6 @@ import {
   Calculator,
   CheckCircle2,
   ChevronRight,
-  CircleHelp,
   Dumbbell,
   Gauge,
   HeartPulse,

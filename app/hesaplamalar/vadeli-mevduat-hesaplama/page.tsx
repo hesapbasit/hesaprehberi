@@ -6,17 +6,13 @@ import {
   ArrowRight,
   BadgeCheck,
   BadgePercent,
-  Banknote,
-  BookOpen,
   Calculator,
   CalendarDays,
   ChartNoAxesCombined,
   CheckCircle2,
   ChevronRight,
-  CircleDollarSign,
   Clock3,
   Coins,
-  FileText,
   Gauge,
   Info,
   Landmark,
@@ -31,7 +27,6 @@ import {
   Sparkles,
   Target,
   TrendingUp,
-  WalletCards,
 } from "lucide-react";
 
 import Breadcrumb from "@/components/common/Breadcrumb";

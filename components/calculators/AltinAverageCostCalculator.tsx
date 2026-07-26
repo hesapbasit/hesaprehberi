@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
-  BadgeCheck,
   Calculator,
   Check,
   CircleDollarSign,

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AlertTriangle, ArrowRight, BadgeCheck, Banknote, BarChart3,
+import { AlertTriangle, ArrowRight, BadgeCheck, Banknote,
 Calculator, CalendarClock, Car, Check, CheckCircle2, ChevronRight,
 CircleDollarSign, Clock3, FileCheck2, Gauge, HandCoins, Info, Landmark,
-ListChecks, Percent, ReceiptText, Scale, ShieldCheck, Sparkles,
+ListChecks, ReceiptText, Scale, ShieldCheck, Sparkles,
 TrendingDown, TrendingUp, WalletCards, } from "lucide-react";
 import { createCalculatorMetadata } from "@/lib/createCalculatorMetadata";
 import Breadcrumb from "@/components/common/Breadcrumb";

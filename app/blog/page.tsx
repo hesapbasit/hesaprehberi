@@ -15,7 +15,6 @@ import {
   Landmark,
   Lightbulb,
   ReceiptText,
-  Search,
   ShieldCheck,
   Sparkles,
   TrendingUp,

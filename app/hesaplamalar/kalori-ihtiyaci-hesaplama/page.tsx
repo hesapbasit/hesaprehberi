@@ -11,15 +11,12 @@ import {
   CalendarDays,
   Calculator,
   CheckCircle2,
-  ChevronRight,
   CircleGauge,
-  Clock3,
   Dumbbell,
   Flame,
   Footprints,
   Gauge,
   HeartPulse,
-  Info,
   Lightbulb,
   LineChart,
   Scale,
@@ -29,7 +26,6 @@ import {
   TrendingDown,
   TrendingUp,
   Utensils,
-  Weight,
   Zap,
 } from "lucide-react";
 

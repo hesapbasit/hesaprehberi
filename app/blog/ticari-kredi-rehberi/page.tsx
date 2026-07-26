@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  BadgePercent,
-  Banknote,
   Calculator,
   ChartNoAxesCombined,
   Building2,
-  CalendarDays,
   CalendarClock,
   CheckCircle2,
   ChevronRight,

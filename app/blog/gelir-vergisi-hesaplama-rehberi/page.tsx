@@ -10,7 +10,6 @@ import {
   CalendarDays,
   CheckCircle2,
   ChevronRight,
-  CircleDollarSign,
   FileText,
   Info,
   Landmark,

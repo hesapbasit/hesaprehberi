@@ -589,12 +589,6 @@ export default function CalorieCalculator() {
       preset.activityLevel,
     );
   };
-
-  const hasErrors =
-    Boolean(result.errors.age) ||
-    Boolean(result.errors.weight) ||
-    Boolean(result.errors.height);
-
   return (
     <section
       aria-labelledby="calorie-calculator-title"

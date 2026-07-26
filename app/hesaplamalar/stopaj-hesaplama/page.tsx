@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   BadgeInfo,
-  Banknote,
   BookOpen,
   Calculator,
   CheckCircle2,

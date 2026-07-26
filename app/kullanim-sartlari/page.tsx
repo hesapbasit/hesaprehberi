@@ -9,7 +9,6 @@ import {
   BookOpen,
   Building2,
   Check,
-  CheckCircle2,
   ChevronRight,
   CircleHelp,
   Clock3,
@@ -18,7 +17,6 @@ import {
   FileCheck2,
   FileText,
   Gavel,
-  Globe2,
   Handshake,
   Info,
   Landmark,
@@ -32,10 +30,8 @@ import {
   Sparkles,
   TriangleAlert,
   UserCheck,
-  Users,
   WalletCards,
   Wrench,
-  Zap,
 } from "lucide-react";
 
 import Breadcrumb from "@/components/common/Breadcrumb";

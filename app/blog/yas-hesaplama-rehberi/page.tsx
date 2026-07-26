@@ -8,7 +8,6 @@ import {
   Calendar,
   CalendarClock,
   CalendarDays,
-  Calculator,
   Cake,
   CheckCircle2,
   ChevronRight,
