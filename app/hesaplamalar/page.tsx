@@ -76,7 +76,7 @@ export const metadata: Metadata = {
       "Finans, vergi, maaş, kredi, konut, tarih ve sağlık alanlarındaki ücretsiz hesaplama araçlarını keşfedin.",
     images: [
       {
-        url: "/logo.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "HesapRehberi tüm hesaplama araçları",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     title: "Tüm Hesaplamalar | HesapRehberi",
     description:
       "Kredi, KDV, faiz, maaş, döviz, mevduat, konut, tarih ve sağlık hesaplamalarını ücretsiz yapın.",
-    images: ["/logo.jpg"],
+    images: ["/logo.png"],
   },
 };
 

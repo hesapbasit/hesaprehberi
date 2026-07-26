@@ -243,7 +243,7 @@ const articleSchema = {
         name: "HesapRehberi",
         logo: {
           "@type": "ImageObject",
-          url: "https://www.https://hesaprehberionline.com/logo.jpg",
+          url: "https://www.https://hesaprehberionline.com/logo.png",
         },
       },
       image:

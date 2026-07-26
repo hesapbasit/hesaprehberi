@@ -81,7 +81,7 @@ export const metadata: Metadata = {
       "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
     images: [
       {
-        url: "/logo.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "HesapRehberi hesaplama platformu",
@@ -94,7 +94,7 @@ export const metadata: Metadata = {
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
     description:
       "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
-    images: ["/logo.jpg"],
+    images: ["/logo.png"],
   },
 };
 
@@ -119,8 +119,8 @@ const homeStructuredData = {
       primaryImageOfPage: {
         "@type": "ImageObject",
         "@id": `${baseUrl}/#primaryimage`,
-        url: `${baseUrl}/logo.jpg`,
-        contentUrl: `${baseUrl}/logo.jpg`,
+        url: `${baseUrl}/logo.png`,
+        contentUrl: `${baseUrl}/logo.png`,
         caption: "HesapRehberi hesaplama platformu",
       },
       mainEntity: {

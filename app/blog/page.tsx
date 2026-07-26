@@ -58,7 +58,7 @@ export const metadata: Metadata = {
       "KDV, kredi, faiz, maaş, döviz ve diğer finansal hesaplamalarla ilgili anlaşılır rehberleri inceleyin.",
     images: [
       {
-        url: "/logo.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "HesapRehberi finans ve hesaplama rehberi",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: "Finans ve Hesaplama Rehberi | HesapRehberi",
     description:
       "Finansal hesaplamaları daha iyi anlamanıza yardımcı olacak rehberleri inceleyin.",
-    images: ["/logo.jpg"],
+    images: ["/logo.png"],
   },
 };
 

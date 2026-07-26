@@ -225,7 +225,7 @@ const schemaData = { "@context": "https://schema.org", "@graph": [ {
 inLanguage: "tr-TR", mainEntityOfPage: PAGE_URL, author: {
 "@type": "Organization", name: "HesapRehberi", }, publisher: {
 "@type": "Organization", name: "HesapRehberi", logo: {
-"@type": "ImageObject", url: "https://www.https://hesaprehberionline.com/logo.jpg", }, },
+"@type": "ImageObject", url: "https://www.https://hesaprehberionline.com/logo.png", }, },
 datePublished: "2026-07-18", dateModified: "2026-07-18", image:
 "https://www.https://hesaprehberionline.com/og/tasit-kredisi-hesaplama-rehberi.jpg", }, {
 "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem",

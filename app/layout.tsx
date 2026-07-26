@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 
 import CookieConsent from "@/components/common/CookieConsent";
 import Navbar from "@/components/layout/Navbar";
@@ -91,7 +90,8 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon.ico",
+        url: "/icon.png",
+        type: "image/png",
       },
       {
         url: "/logo-192.png",
@@ -107,15 +107,16 @@ export const metadata: Metadata = {
 
     shortcut: [
       {
-        url: "/favicon.ico",
+        url: "/icon.png",
+        type: "image/png",
       },
     ],
 
     apple: [
       {
-        url: "/logo-512.png",
+        url: "/apple-touch-icon.png",
         type: "image/png",
-        sizes: "512x512",
+        sizes: "180x180",
       },
     ],
   },
@@ -125,7 +126,9 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     url: baseUrl,
     siteName: "HesapRehberi",
+
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
+
     description:
       "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
 
@@ -143,8 +146,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "HesapRehberi | Tüm Hesaplamalar Tek Yerde",
+
     description:
       "Finans, vergi, maaş, kira, tarih ve sağlık hesaplamalarını ücretsiz ve hızlı şekilde yapın.",
+
     images: ["/logo-512.png"],
   },
 
@@ -260,6 +265,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4344370636536440"
+          crossOrigin="anonymous"
+        />
+      </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-100 antialiased`}
       >
@@ -275,14 +288,6 @@ export default function RootLayout({
         {children}
 
         <CookieConsent />
-
-        <Script
-          id="google-adsense"
-          strategy="afterInteractive"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4344370636536440"
-          crossOrigin="anonymous"
-        />
       </body>
     </html>
   );
